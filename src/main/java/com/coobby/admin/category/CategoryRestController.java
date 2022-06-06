@@ -21,7 +21,7 @@ public class CategoryRestController {
 	
 	@PostMapping("/insertCate")
 	public int insertCate( String cateType, String cateName) {
-		return cateService.insertCate(cateType.strip(), cateName);
+		return cateService.insertCate(cateType, cateName);
 	}
 	
 	@PutMapping("/updateCate")

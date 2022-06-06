@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.coobby.repository.CateHowAdminRepository;
-import com.coobby.repository.CateIngrAdminRepository;
-import com.coobby.repository.CateKindAdminRepository;
-import com.coobby.repository.CateSituAdminRepository;
+import com.coobby.repository.CateHowRepository;
+import com.coobby.repository.CateIngrRepository;
+import com.coobby.repository.CateKindRepository;
+import com.coobby.repository.CateSituRepository;
 import com.coobby.vo.CateHowVO;
 import com.coobby.vo.CateIngrVO;
 import com.coobby.vo.CateKindVO;
@@ -21,13 +21,13 @@ public class CategoryServiceImpl implements CategoryService{
 
 	
 	@Autowired
-	private CateHowAdminRepository cateHowRepo;
+	private CateHowRepository cateHowRepo;
 	@Autowired
-	private CateKindAdminRepository cateKindRepo;
+	private CateKindRepository cateKindRepo;
 	@Autowired
-	private CateSituAdminRepository cateSituRepo;
+	private CateSituRepository cateSituRepo;
 	@Autowired
-	private CateIngrAdminRepository cateIngrRepo;
+	private CateIngrRepository cateIngrRepo;
 	@Override
 	public List<CateKindVO> getKindList() {
 		
