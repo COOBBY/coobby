@@ -71,71 +71,49 @@
 					============================================= -->
 					<div id="myTabContent" class="shop row gutter-30 col-mb-30 mt-3">
 
-						<!-- 글쓰기 버튼 -->
-						<div class="writefeed" id="writefeed">
-							<a href="insertFeed" class="button button-border button-rounded button-yellow"><i class="icon-pencil"></i>작성하기</a>
-						</div>
-						<!-- 마이 피드 내용 -->
-						<div id="myfeed2" role="tabpanel" aria-labelledby="home-tab">						
-						<div class="product col-6 col-md-12 row">						
-							<c:forEach items="${feedList}" var="fe">
-								<div class="col-md-3">
-									<form action="/uploadimg" method="post" enctype="multipart/form-data">
-									<div class="product-image">
-										<img src="/resources/user/feedimages/${fe[3]}" alt="feedimage" />
-										<div>
-											<a href="MyFeedModal?feNo=${fe[0] }" class="btn btn-light" data-lightbox="ajax">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400"></div>
-										</a>
-										</div>
-									</div>
-									</form>
-									<div class="product-desc">
-										<div class="product-title mb-0"><h4 class="mb-0">${fe[1]}</h4></div>
-										<h5 class="product-price fw-normal">${fe[2] }</h5>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
+						<!-- 채팅 내용 -->
+						<div id="container" class="chatcontainer">
+						<div class="chatcont">
+						<h1>${roomName}의 채팅방</h1>
+						<input type="hidden" id="sessionId" value="">
+						<input type="hidden" id="roomNumber" value="${roomNumber}">
+						
+						<div id="chating" class="chating">
 						</div>
 						
-						<!-- 채팅방 목록 -->
-						<div id="chatting" role="tabpanel" aria-labelledby="profile-tab">
-						<div class="container">
-							<div id="roomContainer" class="roomContainer">
-								<table id="roomList" class="roomList"></table>
-							</div>
-							<div>
-								<table class="inputTable">
-									<tr>
-										<th>방 제목</th>
-										<th><input type="text" name="roomName" id="roomName"></th>
-										<th><button id="createRoom">방 만들기</button></th>
-									</tr>
-								</table>
+						<div id="yourName">
+							<table class="inputTable">
+								<tr>
+									<th>사용자명</th>
+									<th><input type="text" name="userName" id="userName"></th>
+									<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+								</tr>
+							</table>
+						</div>
+						<div id="yourMsg">
+							<table class="inputTable">
+								<tr>
+									<th>메시지</th>
+									<th><input id="chatingmsg" placeholder="보내실 메시지를 입력하세요."></th>
+									<th><button onclick="send()" id="sendBtn">보내기</button></th>
+								</tr>
+							</table>
 							</div>
 						</div>
 						</div>
+					
 						</div>
 
 					</div><!-- #shop end -->
 
 					<div class="clear"></div>
-
-					<nav aria-label="Page navigation" class="Feedpaging">
-						<ul class="pagination justify-content-center mt-4">
-							<li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</nav>
 				</div>
 				 <!-- end content-wrap -->
 		</section><!-- #content end -->
 	</div><!-- end wrapper -->
 
 
+	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
 	============================================= -->
@@ -153,6 +131,7 @@
 	<script src="/resources/user/js/functions.js"></script>
 	<script src="/resources/user/Feed/js/myfeed.js"></script>
 	<script src="/resources/user/Feed/js/Chatting.js"></script>
+	<script src="/resources/user/Feed/js/chattingserver.js"></script>
 	
 	
 

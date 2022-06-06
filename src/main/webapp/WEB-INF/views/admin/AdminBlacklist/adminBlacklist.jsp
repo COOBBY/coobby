@@ -54,12 +54,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>회원 관리</h1>
+            <h1>블랙리스트</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">회원관리</li>
+              <li class="breadcrumb-item active">블랙리스트</li>
             </ol>
           </div>
         </div>
@@ -75,9 +75,11 @@
           
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">회원 관리</h3>
+                <h3 class="card-title">블랙리스트 관리</h3>
               </div>
               <!-- /.card-header -->
+             
+              
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -85,31 +87,31 @@
                     <th>ID</th>
                     <th>회원명</th>
                     <th>전화번호</th>
-                    <th>가입 날짜</th>
-                    <th>탈퇴여부</th>
+	                <th>신고 횟수</th>
+	                <th>정지 해제</th>
                   </tr>
                   </thead>
+                  
                   <tbody>
-                 	<c:forEach items="${memlist }" var="list">
-				                 
+                 	<c:forEach items="${blacklist }" var="list">
 	                  <tr>
 	                    <td>${list.memId }</td>
 	                    <td>${list.memName }</td>
 	                    <td>${list.memTel }</td>
-	                    <td>${list.memCreatetime }</td>
-	                    <c:if test="${empty list.memDeletetime }">
-	                    <td>N</td>
-	                    </c:if>
-	                    <c:if test="${not empty list.memDeletetime }">
-	                    <td>Y</td>
-	                    </c:if>
-	                    
+	                    <td>${list.reportCnt }</td>
+	    				<td>
+	    				<form action="blacklistupdate" method="post">
+	    				<button type="submit" class="btn btn-block btn-success">해제</button>
+	    					<input type="hidden" name="memId" value="${list.memId}" >
+	    					</form>
+	    				</td>
 	                  </tr>
 	                 </c:forEach>
                   </tbody>
                   
                 </table>
               </div>
+              
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

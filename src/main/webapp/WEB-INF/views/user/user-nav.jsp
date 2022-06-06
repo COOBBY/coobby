@@ -10,7 +10,7 @@
 	
 	<!-- Document Title
 	============================================= -->
-	<title>COOBBY</title>
+	<title>COOBBY | Nav-Bar </title>
 	<style>
 		.menu-font{
 			font-size:16px;

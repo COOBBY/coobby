@@ -171,7 +171,7 @@ background-color: white;
 
 <!-- Document Title
 	============================================= -->
-<title>coobby | map</title>
+<title>COOBBY</title>
 
 </head>
 

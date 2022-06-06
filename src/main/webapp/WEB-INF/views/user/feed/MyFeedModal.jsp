@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 			<div class="single-product shop-quick-view-ajax">
 
 					<!-- Close Button
@@ -21,8 +21,9 @@
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
                                             <div class="slider-wrap">
-                                                <div class="slide"><img src="#" alt="test"></div>
-                                                <div class="slide"><img src="#" alt="test"></div>
+                                            	<c:forEach items="${feedimg}" var="fimg">
+                                                <div class="slide"><img src="/resources/user/feedimages/${fimg.feStoredImage }" alt="feedimg"></div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>
@@ -41,12 +42,8 @@
 								<input type="hidden" name="feNo" value="${myfeedmodal.feNo }"/> 
 								<div id="feeduser">
 									<h3 class="userId mb-4 fw-semibold">${myfeedmodal.memId }</h3>
-									<a href="#"><img src="/resources/images/heart.png" alt="test" id="heartlike"></a>
+									<a href="#"><img src="/resources/img/heart.png" alt="test" id="heartlike"></a>
 									<a href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
-										<path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-										<path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
-									</svg>
 									</a>						
 								</div>
 								<div class="line my-5"></div>
@@ -89,7 +86,7 @@
 							input_content = $('input[name="feContent"]').val();
 							input_feNo = $('input[name="feNo"]').val();
 							$.ajax({
-								url:'http://localhost:8080/user/feed/modifyModal',	// url로 변경 ( 홈페이지 주소로 뒤에는 RequestMapping의 값을)
+								url:'/user/feed/modifyModal',	// url로 변경 ( 홈페이지 주소로 뒤에는 RequestMapping의 값을)
 								type:'post',
 								contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 								data : { 

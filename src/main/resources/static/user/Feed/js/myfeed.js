@@ -4,12 +4,16 @@ $(function(){
     // 게시글과 채팅 탭 기능
     $('#feed_tab').click(function(){
         $('#myfeed2').show();
+        $('#writefeed').show();
         $('#chatting').hide();
     })
 
     $('#chat_tab').click(function(){
         $('#myfeed2').hide();
+        $('#writefeed').hide();
+        $('.Feedpaging').hide();
         $('#chatting').show();
+        
     })
 
     // 모달 뷰 사진 슬라이더 옵션

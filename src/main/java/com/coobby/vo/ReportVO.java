@@ -40,4 +40,7 @@ public class ReportVO {
 	@Column(name="report_apply")
 	private Integer reportApply;
 	
+	@Column(name="report_date")
+	private String reportDate;
+	
 }

@@ -1,4 +1,4 @@
-package com.coobby.user.map;
+package com.coobby.repository;
 
 import java.util.List;
 

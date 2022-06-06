@@ -139,7 +139,110 @@ div.content-wrap > div > #uploadFile {
 	justify-content: center;
 }
 
+/* ------------------------- chatting  -------------------------------------- */
+/* 채팅방 목록 */
 
+.roomContainer{
+	background-color: #F6F6F6;
+	width: 500px;
+	height: 500px;
+	overflow: auto;
+	text-aligh:center;
+	margin:0 auto;
+}
+.roomList{
+	border: none;
+}
+.roomList th{
+	border: 1px solid #FFBB00;
+	background-color: #fff;
+	color: #FFBB00;
+}
+.roomList td{
+	border: 1px solid #FFBB00;
+	background-color: #fff;
+	text-align: left;
+	color: #FFBB00;
+}
+.roomList .num{
+	width: 75px;
+	text-align: center;
+}
+.roomList .room{
+	width: 350px;
+}
+.roomList .go{
+	width: 71px;
+	text-align: center;
+}
+button{
+	background-color: #FFBB00;
+	font-size: 14px;
+	color: #000;
+	border: 1px solid #000;
+	border-radius: 5px;
+	padding: 3px;
+	margin: 3px;
+}
+#chatting .inputTable {
+	position:absolute;
+	left:30%;
+}
+.inputTable th{
+	padding: 5px;
+}
+.inputTable input{
+	width: 330px;
+	height: 25px;
+}
+
+/* 채팅방 내부 */
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+.chating{
+	background-color: #9bbbd4;
+	width: 500px;
+	height: 500px;
+	overflow: auto;
+	font-size: 25px;
+	padding-top: 5%;
+}
+.chating .me{
+	color : black;
+	font-weight : bold;
+	text-align: right;
+	font-family: 'GangwonEdu_OTFBoldA';
+}
+
+
+.chating .others{
+	color: black;
+	text-align: left;
+	font-family: 'GangwonEdu_OTFBoldA'; 
+}
+
+
+input{
+	width: 330px;
+	height: 25px;
+}
+#yourMsg{
+	display: none;
+}
+
+.chatcontainer {
+	display:flex;
+}
+
+.chatcont {
+	margin:0 auto;
+}
 
 
 

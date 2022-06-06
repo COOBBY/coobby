@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>관리자 페이지 - 댓글신고</title>
+  <title>COOBBY | ADMIN</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,7 +31,10 @@
 #report{
   margin: 10px;
 }
+.btn-block{
 
+
+}
 
 
 
@@ -91,9 +95,7 @@
               <div class="card-header">
                 <h3 class="card-title">댓글신고</h3>
               </div>
-              <div class="col-2">
-                <button type="button" class="btn btn-block btn-outline-primary" id="report">신고</button>
-              </div>
+             
               <!-- /.card-header -->
               
               <div class="card-body">
@@ -101,8 +103,8 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                     <th>유형</th>
-                    <th>내용</th>
+                     <th>신고 유형</th>
+                    <th>작성한 댓글 내용</th>
                     <th>작성자</th>
                     <th>신고자</th>
                     <th>날짜</th>
@@ -110,50 +112,32 @@
                    
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td>\</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td><div class="btn btn-block btn-danger">반려</div></td>
-                  </tr>
-
-                 
-                 <tbody>
-                 <tr>
-                   <td><div class="icheck-primary">
-                     <input type="checkbox" value="" id="check1">
-                     <label for="check1"></label>
-                   </div></td>
-                   <td>Internet
-                     Explorer 4.0
-                   </td>
-                   <td>Win 95+</td>
-                   <td> 4</td>
-                   <td>X</td>
-                   <td><div class="btn btn-block btn-success">완료</div></td>
-                 </tr>
-
-          
-               <tbody>
-               <tr>
-                 <td><div class="icheck-primary">
-                   <input type="checkbox" value="" id="check1">
-                   <label for="check1"></label>
-                 </div></td>
-                 <td>Internet
-                   Explorer 4.0
-                 </td>
-                 <td>Win 95+</td>
-                 <td> 4</td>
-                 <td>X</td>
-                 <td><div class="btn btn-block btn-secondary">대기</div></td>
-               </tr>
                   
+                  <tbody>
+                  <c:forEach items="${commList }" var="colist">
+                  <tr>
+                    <td>${colist.reportCate }</td>
+                    <td><a href="reportCommentDetail?reportNo=${colist.reportNo }">${colist.reportContent }</a></td>
+                    <td>${colist.reportSusid }</td>
+                    <td>${colist.reportVicid }</td>
+                    <td>${colist.reportDate }</td>
+                    <c:choose>
+	                    <c:when test="${colist.reportApply eq 0 }">
+	                    	<td><div class="btn btn-block btn-light ">신고 대기</div></td>
+	                    </c:when>
+	                    <c:when test="${colist.reportApply eq 1 }">
+	                    	<td><div class="btn btn-block btn-success">신고 완료</div></td>
+	                    </c:when>
+	                    <c:when test="${colist.reportApply eq 2 }">
+	                   	 <td><div class="btn btn-block btn-danger">신고 반려</div></td>
+	                    </c:when>
+	                    <c:otherwise>
+	                    <td><div class="btn btn-block btn-dark">블랙리스트</div></td>
+	                    </c:otherwise>
+                    </c:choose>
+                  </tr>
+				</c:forEach>
+                 </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -171,9 +155,7 @@
               <div class="card-header">
                 <h3 class="card-title">게시글신고</h3>
               </div>
-              <div class="col-2">
-                <button type="button" class="btn btn-block btn-outline-primary" id="report">신고</button>
-              </div>
+              
               <!-- /.card-header -->
               
               <div class="card-body">
@@ -182,58 +164,38 @@
                   <thead>
                   <tr>
                      <th>신고 유형</th>
-                    <th>신고 내용</th>
-                    <th>작성자/신고자</th>
-                    <th>횟수</th>
+                    <th>작성한 게시글 내용</th>
+                    <th>작성자</th>
+                    <th>신고자</th>
                     <th>날짜</th>
                     <th>상태</th>
                    
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td> z</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td><div class="btn btn-block btn-danger">반려</div></td>
-                  </tr>
-
-                 
                  <tbody>
-                 <tr>
-                   <td><div class="icheck-primary">
-                     <input type="checkbox" value="" id="check1">
-                     <label for="check1"></label>
-                   </div></td>
-                   <td>Internet
-                     Explorer 4.0
-                   </td>
-                   <td>Win 95+</td>
-                   <td> 4</td>
-                   <td>X</td>
-                   <td><div class="btn btn-block btn-success">완료</div></td>
-                 </tr>
-	
-          
-               <tbody>
-               <tr>
-                 <td><div class="icheck-primary">
-                   <input type="checkbox" value="" id="check1">
-                   <label for="check1"></label>
-                 </div></td>
-                 <td>Internet
-                   Explorer 4.0
-                 </td>
-                 <td>Win 95+</td>
-                 <td> 4</td>
-                 <td>X</td>
-                 <td><div class="btn btn-block btn-secondary">대기</div></td>
-               </tr>
-                  
+                  <c:forEach items="${boardList }" var="bolist">
+                  <tr>
+                    <td>${bolist.reportCate }</td>
+                    <td><a href="reportBoardDetail?reportNo=${bolist.reportNo }">${bolist.reportContent }</a></td>
+                    <td>${bolist.reportSusid }</td>
+                    <td>${bolist.reportVicid }</td>
+                    <td>${bolist.reportDate }</td>
+                    <c:choose>
+	                    <c:when test="${bolist.reportApply eq 0 }">
+	                    	<td><div class="btn btn-block btn-light">신고 대기</div></td>
+	                    </c:when>
+	                    <c:when test="${bolist.reportApply eq 1 }">
+	                    	<td><div class="btn btn-block btn-success">신고 완료</div></td>
+	                    </c:when>
+	                    <c:when test="${bolist.reportApply eq 2 }">
+	                   	 <td><div class="btn btn-block btn-danger">신고 반려</div></td>
+	                    </c:when>
+	                    <c:otherwise>
+	                    <td><div class="btn btn-block btn-dark">블랙리스트</div></td>
+	                    </c:otherwise>
+                    </c:choose>
+                  </tr>
+				</c:forEach>
                 </table>
               </div>
               <!-- /.card-body -->

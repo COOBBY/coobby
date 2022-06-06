@@ -50,3 +50,4 @@ public interface MemberRepository extends CrudRepository<MemberVO, String>{
 			+ "   ON date_format(c.d, '%m-%d') = m.day", nativeQuery=true)
 	List<Object[]> weekKktWebMemberCnt();
 }
+
