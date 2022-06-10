@@ -1,22 +1,16 @@
-$(".comm_answer").click(() => {
-	$(".childcomm").css('display','block');
-})
+
+for(let i = 1; i<100; i++){
+		$("#childComm"+i).click(() => {
+		$("#childcomm"+i).css('display','block');
+	})
 
 $(".button.button-circle.button-small.mt-3").click(() => {
-	$(".childcomm").css('display','none');
-})
+		$("#childcomm"+i).css('display','none');
+	})
+}
 
 
 
-
-$('#ingrmodal1').on('show.bs.modal', function (e) {
-    var data = $(e.relatedTarget).data('ingrName');
-    console.log(data);
-    //$("#ingrSeason").val(data);
-    
-});
-
-const likeClass = $("#likeicon").attr("class");
 $("#scrapBtn").click(()=>{
 	const scrapClass = $("#scrapicon").attr("class");
 	const memId = $("#userId").val();
@@ -32,10 +26,10 @@ $("#scrapBtn").click(()=>{
 			},
 			success : function(){
 				$("#scrapicon").toggleClass('bi bi-bookmark-star bi bi-bookmark-star-fill');
-				alert('즐겨찾기에 추가 되었습니')
+				alert('즐겨찾기에 추가 되었습니다.')
 			},
 			error : function(){
-				alert('실패')
+				alert('즐겨찾기 등록 실패했습니다.')
 			}
 		})
 	}
@@ -53,13 +47,80 @@ $("#scrapBtn").click(()=>{
 				alert('삭제 완료');
 			},
 			error : function(){
-				alert('실패');
+				alert('삭제실패');
 			}
 		})
 	}
 })
 
 $("#likeBtn").click(()=>{
-	alert(likeClass);
-	$("#likeicon").toggleClass('bi bi-heart bi bi bi-heart-fill');
+	const likeClass = $("#likeicon").attr("class");
+	const memId = $("#userId").val();
+	const recipeNo = $("#recipeNo").val();
+	if(likeClass === 'bi bi-heart'){
+		$.ajax({
+			url : 'loveSave',
+			type : 'post',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			data : {
+				memId : memId,
+				reNo : recipeNo
+			},
+			success : function(){
+				$("#likeicon").toggleClass('bi bi-heart bi-heart-fill');
+				alert('좋아요 추가 되었습니다.');
+			},
+			error : function(){
+				alert('좋아요 추가 실패했습니다.')
+			}
+		})
+	}
+	else{
+		$.ajax({
+			url : 'loveDelete',
+			type : 'post',
+			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+			data : {
+				memId : memId,
+				reNo : recipeNo
+			},
+			success : function(){
+				$("#likeicon").toggleClass('bi-heart-fill bi-heart bi');
+				alert('좋아요 취소됐습니다.');
+			},
+			error : function(){
+				alert('좋아요 취소 실패했습니다.')
+			}
+		})
+	}
+})
+
+$("#submit-button").click(() => {
+	const memId = $("#userId").val();
+	const recipeNo = $("#recipeNo").val();
+	const reContent = $("#reContent").val();
+
+	$.ajax({
+		url : 'saveComment',
+		type : 'post',
+		data : {
+			MemberVO : memId,
+			recipeVO : recipeNo,
+			reContent : reContent
+		},
+		success : function(data){
+			alert("댓글 등록 성공");
+			$("#reContent").val("");
+			location.reload();
+			/*$(".commentlist.clearfix").empty();
+			$.each(data, function(k, v){
+				console.log(k, v)
+				console.log(v["reContent"])
+			})*/
+		},
+		error : function(error){
+			alert(error);
+		}
+	})
+
 })

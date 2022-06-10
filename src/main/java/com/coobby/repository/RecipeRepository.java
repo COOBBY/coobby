@@ -2,6 +2,7 @@ package com.coobby.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -79,4 +80,105 @@ public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 			+ "	) t "
 			+ "where t.rownum <=6 ", nativeQuery=true)
 	public List<Object[]> mainRecentRecipeList();
+	
+	@Query(value="select r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "left outer join member m "
+			+ "on r.mem_id = m.mem_id  "
+			+ "where re_split = 1 and re_seq = 1  "
+			+ "order by r.re_no  ", nativeQuery=true)
+	public List<Object[]> getRecipeList(Pageable pageable);
+	
+	@Query(value="select r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "left outer join member m  "
+			+ "on r.mem_id = m.mem_id  "
+			+ "where i.re_split = 1 and i.re_seq = 1  and r.how_code = ?1  "
+			+ "order by r.re_no  ", nativeQuery=true)
+	public List<Object[]> getRecipeHowList(Pageable pageable, Integer howCode);
+	
+	@Query(value="select r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "left outer join member m  "
+			+ "on r.mem_id = m.mem_id  "
+			+ "where i.re_split = 1 and i.re_seq = 1 and r.ingr_code = ?1  "
+			+ "order by r.re_no  ", nativeQuery=true)
+	public List<Object[]> getRecipeIngrList(Pageable pageable, Integer ingrCode);
+	
+	@Query(value="select r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "left outer join member m  "
+			+ "on r.mem_id = m.mem_id  "
+			+ "where i.re_split = 1 and i.re_seq = 1 and r.kind_code =?1  "
+			+ "order by r.re_no  ", nativeQuery=true)
+	public List<Object[]> getRecipeKindList(Pageable pageable, Integer kindCode);
+	
+	@Query(value="select r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "left outer join member m  "
+			+ "on r.mem_id = m.mem_id  "
+			+ "where i.re_split = 1 and i.re_seq = 1 and r.situ_code =?1  "
+			+ "order by r.re_no  ", nativeQuery=true)
+	public List<Object[]> getRecipeSituList(Pageable pageable, Integer situCode);
+	
+	@Query(value="select COUNT(*) cnt "
+			+ "from (select r.re_no  "
+			+ "	from recipe r left outer join recipe_image i  "
+			+ "	on r.re_no = i.re_no  "
+			+ "	left outer join member m  "
+			+ "	on r.mem_id = m.mem_id  "
+			+ "	where i.re_split = 1 and i.re_seq = 1 and r.how_code = ?1) list  ",
+			nativeQuery=true)
+	public int getHowPageNum(Integer howCode);
+	
+	@Query(value="select COUNT(*) cnt "
+			+ "from (select r.re_no  "
+			+ "	from recipe r left outer join recipe_image i  "
+			+ "	on r.re_no = i.re_no  "
+			+ "	left outer join member m  "
+			+ "	on r.mem_id = m.mem_id  "
+			+ "	where i.re_split = 1 and i.re_seq = 1 and r.ingr_code = ?1) list  ",
+			nativeQuery=true)
+	public int getIngrPageNum(Integer ingrCode);
+	
+	@Query(value="select COUNT(*) cnt "
+			+ "from (select r.re_no  "
+			+ "	from recipe r left outer join recipe_image i  "
+			+ "	on r.re_no = i.re_no  "
+			+ "	left outer join member m  "
+			+ "	on r.mem_id = m.mem_id  "
+			+ "	where i.re_split = 1 and i.re_seq = 1 and r.kind_code = ?1) list  ",
+			nativeQuery=true)
+	public int getKindPageNum(Integer kindCode);
+	
+	@Query(value="select COUNT(*) cnt "
+			+ "from (select r.re_no  "
+			+ "	from recipe r left outer join recipe_image i  "
+			+ "	on r.re_no = i.re_no  "
+			+ "	left outer join member m  "
+			+ "	on r.mem_id = m.mem_id  "
+			+ "	where i.re_split = 1 and i.re_seq = 1 and r.situ_code = ?1) list  ",
+			nativeQuery=true)
+	public int getSituPageNum(Integer situCode);
+	
+	@Query(value="select COUNT(*) cnt "
+			+ "from (select r.re_no  "
+			+ "	from recipe r left outer join recipe_image i  "
+			+ "	on r.re_no = i.re_no  "
+			+ "	left outer join member m  "
+			+ "	on r.mem_id = m.mem_id  "
+			+ "	where i.re_split = 1 and i.re_seq = 1) list  ",
+			nativeQuery=true)
+	public int getPageNum();
+	
+	@Query(value="select r.re_title, i.re_stored_image  "
+			+ "from recipe r left outer join recipe_image i  "
+			+ "on r.re_no = i.re_no  "
+			+ "where i.re_split = 1 and i.re_seq = 1 and r.re_title like '%?1%'  ", nativeQuery=true)
+	public List<Object[]> getRelatedRecipe(String reTitle);
 }

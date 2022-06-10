@@ -1,11 +1,17 @@
 package com.coobby.vo;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -18,17 +24,20 @@ public class Re_commentVO {
 	@Column(name="re_comm_no")
 	private int reCommNo;
 	
-	@Column(name="re_no")
-	private int reNo;
+	@ManyToOne
+	@JoinColumn(name="re_no")
+	private RecipeVO recipeVO;
 	
-	@Column(name="mem_id")
-	private String memId;
+	@ManyToOne
+	@JoinColumn(name="mem_id")
+	private MemberVO memberVO;
 	
 	@Column(name="re_content")
 	private String reContent;
 	
 	@Column(insertable=false, updatable=false, columnDefinition="date default (current_date)", name="re_comm_createtime")
-	private String reCommCreatetime;
+	@Temporal(TemporalType.DATE)
+	private Date reCommCreatetime;
 	
 	@Column(name="re_comm_updatetime")
 	private String re_comm_updatetime;

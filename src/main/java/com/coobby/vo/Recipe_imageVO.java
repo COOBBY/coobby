@@ -30,46 +30,61 @@ public class Recipe_imageVO {
 
 	@Column(name = "re_file_size")
 	private Integer reFileSize;
-	
-	@Column(name= "re_seq")
+
+	@Column(name = "re_seq")
 	private Integer reSeq;
-	
-	@Column(name="re_split")
+
+	@Column(name = "re_split")
 	private Integer reSplit;
 
 	@ManyToOne
 	@JoinColumn(name = "re_no")
 	private RecipeVO recipeVO;
-	
+
 	@Transient
 	private MultipartFile file;
-	
+
+	@Transient
+	private MultipartFile resultFile;
+
 	public MultipartFile getFile() {
 		return file;
 	}
 
 	public void setFile(MultipartFile file) {
-		if(!file.isEmpty()) {
+		if (!file.isEmpty()) {
 			reOriginImage = file.getOriginalFilename();
 			reStoredImage = UUID.randomUUID().toString() + "_" + reOriginImage;
 			Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/user/recipeimages");
-			
-			File files = new File(path+"/"+reStoredImage);
-			
+
+			File files = new File(path + "/" + reStoredImage);
+
 			try {
 				file.transferTo(files);
-			}catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
 	}
-}
 
+	public MultipartFile getResultFile() {
+		return resultFile;
+	}
 
-	
-	
-	
-	
-	
-	
-	
+	public void setResultFile(MultipartFile resultFile) {
+		if (!resultFile.isEmpty()) {
+			reOriginImage = resultFile.getOriginalFilename();
+			reStoredImage = UUID.randomUUID().toString() + "_" + reOriginImage;
+			Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/static/user/recipeimages");
+
+			File files = new File(path + "/" + reStoredImage);
+
+			try {
+				resultFile.transferTo(files);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.coobby.admin.dashboard.MemberRepository;
+import com.coobby.repository.MemberRepository;
 import com.coobby.repository.ReportRepository;
 import com.coobby.vo.MemberVO;
 import com.coobby.vo.ReportVO;

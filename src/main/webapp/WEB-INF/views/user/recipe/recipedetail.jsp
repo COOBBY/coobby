@@ -62,13 +62,13 @@
 		============================================= -->
 		<section id="slider"
 			class="slider-element dark parallax include-header"
-			style="background: #1ABC9C url('resources/user/demos/recipes/images/recipe-single.jpg') center center/cover; padding: 230px 0;"
+			style="background: #F3F3F3 url('resources/user/demos/recipes/images/recipe-single.jpg') center center/cover; padding: 230px 0;"
 			data-0="background-position:0px -200px;"
 			data-400="background-position:0px -100px;">
 			<div class="container clearfix">
 				<div class="mx-auto center" style="max-width: 800px">
 				
-					<h3 class="nott fw-bold mb-5 display-4" data-animate="zoomIn">
+					<h3 id="mainTitle" class="nott fw-bold mb-5 display-4">
 						${ recipe.reTitle }</h3>
 				</div>
 			</div>
@@ -82,12 +82,26 @@
 				<div class="container">
 					<div class="card border-0 shadow-sm" style="top: -100px">
 						<div class="card-body px-4">
-						<button id="scrapBtn" class="btn btn-default">
-							<i id="scrapicon" class="bi bi-bookmark-star"></i>
-						</button>
-						<button id="likeBtn" class="btn btn-default">
-							<i id="likeicon" class="bi bi-heart"></i>
-						</button>
+							<button id="scrapBtn" class="btn btn-default">
+								<c:choose>
+									<c:when test="${ checkScrap eq null }">
+										<i id="scrapicon" class="bi bi-bookmark-star"></i>
+									</c:when>
+									<c:otherwise>
+										<i id="scrapicon" class="bi bi-bookmark-star-fill"></i>
+									</c:otherwise>
+								</c:choose>
+							</button>
+							<button id="likeBtn" class="btn btn-default">
+								<c:choose>
+									<c:when test="${ checkLove eq null}">
+										<i id="likeicon" class="bi bi-heart"></i>
+									</c:when>
+									<c:otherwise>
+										<i id="likeicon" class="bi-heart-fill"></i>
+									</c:otherwise>
+								</c:choose>
+							</button>
 							<div class="row justify-content-between mt-5 mb-4 clearfix">
 								<div class="col-lg-8 mt-5 mt-lg-0">
 									<div style="margin-bottom: 30px;">
@@ -96,11 +110,11 @@
 									</div>
 									<h4>사진</h4>
 									<div class="bxslider">
-										<c:forEach items="${ reimage }" var="img">
+										<c:forEach items="${ finalimage }" var="img">
 											<div>
 												<img
 													src="/resources/user/recipeimages/${ img.reStoredImage }"
-													alt="" style="width: 70%" />
+													alt="" style="width: 790px; height: 342px;" />
 											</div>
 										</c:forEach>
 									</div>
@@ -138,6 +152,8 @@
 										<!-- Comments List
 										============================================= -->
 										<ol class="commentlist clearfix">
+											<c:forEach items="${ commentparent }" var="commparent" varStatus="status">
+											<c:if test="${ commparent.reParent eq 0 }">
 											<li class="comment even thread-even depth-1"
 												id="li-comment-1">
 												<div id="comment-1" class="comment-wrap clearfix">
@@ -150,34 +166,30 @@
 																height="60" width="60" /></span>
 														</div>
 													</div>
-
-													<div class="comment-content clearfix">
-														<div class="comment-author">
-															Gunther David <span>April 24, 2012 at 10:46 am</span>
+														<div class="comment-content clearfix">
+															<div class="comment-author">
+																${ commparent.memberVO.memName } <span>April 24, 2012 at 10:46 am</span>
+															</div>
+	
+															<p>${ commparent.reContent }</p>
+															<div class="anmo">
+																<span id="childComm${ status.count }" class="comm_answer"> 답글 </span> <span
+																	class="comm_modify"> 수정 </span>
+															</div>
+															<a class="comment-reply-link" href="#"> <svg
+																	xmlns="http://www.w3.org/2000/svg" width="16"
+																	height="16" fill="currentColor"
+																	class="bi bi-trash3-fill" viewBox="0 0 16 16">
+																	<path
+																		d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+																</svg>
+															</a>
 														</div>
-
-														<p>Donec sed odio dui. Nulla vitae elit libero, a
-															pharetra augue. Nullam id dolor id nibh ultricies
-															vehicula ut id elit. Integer posuere erat a ante
-															venenatis dapibus posuere velit aliquet.</p>
-														<div class="anmo">
-															<span class="comm_answer" href="#"> 답글 </span> <span
-																class="comm_modify" href="#"> 수정 </span>
-														</div>
-														<a class="comment-reply-link" href="#"> <svg
-																xmlns="http://www.w3.org/2000/svg" width="16"
-																height="16" fill="currentColor"
-																class="bi bi-trash3-fill" viewBox="0 0 16 16">
-																<path
-																	d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-															</svg>
-														</a>
-													</div>
 
 													<div class="clear"></div>
 												</div>
-												<form id="childcommform" action="" method="post">
-													<div class="childcomm">
+												<form id="childcommform" action="saveChildComment" method="post">
+													<div id="childcomm${ status.count }" class="childcomm">
 														<svg class="comm_icon" xmlns="http://www.w3.org/2000/svg"
 															width="16" height="16" fill="currentColor"
 															class="bi bi-arrow-return-right" viewBox="0 0 16 16">
@@ -189,18 +201,24 @@
 																<label class="labelfont" for="fitness-form-name">답글:</label>
 															</div>
 															<div class="input_container">
-																<textarea class="comm_input" name=""
+																<textarea class="comm_input" name="reContent"
 																	placeholder="답글 추가..."></textarea>
 															</div>
 														</div>
+														<input id="userId" type="hidden" name="memberVO" value="${ recipe.memberVO.memId }" />
+														<input id="recipeNo" type="hidden" name="recipeVO" value="${ recipe.reNo }" />
+														<input id="parentId" type="hidden" name="reParent" value="${ commparent.reCommNo }" />
 														<div class="comm_btn">
-															<button class="button button-circle button-small mt-3">취소</button>
+															<button type="button" class="button button-circle button-small mt-3">취소</button>
 															<button type="submit"
 																class="button button-circle button-small mt-3">답글</button>
 														</div>
 													</div>
 												</form>
+												</c:if>
 												<ul class="children">
+													<c:forEach items="${ commentparent }" var="commchild">
+													<c:if test="${ commchild.reParent eq commparent.reCommNo }">
 													<li
 														class="comment byuser comment-author-_smcl_admin odd alt depth-2"
 														id="li-comment-3">
@@ -216,13 +234,13 @@
 
 															<div class="comment-content clearfix">
 																<div class="comment-author">
-																	<a href="#" rel="external nofollow" class="url">SemiColon</a>
-																	(Author)<span><a href="#"
+																	${ commchild.memberVO.memName }
+																	<span><a href="#"
 																		title="Permalink to this comment">April 25, 2012
 																			at 1:03 am</a></span>
 																</div>
 
-																<p>Thank You so much for your Valuable Review. :)</p>
+																<p>${ commchild.reContent }</p>
 
 																<a class="comment-reply-link" href="#"> <svg
 																		xmlns="http://www.w3.org/2000/svg" width="16"
@@ -237,39 +255,11 @@
 															<div class="clear"></div>
 														</div>
 													</li>
+													</c:if>
+													</c:forEach>
 												</ul>
 											</li>
-
-											<li
-												class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1"
-												id="li-comment-2">
-												<div id="comment-2" class="comment-wrap clearfix">
-													<div class="comment-meta">
-														<div class="comment-author vcard">
-															<span class="comment-avatar clearfix"> <img
-																alt="Image"
-																src="/resources/user/demos/articles/images/authors/1.jpg"
-																class="avatar avatar-60 photo" height="60" width="60" /></span>
-														</div>
-													</div>
-
-													<div class="comment-content clearfix">
-														<div class="comment-author">
-															<a href="https://themeforest.net/user/semicolonweb"
-																rel="external nofollow" class="url">John Doe</a> <span>April
-																25,2012 at 1:03 am</span>
-														</div>
-
-														<p>Integer posuere erat a ante venenatis dapibus
-															posuere velit aliquet.</p>
-
-														<a class="comment-reply-link" href="#"><i
-															class="icon-reply"></i></a>
-													</div>
-
-													<div class="clear"></div>
-												</div>
-											</li>
+											</c:forEach>
 										</ol>
 										<!-- .commentlist end -->
 
@@ -283,19 +273,18 @@
 											</h4>
 
 											<div class="w-100"></div>
-
-											<div class="col-12 form-group">
-												<label class="nott ls0 fw-normal" for="comment">댓글
-													작성</label>
-												<textarea name="comment" cols="58" rows="7" tabindex="4"
-													class="form-control form-control-pill"></textarea>
-											</div>
-
-											<div class="col-12 form-group">
-												<button name="submit" type="button" id="submit-button"
-													tabindex="5" value="Submit"
-													class="button button-circle button-large mt-3">작성</button>
-											</div>
+												<div class="col-12 form-group">
+													<label class="nott ls0 fw-normal" for="reContent">댓글
+														작성</label>
+													<textarea id="reContent" name="reContent" cols="58" rows="7" tabindex="4"
+														class="form-control form-control-pill"></textarea>
+												</div>
+	
+												<div class="col-12 form-group">
+													<button name="submit" type="button" id="submit-button"
+														tabindex="5" value="Submit"
+														class="button button-circle button-large mt-3">작성</button>
+												</div>
 										</div>
 										<!-- #respond end -->
 									</div>
@@ -341,131 +330,22 @@
 											class="d-flex justify-content-between align-items-center mb-4">
 											<h4 class="mb-0">관련 레시피</h4>
 										</div>
+										<c:forEach items="${ relatedRecipe }" var="related">
 										<div class="relrecipecontainer">
 											<img class="relrecipeimg"
-												src="/resources/user/images/about/1.jpg" alt="" />
-											<div>레시피명</div>
+												src="/resources/user/recipeimages/${ related[1] }" alt="" />
+											<div>${ related[0] }</div>
 										</div>
-										<div class="relrecipecontainer">
-											<img class="relrecipeimg"
-												src="/resources/user/images/about/1.jpg" alt="" />
-											<div>레시피명</div>
-										</div>
+										</c:forEach>
 									</div>
 
 								</div>
 							</div>
 						</div>
 						<div id="btncontainer">
-							<button class="button button-circle button-large mt-3">목록보기</button>
+							<a href="recipelist"><button class="button button-circle button-large mt-3">목록보기</button></a>
 							<button class="button button-circle button-large mt-3">수정</button>
 							<button class="button button-circle button-large mt-3">삭제</button>
-						</div>
-					</div>
-
-					<h4>Related Posts:</h4>
-
-					<div class="related-posts recipe-items">
-						<div class="row g-0">
-							<div class="col-md-3 col-sm-6 bg-white"
-								style="border-left: 1px solid #eee">
-								<div class="card">
-									<div class="card-body">
-										<img src="/resources/demos/recipes/images/popular/7.png"
-											alt="image" />
-										<div
-											class="d-flex justify-content-between align-items-center mt-4 mb-2">
-											<p class="card-author">
-												By <a href="#">Bailey Wonger</a>
-											</p>
-											<span class="badge bg-primary bg-color"><i
-												class="icon-star3"></i> 4.5</span>
-										</div>
-										<h3 class="card-title">
-											<a href="#" class="stretched-link">Baked Salmon with
-												Sweet-Potatoes</a>
-										</h3>
-										<h5 class="card-date">
-											<i class="icon-line2-calendar"></i>Aug 12, 2021
-										</h5>
-									</div>
-								</div>
-							</div>
-
-							<!-- Item 8 -->
-							<div class="col-md-3 col-sm-6 bg-white">
-								<div class="card">
-									<div class="card-body">
-										<img src="/resources/demos/recipes/images/popular/8.png"
-											alt="image" />
-										<div
-											class="d-flex justify-content-between align-items-center mt-4 mb-2">
-											<p class="card-author">
-												By <a href="#">Pelican Steve</a>
-											</p>
-											<span class="badge bg-primary bg-color"><i
-												class="icon-star3"></i> 4.2</span>
-										</div>
-										<h3 class="card-title">
-											<a href="#" class="stretched-link">A Kollam Grilled
-												Cheese with Vegetables</a>
-										</h3>
-										<h5 class="card-date">
-											<i class="icon-line2-calendar"></i>Aug 8, 2021
-										</h5>
-									</div>
-								</div>
-							</div>
-
-							<!-- Item 5 -->
-							<div class="col-md-3 col-sm-6 bg-white">
-								<div class="card">
-									<div class="card-body">
-										<img src="/resources/demos/recipes/images/popular/5.png"
-											alt="image" />
-										<div
-											class="d-flex justify-content-between align-items-center mt-4 mb-2">
-											<p class="card-author">
-												By <a href="#">Norman Gordon</a>
-											</p>
-											<span class="badge bg-primary bg-color"><i
-												class="icon-star3"></i> 4.5</span>
-										</div>
-										<h3 class="card-title">
-											<a href="#" class="stretched-link">Pumpkin Bars with
-												Cream Cheese Frosting</a>
-										</h3>
-										<h5 class="card-date">
-											<i class="icon-line2-calendar"></i>Sep 18, 2021
-										</h5>
-									</div>
-								</div>
-							</div>
-
-							<!-- Item 6 -->
-							<div class="col-md-3 col-sm-6 bg-white">
-								<div class="card">
-									<div class="card-body">
-										<img src="/resources/demos/recipes/images/popular/6.png"
-											alt="image" />
-										<div
-											class="d-flex justify-content-between align-items-center mt-4 mb-2">
-											<p class="card-author">
-												By <a href="#">Druid Wensleydale</a>
-											</p>
-											<span class="badge bg-primary bg-color"><i
-												class="icon-star3"></i> 4.0</span>
-										</div>
-										<h3 class="card-title">
-											<a href="#" class="stretched-link">The Best Homemade
-												Pizza Recipes</a>
-										</h3>
-										<h5 class="card-date">
-											<i class="icon-line2-calendar"></i>Sep 7, 2021
-										</h5>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -490,8 +370,7 @@
 		src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<script src="/resources/user/js/plugins.min.js"></script>
 	<script src="/resources/js/myjs/recipebxside.js"></script>
-	<script src="/resources/user/recipe/js/recipedetail.js"
-		type="text/javascript"></script>
+	<script src="/resources/user/recipe/js/recipedetail.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
