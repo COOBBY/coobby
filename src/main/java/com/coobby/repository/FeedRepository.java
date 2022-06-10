@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedVO;
+import com.coobby.vo.MemberVO;
 
 public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 	
@@ -66,5 +68,7 @@ public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 			+ "	) t "
 			+ "order by rand() limit 9", nativeQuery=true)
 	List<Object[]> mainRandomFeed();
+
+	
 
 }

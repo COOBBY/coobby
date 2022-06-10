@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
+import com.coobby.vo.MemberVO;
 
 
 public interface FeedService {
@@ -31,7 +32,10 @@ public interface FeedService {
 	List<FeedImageVO> getFeedModalimg(FeedVO vo);
 	
 	// 좋아요 
-	public void likeFeed(FeedVO vo);
+	public boolean likeFeed(Integer feedVO, String memberVO);
+	
+	// 좋아요 체크
+	public boolean likeFeedCheck(Integer feedVO, String memberVO);
 
 	
 	// 마이피드 이미지 삭제

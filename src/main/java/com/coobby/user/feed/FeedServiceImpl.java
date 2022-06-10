@@ -12,6 +12,7 @@ import com.coobby.repository.FeedImageRepository;
 //import com.coobby.repository.FeedImageRepository;
 import com.coobby.repository.FeedRepository;
 import com.coobby.repository.LikeFeedRepository;
+import com.coobby.repository.MemberRepository;
 import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
@@ -26,6 +27,8 @@ public class FeedServiceImpl implements FeedService {
 	private FeedImageRepository feedimgrepo;
 	@Autowired
 	private LikeFeedRepository likefeedrepo;
+	@Autowired
+	private MemberRepository memberRepo;
 	 
 	private static final String DATE_PATTERN = "yyyy-MM-dd"; 
 	private static final Date today = new Date();
@@ -89,17 +92,53 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepo.findByfeRegdate(date.format(today)).size();
 	}
 
-	@Override
-	public void likeFeed(FeedVO vo) {
-		feedRepo.findById(vo.getFeNo()).get();
-		
-		// 중복 좋아요 방지
-		
+	// 피드 좋아요
+	public boolean likeFeed(Integer feedVO, String memberVO) {
+		System.out.println("너...와...?");
+		MemberVO membervo = memberRepo.findById(memberVO).get();
+		FeedVO feedNoVO = feedRepo.findById(feedVO).get();
+		FeLoveVO feloveVO = likefeedrepo.findByMemberVOAndFeedVO(membervo, feedNoVO);
+		// feloveVO에 값이 있으면 좋아요가 눌린 거라서 값이 없어져야됨
+		// feloveVO에 값이 없으면 좋아요가 안눌린 거라서 값이 들어가야됨
+		System.out.println(">>>>>>>>>>>"+feloveVO);
+		boolean result = false;
+		if(feloveVO != null) {
+			feloveVO.getReLoveNo();
+			likefeedrepo.deleteById(feloveVO.getReLoveNo());
+		}else if(feloveVO == null) {
+			FeLoveVO feluv = new FeLoveVO();
+			feluv.setFeedVO(feedNoVO);
+			feluv.setMemberVO(membervo);
+			likefeedrepo.save(feluv);
+			result = true;
+		}
+		return result;
 	}
 	
-	// 유저가 이미 좋아요 한 게시물인지 체크
+	// 피드 좋아요 체크 하는 함수
+	public boolean likeFeedCheck(Integer feedVO, String memberVO) {
+		System.out.println("너...와...?");
+		MemberVO membervo = memberRepo.findById(memberVO).get();
+		FeedVO feedNoVO = feedRepo.findById(feedVO).get();
+		FeLoveVO feloveVO = likefeedrepo.findByMemberVOAndFeedVO(membervo, feedNoVO);
+		// feloveVO에 값이 있으면 좋아요가 눌린 거라서 값이 없어져야됨
+		// feloveVO에 값이 없으면 좋아요가 안눌린 거라서 값이 들어가야됨
+		System.out.println(">>>>>>>>>>>"+feloveVO);
+		boolean result = false;
+		if(feloveVO == null) {
+			result = true;
+		}
+		return result;
+	}
+	
+
+	
+
+}
+	
+
 	
 
 	
 	
-}
+

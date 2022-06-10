@@ -2,18 +2,19 @@ package com.coobby.user.feed;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coobby.user.feed.comment.FeedCommService;
 import com.coobby.vo.FeedCommentVO;
-import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
+import com.coobby.vo.MemberVO;
 
 @Controller
 @RequestMapping("/user/feed")
@@ -37,7 +38,8 @@ public class FeedController {
 
 		// 마이피드 상세보기
 		@RequestMapping("/MyFeedModal")
-		public void myFeedModal(FeedVO vo, Model m) {
+		public void myFeedModal(FeedVO vo, Model m, HttpSession session) {
+			System.out.println(vo.getFeNo()+"@@@@@@@@@@");
 			m.addAttribute("myfeedmodal", feedService.getFeedModal(vo));
 			m.addAttribute("feedimg", feedService.getFeedModalimg(vo));
 
@@ -46,6 +48,14 @@ public class FeedController {
 			m.addAttribute("feedcomm",list);
 			System.out.println(">>>>>"+list.size());
 			//return "redirect:MyFeedModal?feNo=" + vo.getFeNo();
+			MemberVO mem = (MemberVO)session.getAttribute("user");
+			boolean result = feedService.likeFeedCheck(vo.getFeNo(), mem.getMemId());
+			System.out.println("아럼나ㅣㅇ러아니러"+result);
+			if(result) {
+				m.addAttribute("likeCheck", 1);
+			} else {
+				m.addAttribute("likeCheck", 0);
+			}
 		}
 
 		// 피드 댓글 등록
@@ -90,6 +100,18 @@ public class FeedController {
 			return "no";
 			
 		}
+		
+		// 좋아요 기능
+		@RequestMapping("/likeFeed")
+		@ResponseBody
+		public void likeFeed(Integer feedVO, String memberVO, Model m) {
+			boolean result = feedService.likeFeed(feedVO, memberVO);
+			if(result) {
+				m.addAttribute("likeCheck", 1);
+			} else {
+				m.addAttribute("likeCheck", 0);
+			}
+		}
 
 		
 	// ------------------------- 메인피드
@@ -107,4 +129,29 @@ public class FeedController {
 		public void MainFeedModal(FeedVO vo, Model m) {
 			m.addAttribute("feedmodal", feedService.getFeedModal(vo));
 		}
+		
+		
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

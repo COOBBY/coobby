@@ -20,10 +20,11 @@ public class FeLoveVO {
 
 	@ManyToOne
 	@JoinColumn(name="fe_no")
-	private FeedVO feed;
+	private FeedVO feedVO;
 	
 	@ManyToOne
 	@JoinColumn(name="mem_id")
-	private MemberVO member;
+	private MemberVO memberVO;
+
 
 }

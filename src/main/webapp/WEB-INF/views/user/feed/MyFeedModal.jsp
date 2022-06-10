@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 			<div class="single-product shop-quick-view-ajax">
+			
 
 					<!-- Close Button
 					============================================= -->
@@ -41,10 +42,14 @@
 								<!-- 유저정보 -->
 								<input type="hidden" name="feNo" value="${myfeedmodal.feNo }"/> 
 								<div id="feeduser">
-									<h3 class="userId mb-4 fw-semibold">${myfeedmodal.memId }</h3>
-									<a href="#"><img src="/resources/img/heart.png" alt="test" id="heartlike"></a>
-									<a href="#">
-									</a>						
+									<h3 class="userId mb-4 fw-semibold">${sessionScope.user.memId }</h3>
+								<!-- 유저가 이미 좋아요를 클릭하면 DB에 저장 저장되어있으면 하트가 채워짐 모달 껐다가 켜도 유지해야함 -->
+								<c:if test="${likeCheck eq 0}" >
+									<a type="button" id="heartlike" class="heartlike"><img src="/resources/img/heart-fill.png" alt="test"></a>				
+								</c:if>
+								<c:if test="${likeCheck eq 1}" >
+									<a type="button" id="heartlike" class="heartlike"><img src="/resources/img/heart.png" alt="test"></a>				
+								</c:if>
 								</div>
 								<div class="line my-5"></div>
 								<div class="feedcon beforemodify inputcontent">${myfeedmodal.feContent }</div>
@@ -94,87 +99,6 @@
 					</div>
 
 				</div>
+				<script src="/resources/user/Feed/js/myfeed.js"></script>
 				<!-- <script src="http://code.jquery.com/jquery-latest.js"></script>-->
-				<script>
-				$(function(){
-//						
-//						// 수정 페이지 처음에는 숨겨야됨
-						$('.modifyinput').hide();
-						$('.beforebtn').click(function(){
-							$('.beforemodify').hide();
-							$('.aftermodify').show();
-						});
-						
-						// 수정 페이지로 변경 후 ajax로 수정한 내용 보내기
-						$('.afterbtn').click(function(){
-							const input_title = $('input[name="feTitle"]').val();
-							const input_content = $('input[name="feContent"]').val();
-							const input_feNo = $('input[name="feNo"]').val();
-							$.ajax({
-								url:'/user/feed/modifyModal',	// url로 변경 ( 홈페이지 주소로 뒤에는 RequestMapping의 값을)
-								type:'post',
-								contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-								data : { 
-									feTitle : input_title,
-									feContent : input_content,
-									feNo : input_feNo
-										}, 
-								success : function(data) {
-									if(data=='yes') {
-										alert('수정 되었습니다');	// hide,show 적어주면됨
-										$('.inputtitle').html(input_title);		// html(값)  => 불러오는 것 , 값을 넣으면 setter 
-										$('.inputcontent').html(input_content);
-										$('.aftermodify').hide();
-										$('.beforemodify').show();
-									}
-									else {
-										alert('안됨');
-									}
-									
-								},
-								error : function(err) {
-									alert('수정되지 않았습니다.');
-									console.log(err);
-								}
-								
-							});
-						});
-						
-						// 댓글 등록 ajax
-						
-						$('#com_btn').click(function(){
-							const feNum = $('input[name="feNo"]').val();
-							const member = $('#commentmem').val();
-							const commcontent = $('#write_comment').val();
-							
-							$.ajax({
-								url:"insertFeComm",
-								type:"post",
-								contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-								data:{
-									feed : feNum,
-									member : member,
-									feContent : commcontent
-									},
-								success : function(data){					
-									alert('댓글 등록 성공')
-									$('#write_comment').val("");
-									$('.Feedcomment').empty();
-									$.each(data, function(k, v){
-										console.log(k, v);
-										console.log(v["feContent"])
-										const commList = 	'<div class="memberId">'+v["member"] + '님</div>'
-														+	'<span class="fecommview">'+v["feContent"]+'</span>'
-														+	'<span class="commtime">'+v["feCommCreatetime"]+'</span>';
-									$('.Feedcomment').append(commList);
-									})
-								},
-								error : function(err) {
-									alert("댓글 에러")
-									console.log(err);
-								}
-							})
-						})
-						
-					 }); 
-				</script>
+				
