@@ -92,7 +92,7 @@ public class LoginController {
 		session.setAttribute("user", mem);
 		
 		System.out.println("로그인성공");
-		return "/user/main/mainpage";
+		return "/user/mainpage";
 		}
 //		
 //		MemberVO a = (MemberVO)session.getAttribute("user");
@@ -110,7 +110,7 @@ public class LoginController {
 		
 		System.out.print("로그아웃성공");
 		
-		return "redirect:/user/main/mainpage";
+		return "redirect:/user/mainpage";
 					
 	}
 	
