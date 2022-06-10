@@ -58,42 +58,55 @@
 					<!-- 댓글 시작 -->
 					<div class="Feedcomment">
 						<c:set var='commListVar' value="${ feedcomm}" />
-						<c:set var="idx" value="0"/>
-						<c:set var="parentIdx" value="0"/>
+						<c:set var="idx" value="0" />
+						<c:set var="parentIdx" value="0" />
 						<c:forEach items="${ feedcomm}" var="feedcomm" varStatus="status">
 							<c:if test="${ feedcomm.feParent eq 0}">
-								<c:set var="parentIdx" value="${parentIdx +1 }"/>
-								<c:set var="idx" value="0"/>
+								<c:set var="parentIdx" value="${parentIdx +1 }" />
+								<c:set var="idx" value="0" />
 								<div class="row lineComm">
-									<div class="col-md-10 memberId">${feedcomm.member.memId }
+									<div class="col-md-7 memberId">${feedcomm.member.memId }
 										님 | ${feedcomm.feContent }</div>
-									<div class="col-md-2 commtime">${feedcomm.feCommUpdatetime }</div>
-									<input type="hidden" name="feCommNo" class="parentIdx${parentIdx}"
-										value="${feedcomm.feCommNo }">
+									<div class="col-md-3 commtime">${feedcomm.feCommCreatetime }</div>
+									<c:if test="${feedcomm.member.memId eq sessionScope.user.memId}">
+										<div class="col-md-2 modify">
+											<button type="button" class="mdfBtn btn btn-default">수정</button>
+										</div>
+									</c:if>
+									<input type="hidden" name="feCommNo"
+										class="parentIdx${parentIdx}" value="${feedcomm.feCommNo }">
 								</div>
 							</c:if>
 							<!-- 대댓글 -->
-							<c:forEach items="${commListVar}" var="feedcommchild" varStatus="childStatus">
+							<c:forEach items="${commListVar}" var="feedcommchild"
+								varStatus="childStatus">
 								<c:if test="${ feedcommchild.feParent eq feedcomm.feCommNo}">
 									<div class="row childComm">
-										<div class="col-md-10 memberId">${feedcommchild.member.memId }
+										<div class="col-md-6 memberId">${feedcommchild.member.memId }
 											님 | ${ feedcommchild.feContent}</div>
 										<input type="hidden" name="feCommNo"
 											value="${feedcommchild.feCommNo }">
-										<div class="col-md-2 commtime">${feedcommchild.feCommUpdatetime }</div>
+										<div class="col-md-3 commtime">${feedcommchild.feCommCreatetime }</div>
+										<c:if test="${feedcommchild.member.memId eq sessionScope.user.memId}">
+											<div class="col-md-2 modify">
+												<button type="button" class="mdfBtn btn btn-default">수정</button>
+											</div>
+										</c:if>
 									</div>
 								</c:if>
-								<c:if test="${idx  eq 0 && childStatus.count eq commListVar.size()}">
-									<c:set var="idx" value="1"/>
+								<c:if
+									test="${idx  eq 0 && childStatus.count eq commListVar.size()}">
+									<c:set var="idx" value="1" />
 									<div class="col-md-4 col-md-offset-4 recomm${ status.count } openReComm">
 										-> 답글 달기</div>
-									<div class="reCommentInput${ status.count }"
+									<div class="reCommentInput${ status.count } row"
 										id="reCommentInput">
 										<textarea placeholder="답글을 입력해주세요"
-											class="form-control reComment" maxlength="1000"
+											class="form-control reComment col-md-6" maxlength="1000"
 											style="resize: none; height: 35px;" name="commentContent"></textarea>
 										<button name="insertFeComm"
-											class="btn btn-dark px-3 input-group-text reCommBtn" type="button">
+											class="btn btn-dark px-3 input-group-text reCommBtn col-md-2"
+											type="button">
 											<i class="icon-line-corner-down-left"></i>
 										</button>
 									</div>
@@ -139,7 +152,7 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>-->
 <script>
 	$(function() {
-					
+
 		//						// 수정 페이지 처음에는 숨겨야됨
 		$('.modifyinput').hide();
 		$('.beforebtn').click(function() {
@@ -148,132 +161,179 @@
 		});
 
 		// 수정 페이지로 변경 후 ajax로 수정한 내용 보내기
-		$('.afterbtn').click(
-		function() {
-			const input_title = $('input[name="feTitle"]').val();
-			const input_content = $('input[name="feContent"]').val();
-			const input_feNo = $('input[name="feNo"]').val();
-			$.ajax({
-				url : '/user/feed/modifyModal', // url로 변경 ( 홈페이지 주소로 뒤에는 RequestMapping의 값을)
-				type : 'post',
-				contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-				data : {
-					feTitle : input_title,
-					feContent : input_content,
-					feNo : input_feNo
-				},
-				success : function(data) {
-					if (data == 'yes') {
-						alert('수정 되었습니다'); // hide,show 적어주면됨
-						$('.inputtitle').html(
-								input_title); // html(값)  => 불러오는 것 , 값을 넣으면 setter 
-						$('.inputcontent').html(
-								input_content);
-						$('.aftermodify').hide();
-						$('.beforemodify').show();
-					} else {
-						alert('안됨');
-					}
+		$('.afterbtn')
+				.click(
+						function() {
+							const input_title = $('input[name="feTitle"]')
+									.val();
+							const input_content = $('input[name="feContent"]')
+									.val();
+							const input_feNo = $('input[name="feNo"]').val();
+							$
+									.ajax({
+										url : '/user/feed/modifyModal', // url로 변경 ( 홈페이지 주소로 뒤에는 RequestMapping의 값을)
+										type : 'post',
+										contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+										data : {
+											feTitle : input_title,
+											feContent : input_content,
+											feNo : input_feNo
+										},
+										success : function(data) {
+											if (data == 'yes') {
+												alert('수정 되었습니다'); // hide,show 적어주면됨
+												$('.inputtitle').html(
+														input_title); // html(값)  => 불러오는 것 , 값을 넣으면 setter 
+												$('.inputcontent').html(
+														input_content);
+												$('.aftermodify').hide();
+												$('.beforemodify').show();
+											} else {
+												alert('안됨');
+											}
 
-				},
-				error : function(err) {
-					alert('수정되지 않았습니다.');
-					console.log(err);
-				}
+										},
+										error : function(err) {
+											alert('수정되지 않았습니다.');
+											console.log(err);
+										}
 
-			});
-		});
-		
+									});
+						});
+
 		// 댓글 등록 ajax
-		$(document).on('click','#com_btn',function(){
-				const lastPlace = $('.inputComm').last()
-				const feNum = $('input[name="feNo"]').val();
-				const member = $('#commentmem').val();
-				const commcontent = $('#write_comment').val();
-				const count = $('.memberId').length+1;
-				$.ajax({
-					url : "insertFeComm",
-					type : "post",
-					contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-					data : {
-						feed : feNum,
-						member : member,
-						feContent : commcontent
-					},
-					success : function(data) {
-						alert('댓글 등록 성공')
-						$('#write_comment').val("");
-						const text ='<div class="row lineComm">' +
-									'<div class="col-md-10 memberId">'+data.member.memId+
-									'님 | '+data.feContent+'</div>'+
-									'<div class="col-md-2 commtime">'+data.feCommCreatetime+'</div>'+
-									'<input type="hidden" name="feCommNo"'+
-									'value="'+data.feCommNo+'">'+
-									'</div>'+
-									'<div class="col-md-4 col-md-offset-4 recomm'+count+'">'+
-									'-> 답글 달기</div>'+
-								    '<div class="reCommentInput'+count+'"'+
-									'id="reCommentInput">'+
-									'<textarea id="reComment" placeholder="답글을 입력해주세요"'+
-										'class="form-control" maxlength="1000"'+
-										'style="resize: none; height: 35px;" name="commentContent"></textarea>'+
-									'<button name="insertFeComm"'+
-										'class="btn btn-dark px-3 input-group-text reCommBtn" type="button">'+
-										'<i class="icon-line-corner-down-left"></i>'+
-									'</button>'+
-								    '</div>';
-						lastPlace.before(text);
-					},
-					error : function(err) {
-						alert("댓글 에러")
-						console.log(err);
-					}
-				})
-			});
-			//답글등록
-			
-			$(document).on('click','.reCommBtn',function(){
-				if($(this).prev().val()==""){
-					alert("답글을 입력해주세요");
-				}
-				else{
-					const feNum = $('input[name="feNo"]').val();
-					const childText = $(this).prev().val();
-					const idx = $(this).parent().prevAll('.lineComm').length;
-					const parentIdx = $(".parentIdx"+idx).val();
-					const member = $('#commentmem').val();
-					const inputPlace = $(this).parent().prev().prev();
-					$(this).prev().val('')
-					 
-					$.ajax({
-					url : "insertChildFeComm",
-					type : "post",
-					contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-					data : {
-						feed : feNum,
-						feParent : parentIdx,
-						feContent : childText,
-						member : member
-					},
-					success : function(data){
-							
-							const text = '<div class="row childComm">'+
-							'<div class="col-md-10 memberId">'+data.member.memId+''+
-							'님 | '+data.feContent+'</div>'+
-							'<input type="hidden" name="feCommNo"'+
-							'value="'+data.feCommNo+'">'+
-							'<div class="col-md-2 commtime">'+data.feCommCreatetime+'</div>'+
-							'</div>';
-							inputPlace.after(text);
-							
-					},
-					error : function(err){
-						alert(err);
-						console.log(err);
-					}
-				});
-				}
-			});
+		$(document)
+				.on(
+						'click',
+						'#com_btn',
+						function() {
+							const lastPlace = $('.inputComm').last()
+							const feNum = $('input[name="feNo"]').val();
+							const member = $('#commentmem').val();
+							if (member == null || member == "") {
+								alert('로그인 후 이용 가능한 서비스입니다.');
+								location.href = "/user/login/loginpage";
+								return;
+							}
+							const commcontent = $('#write_comment').val();
+							const count = $('.memberId').length + 1;
 
+							if (commcontent == "" || commcontent == null) { //댓글이 없다면 alert
+								alert("답글을 입력해주세요");
+								return;
+							} else {
+								$
+										.ajax({
+											url : "insertFeComm",
+											type : "post",
+											contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+											data : {
+												feed : feNum,
+												member : member,
+												feContent : commcontent
+											},
+											success : function(data) {
+												alert('댓글 등록 성공')
+												$('#write_comment').val("");
+												const text = '<div class="row lineComm">'
+														+ '<div class="col-md-7 memberId">'
+														+ data.member.memId
+														+ '님 | '
+														+ data.feContent
+														+ '</div>'
+														+ '<div class="col-md-3 commtime">'
+														+ data.feCommCreatetime
+														+ '</div>'
+														+ '<div class="col-md-2 modify">'
+														+ '<button type="button" class="mdfBtn btn btn-default">수정</button>'
+														+ '</div>'
+														+ '<input type="hidden" name="feCommNo"'
+														+ 'value="'+data.feCommNo+'">'
+														+ '</div>'
+														+ '<div class="col-md-4 col-md-offset-4 recomm'+count+'">'
+														+ '-> 답글 달기</div>'
+														+ '<div class="reCommentInput'+count+'"'
+														+ 'id="reCommentInput">'
+														+ '<textarea id="reComment" placeholder="답글을 입력해주세요"'
+														+ 'class="form-control" maxlength="1000"'
+														+ 'style="resize: none; height: 35px;" name="commentContent"></textarea>'
+														+ '<button name="insertFeComm"'
+														+ 'class="btn btn-dark px-3 input-group-text reCommBtn" type="button">'
+														+ '<i class="icon-line-corner-down-left"></i>'
+														+ '</button>'
+														+ '</div>';
+												lastPlace.before(text);
+											},
+											error : function(err) {
+												alert("댓글 에러")
+												console.log(err);
+											}
+										})
+							}
+						});
+		//답글등록
+
+		$(document).on('click','.reCommBtn', function() {
+							const feNum = $('input[name="feNo"]').val(); //피드넘버 추출
+							const childText = $(this).prev().val(); //답글 텍스트 추출
+							const idx = $(this).parent().prevAll('.lineComm').length;//몇번째 댓글의 답글인지 찾기위한 댓글의 순서
+							const parentIdx = $(".parentIdx" + idx).val(); //찾은 댓글 순서로 부모 댓글의 feCommNo추출 
+							const member = $('#commentmem').val(); //세션값유무 체크를 위한 memId 추출
+							const inputPlace = $(this).parent().prev().prev(); //답글을 넣는 장소 체크
+
+							if (member == null || member == "") { //세션값이 null이거나 공백이라면 alert를 띄우고 로그인페이지로 이동
+								alert('로그인 후 이용 가능한 서비스입니다.');
+								location.href = "/user/login/loginpage";
+								return;
+							}
+
+							if ($(this).prev().val() == ""
+									|| $(this).prev().val() == null) { //댓글이 없다면 alert
+								alert("답글을 입력해주세요");
+								return;
+							} else {
+								$(this).prev().val('')
+
+								$.ajax({
+									url : "insertChildFeComm",
+									type : "post",
+									contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+									data : {
+										feed : feNum,
+										feParent : parentIdx,
+										feContent : childText,
+										member : member
+									},
+									success : function(data) {
+										const text = '<div class="row childComm">'
+												+ '<div class="col-md-6 memberId">'
+												+ data.member.memId
+												+ ''
+												+ '님 | '
+												+ data.feContent
+												+ '</div>'
+												+ '<input type="hidden" name="feCommNo"'+
+												+ 'value="'+data.feCommNo+'">'
+												+ '<div class="col-md-3 commtime">'
+												+ data.feCommCreatetime
+												+ '</div>' 
+												+ '<div class="col-md-2 modify">'
+												+ '<button type="button" class="mdfBtn btn btn-default">수정</button>'
+												+ '</div>'
+												+ '</div>';
+										inputPlace.after(text);
+
+									},
+									error : function(err) {
+										alert(err);
+										console.log(err);
+									}
+								});
+							}
+						});
+		$(document).on('click','.mdfBtn',function() {		//수정버튼 클릭시
+			console.log('hello');
+			
+		});
 	});
 </script>

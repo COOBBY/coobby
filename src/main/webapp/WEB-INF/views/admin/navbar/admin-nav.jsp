@@ -80,7 +80,7 @@
 							<p class="nav-margin">회원 관리</p>
 					</a></li>
 					<div class="space"></div>
-					<li class="nav-item"><a href="#" class="nav-link"> <svg
+					<li class="nav-item"><a href="/admin/AdminBlacklist/adminBlacklist" class="nav-link"> <svg
 								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 								fill="currentColor" class="bi bi-person-x-fill navi"
 								viewBox="0 0 16 16">

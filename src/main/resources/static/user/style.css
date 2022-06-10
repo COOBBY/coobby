@@ -4989,7 +4989,7 @@ body:not(.top-search-open) .top-search-parent .header-misc > *:not(#top-search) 
 	transition: right .3s ease;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 300.98px){
 	.top-cart-content {
 		right: -260px !important;
 		height: calc(100vh);
@@ -5111,7 +5111,7 @@ body:not(.top-search-open) .top-search-parent .header-misc > *:not(#top-search) 
 	color: #1ABC9C;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 300px) {
 	#top-cart {
 		position: relative;
 	}
