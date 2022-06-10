@@ -41,6 +41,11 @@
 		#footer {
 		margin-top: 100px;
 		}
+		#connect{
+		border : 3px solid #e2d9d9;
+		padding-top : 5%;
+		border-radius : 5% 5% 3% 3%;
+		}
 	</style>
 	<!-- Document Title
 	============================================= -->
@@ -71,7 +76,7 @@
   </section>
   <div class="page-wrapper">
     <div class="container">
-      <div class="row" style="margin-top: 20px;">
+      <div class="row" style="margin-top: 20px;" id="connect">
         <!--사이드 -->
         <div class="col-md-3" style="border-right: 2px solid; height:100%">
           <aside class="sidebar" >

@@ -28,8 +28,6 @@ public class ScrapVO {
 	@ManyToOne
 	@JoinColumn(name="re_no")
 	private RecipeVO recipeVO;
-	
-	
-	
-	
+  
 }
+

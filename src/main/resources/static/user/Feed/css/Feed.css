@@ -41,6 +41,18 @@
 	text-align:center;
 }
 
+/* 마이피드 답글 CSS */
+#reCommentInput {
+	display:none;
+} 
+
+.recomm:hover {
+	cursor:pointer;
+	color:#20c997;
+}
+
+
+
 /* 마이피드 수정페이지 */
 #updatecon {
 	text-align: center;
@@ -245,8 +257,12 @@ input{
 }
 
 
-
-
+.lineComm{
+	border-bottom : 1px solid #80808073;
+}
+.childComm{
+	margin-left : 10px;
+}
 
 
 

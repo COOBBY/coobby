@@ -91,7 +91,6 @@ font-size: 25px;
 	<div id="wrapper" class="clearfix">
 		<jsp:include page="../user-nav.jsp" />
 
-
 		<!--================Checkout Area =================-->
 		<section class="page-header">
 			<div class="container">

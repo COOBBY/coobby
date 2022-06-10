@@ -74,150 +74,150 @@
 					<!-- Shop
 						============================================= -->
 					<div id="shop" class="shop row gutter-30 col-mb-30 mt-3">
+						
+						
+					
+					<!-- Title -->
+					<div class="col-xl-3 col-lg-6">
+						<h3 class="mb-4 fw-normal h1">
+							<b>인기</b> <span data-animate="svg-underline-animated"
+								class="svg-underline nocolor"><span><b>레시피</b></span></span>
+						</h3>
+						<p class="op-07 mb-4">이 달의 인기 레시피</p>
+						<a href="/user/recipe/recipeList"
+							class="button button-border py-1 nott ls0 fw-normal button-dark border-width-1 border-color h-bg-color">
+							<i class="icon-line-grid"></i> 레시피 더보기
+						</a>
+					</div>
 
-						<!-- Title -->
-						<div class="col-xl-3 col-lg-6">
-							<h3 class="mb-4 fw-normal h1">
-								<b>인기</b> <span data-animate="svg-underline-animated"
-									class="svg-underline nocolor"><span><b>레시피</b></span></span>
-							</h3>
-							<p class="op-07 mb-4">이 달의 인기 레시피</p>
-							<a href="/user/recipe/recipeList"
-								class="button button-border py-1 nott ls0 fw-normal button-dark border-width-1 border-color h-bg-color">
-								<i class="icon-line-grid"></i> 레시피 더보기
-							</a>
-						</div>
+					<!-- Product 1 -->
+					<c:if test="${topRecipe ne null }">
+						<c:forEach items="${ topRecipe}" var="recipe">
 
-						<!-- Product 1 -->
-						<c:if test="${topRecipe ne null }">
-							<c:forEach items="${ topRecipe}" var="recipe">
+							<div class="product col-lg-3 col-md-4 col-sm-6 col-12">
+								<div class="grid-inner">
+									<div class="product-image">
+										<a href="#"><img
+											src="/resources/user/image/recipe/${recipe[6]}"
+											alt="Light Grey Sofa"></a>
 
-								<div class="product col-lg-3 col-md-4 col-sm-6 col-12">
-									<div class="grid-inner">
-										<div class="product-image">
-											<a href="#"><img
-												src="/resources/user/image/recipe/${recipe[6]}"
-												alt="Light Grey Sofa"></a>
-
-											<div
-												class="bg-overlay-content align-items-end justify-content-between"
-												data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="/resources/admin/category"
-													<%-- 레시피 링크 걸기 --%>
+										<div
+											class="bg-overlay-content align-items-end justify-content-between"
+											data-hover-animate="fadeIn" data-hover-speed="400">
+											<a href="/resources/admin/category"
+												<%-- 레시피 링크 걸기 --%>
 													class="btn btn-light">
-													<i class="icon-line-expand"></i>
-												</a>
-											</div>
-
+												<i class="icon-line-expand"></i>
+											</a>
 										</div>
-										<div class="product-desc">
-											<div class="product-title mb-0">
-												<h4 class="mb-0">
-													<a class="fw-medium" href="demo-forum-single.html">
-														${recipe[3] } </a>
-													<h5 class="product-price fw-normal">♥ x ${recipe[1]}</h5>
-												</h4>
-											</div>
 
-											<h5 class="product-price fw-normal">조회 수 [ ${recipe[4]}
-												]</h5>
+									</div>
+									<div class="product-desc">
+										<div class="product-title mb-0">
+											<h4 class="mb-0">
+												<a class="fw-medium" href="demo-forum-single.html">
+													${recipe[3] } </a>
+												<h5 class="product-price fw-normal">♥ x ${recipe[1]}</h5>
+											</h4>
 										</div>
+
+										<h5 class="product-price fw-normal">조회 수 [ ${recipe[4]} ]</h5>
 									</div>
 								</div>
-							</c:forEach>
-						</c:if>
-					</div>
-					<!-- #shop end -->
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
-				<!-- Section End -->
-				<hr />
-				<br />
+				<!-- #shop end -->
+			</div>
+			<!-- Section End -->
+			<hr />
+			<br />
 
-				<!-- 3. Section new Arrivals
+			<!-- 3. Section new Arrivals
 				============================================= -->
-				<div class="section custom-bg mt-3 mb-0"
-					style="-custom-bg: #F3F3ED; padding: 100px 0;">
+			<div class="section custom-bg mt-3 mb-0"
+				style="-custom-bg: #F3F3ED; padding: 100px 0;">
 
-					<div class="container-fluid">
-						<!-- Heading Title -->
-						<div class="text-center mt-6 mb-5">
-							<h2 class="h1 fw-normal mb-4">
-								<b>최근</b> <span data-animate="svg-underline-animated"
-									class="svg-underline nocolor"><span><b>레시피</b></span></span>
-							</h2>
-							<a href="demo-furniture-products.html"
-								class="button button-small button-border m-0 button-dark border-width-1 border-default px-4 h-bg-color"><i
-								class="icon-line-grid"></i> 레시피 더보기</a>
-						</div>
-						<!-- Categories -->
+				<div class="container-fluid">
+					<!-- Heading Title -->
+					<div class="text-center mt-6 mb-5">
+						<h2 class="h1 fw-normal mb-4">
+							<b>최근</b> <span data-animate="svg-underline-animated"
+								class="svg-underline nocolor"><span><b>레시피</b></span></span>
+						</h2>
+						<a href="demo-furniture-products.html"
+							class="button button-small button-border m-0 button-dark border-width-1 border-default px-4 h-bg-color"><i
+							class="icon-line-grid"></i> 레시피 더보기</a>
+					</div>
+					<!-- Categories -->
 
-						<div class="row item-categories gutter-20">
-							<c:forEach items="${recentRecipe }" var="recipe">
-								<div class="col-lg-4 col-md-6">
-									<a href="link연결하기${recipe[1] }" class="d-block h-op-09 op-ts"
-										style="background: url('/resources/user/img/${recipe[3]}.jpg') no-repeat center center; background-size: cover; height: 340px;">
-										<h5 class="text-uppercase ls1 bg-white mb-0">${recipe[2]}</h5>
-									</a>
-								</div>
-							</c:forEach>
-						</div>
+					<div class="row item-categories gutter-20">
+						<c:forEach items="${recentRecipe }" var="recipe">
+							<div class="col-lg-4 col-md-6">
+								<a href="link연결하기${recipe[1] }" class="d-block h-op-09 op-ts"
+									style="background: url('/resources/user/img/${recipe[3]}.jpg') no-repeat center center; background-size: cover; height: 340px;">
+									<h5 class="text-uppercase ls1 bg-white mb-0">${recipe[2]}</h5>
+								</a>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
+			</div>
 
-				<!-- 6. Section Instagram  feed변수 background url, link 설정하기
+			<!-- 6. Section Instagram  feed변수 background url, link 설정하기
 				============================================= -->
-				<div class="section custom-bg my-0 py-0"
-					style="-custom-bg: var(- -themecolor);">
-					<div class="row align-items-center no-gutters">
-						<!-- Instagram Center Col - Text -->
-						<div class="col-lg-4 py-5 order-lg-2">
-							${feedList[8][0] } ${feedList[8][1] }
-							<a class="d-block instagram-image"
-								href="https://instagram.com/semicolonweb" target="_blank"
-								style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
-						</div>
+			<div class="section custom-bg my-0 py-0"
+				style="-custom-bg: var(- -themecolor);">
+				<div class="row align-items-center no-gutters">
+					<!-- Instagram Center Col - Text -->
+					<div class="col-lg-4 py-5 order-lg-2">
+						${feedList[8][0] } ${feedList[8][1] } <a
+							class="d-block instagram-image"
+							href="https://instagram.com/semicolonweb" target="_blank"
+							style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+					</div>
 
-						<!-- Instagram Left Col - Image 2번 위치-->
+					<!-- Instagram Left Col - Image 2번 위치-->
 
-						<div class="col-lg-4 col-md-6 order-lg-1">
-							<div class="row gutter-4">
-								<c:forEach items="${feedList }" var="feed" varStatus="status">
-									<c:if test="${status.index le 3 }">
+					<div class="col-lg-4 col-md-6 order-lg-1">
+						<div class="row gutter-4">
+							<c:forEach items="${feedList }" var="feed" varStatus="status">
+								<c:if test="${status.index le 3 }">
 									<div class="col-6">
 										<a class="d-block instagram-image"
-										href="https://instagram.com/semicolonweb" target="_blank"
-										style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
-										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
-
-						<!-- Instagram Right Col - Image -->
-						<div
-							class="col-lg-4 col-md-6 order-lg-3 mt-1 mt-md-0 ps-md-1 ps-lg-0">
-							<div class="row gutter-4">
-								<c:forEach items="${feedList }" var="feed" varStatus="status">
-									<c:if test="${status.index ge 4 && status.index lt 8}">
-								<div class="col-6">
-									<a class="d-block instagram-image"
-										href="https://instagram.com/semicolonweb" target="_blank"
-										style="background: url('/resources/user/demos/furniture/images/instagram/5.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
-								</div>
+											href="https://instagram.com/semicolonweb" target="_blank"
+											style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+									</div>
 								</c:if>
-								</c:forEach>
-							</div>
+							</c:forEach>
+						</div>
+					</div>
+
+					<!-- Instagram Right Col - Image -->
+					<div
+						class="col-lg-4 col-md-6 order-lg-3 mt-1 mt-md-0 ps-md-1 ps-lg-0">
+						<div class="row gutter-4">
+							<c:forEach items="${feedList }" var="feed" varStatus="status">
+								<c:if test="${status.index ge 4 && status.index lt 8}">
+									<div class="col-6">
+										<a class="d-block instagram-image"
+											href="https://instagram.com/semicolonweb" target="_blank"
+											style="background: url('/resources/user/demos/furniture/images/instagram/5.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+									</div>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
-				<!-- Section End -->
-
 			</div>
-		</section>
-		<!-- #content end -->
-		<br />
+			<!-- Section End -->
+			</div>
+	</section>
+	<!-- #content end -->
+	<br />
 
-		<!-- #footer end -->
+	<!-- #footer end -->
 
 	</div>
 	<!-- #wrapper end -->
@@ -238,12 +238,40 @@
 
 	<!-- JavaScripts
 	============================================= -->
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<script src="/resources/user/js/jquery.js"></script>
 	<script src="/resources/user/js/plugins.min.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
 	<script src="/resources/user/js/functions.js"></script>
+	<script>
+	$(function(){
+		$('img').hide();
+		$("#chooseFile").on("change", function(event) {
+			$('img').show();
+		    var file = event.target.files[0];
 
+		    var reader = new FileReader(); 
+		    reader.onload = function(e) {
+		        $("#image-show").attr("src", e.target.result);
+		    }
+
+		    reader.readAsDataURL(file);
+		});
+		
+		$("#searchBar").focus(function(){
+			if($('#icon').hasClass("open")){
+				$("#icon").hide();
+				$("#icon").removeClass("open");
+			}
+			else{
+				$("#icon").show();
+				$("#icon").addClass("open");
+			}
+			
+		})
+	})
+	</script>
 </body>
 </html>

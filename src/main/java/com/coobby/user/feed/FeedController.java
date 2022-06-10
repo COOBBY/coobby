@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.coobby.user.feed.comment.FeedCommService;
+import com.coobby.vo.FeedCommentVO;
 import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
 
@@ -18,6 +21,9 @@ public class FeedController {
 	
 	@Autowired
 	private FeedService feedService;
+	
+	@Autowired
+	private FeedCommService feedcommService;
 
 	
 		// 마이피드 목록 출력
@@ -31,11 +37,29 @@ public class FeedController {
 
 		// 마이피드 상세보기
 		@RequestMapping("/MyFeedModal")
-		public void MyFeedModal(FeedVO vo, Model m) {
+		public void myFeedModal(FeedVO vo, Model m) {
 			m.addAttribute("myfeedmodal", feedService.getFeedModal(vo));
 			m.addAttribute("feedimg", feedService.getFeedModalimg(vo));
+
+			// 댓글 보기
+			List<FeedCommentVO> list = feedcommService.getFeComm(vo.getFeNo());
+			m.addAttribute("feedcomm",list);
+			System.out.println(">>>>>"+list.size());
+			//return "redirect:MyFeedModal?feNo=" + vo.getFeNo();
+		}
+
+		// 피드 댓글 등록
+		@RequestMapping("/insertFeComm")
+		@ResponseBody
+		public FeedCommentVO insertFeComm(FeedCommentVO fevo) {
+			return feedcommService.insertFeComm(fevo);
 		}
 		
+		@RequestMapping("/insertChildFeComm")
+		@ResponseBody
+		public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {
+			return feedcommService.insertChildFeComm(fevo);
+		}
 		
 		@RequestMapping("/insertFeed")
 		public void insertFeed() {

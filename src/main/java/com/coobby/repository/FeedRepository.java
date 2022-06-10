@@ -59,11 +59,12 @@ public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 	
 	@Query(value="SELECT t.fe_no, t.fe_stored_image "
 			+ "FROM ( "
-			+ "	select row_number() over() rownum, f.fe_no, fi.fe_stored_image "
+			+ "	select row_number() over() rownum, f.fe_no, fi.fe_stored_image, m.report_cnt "
 			+ "	from feed f right outer join feed_image fi "
-			+ "	on f.fe_no = fi.fe_no "
+			+ "	on f.fe_no = fi.fe_no join member m on f.mem_id = m.mem_id "
 			+ "    group by f.fe_no "
 			+ "	) t "
+			+ "where t.report_cnt < 3 or t.report_cnt is null "
 			+ "order by rand() limit 9", nativeQuery=true)
 	List<Object[]> mainRandomFeed();
 
