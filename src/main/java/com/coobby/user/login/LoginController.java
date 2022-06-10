@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coobby.vo.MemberVO;
 
-	 
 
 @Controller
 @RequestMapping("user/login")
@@ -63,7 +62,7 @@ public class LoginController {
 		session.setAttribute("user", mem);
 		
 		System.out.println("로그인성공");
-		return "redirect:/user/mainpage";
+		return "/user/mainpage";
 		}
 //	
 		
