@@ -84,7 +84,7 @@
 								class="svg-underline nocolor"><span><b>레시피</b></span></span>
 						</h3>
 						<p class="op-07 mb-4">이 달의 인기 레시피</p>
-						<a href="/user/recipe/recipeList"
+						<a href="/user/recipe/recipelist"
 							class="button button-border py-1 nott ls0 fw-normal button-dark border-width-1 border-color h-bg-color">
 							<i class="icon-line-grid"></i> 레시피 더보기
 						</a>
@@ -97,14 +97,14 @@
 							<div class="product col-lg-3 col-md-4 col-sm-6 col-12">
 								<div class="grid-inner">
 									<div class="product-image">
-										<a href="#"><img
-											src="/resources/user/image/recipe/${recipe[6]}"
+										<a href="/user/recipe/recipeDetail?reNo=${recipe[2]}"><img
+											src="/resources/user/recipeimages/${recipe[6]}"
 											alt="Light Grey Sofa"></a>
 
 										<div
 											class="bg-overlay-content align-items-end justify-content-between"
 											data-hover-animate="fadeIn" data-hover-speed="400">
-											<a href="/resources/admin/category"
+											<a href="/user/recipe/recipeDetail?reNo=${recipe[2]}"
 												<%-- 레시피 링크 걸기 --%>
 													class="btn btn-light">
 												<i class="icon-line-expand"></i>
@@ -115,7 +115,7 @@
 									<div class="product-desc">
 										<div class="product-title mb-0">
 											<h4 class="mb-0">
-												<a class="fw-medium" href="demo-forum-single.html">
+												<a class="fw-medium" href="/user/recipe/recipeDetail?reNo=${recipe[2]}">
 													${recipe[3] } </a>
 												<h5 class="product-price fw-normal">♥ x ${recipe[1]}</h5>
 											</h4>
@@ -146,7 +146,7 @@
 							<b>최근</b> <span data-animate="svg-underline-animated"
 								class="svg-underline nocolor"><span><b>레시피</b></span></span>
 						</h2>
-						<a href="demo-furniture-products.html"
+						<a href="/user/recipe/recipelist"
 							class="button button-small button-border m-0 button-dark border-width-1 border-default px-4 h-bg-color"><i
 							class="icon-line-grid"></i> 레시피 더보기</a>
 					</div>
@@ -155,8 +155,8 @@
 					<div class="row item-categories gutter-20">
 						<c:forEach items="${recentRecipe }" var="recipe">
 							<div class="col-lg-4 col-md-6">
-								<a href="link연결하기${recipe[1] }" class="d-block h-op-09 op-ts"
-									style="background: url('/resources/user/img/${recipe[3]}.jpg') no-repeat center center; background-size: cover; height: 340px;">
+								<a href="/user/recipe/recipeDetail?reNo=${recipe[1] }" class="d-block h-op-09 op-ts"
+									style="background: url('/resources/user/recipeimages/${recipe[3]}.jpg') no-repeat center center; background-size: cover; height: 340px;">
 									<h5 class="text-uppercase ls1 bg-white mb-0">${recipe[2]}</h5>
 								</a>
 							</div>
@@ -174,8 +174,8 @@
 					<div class="col-lg-4 py-5 order-lg-2">
 						${feedList[8][0] } ${feedList[8][1] } <a
 							class="d-block instagram-image"
-							href="https://instagram.com/semicolonweb" target="_blank"
-							style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+							href="/user/feed/MyFeedModal?feNo=${feedList[8][0]}" target="_blank"
+							style="background: url('/resources/user/feedimages/${feedList[8][1]}') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
 					</div>
 
 					<!-- Instagram Left Col - Image 2번 위치-->
@@ -186,8 +186,8 @@
 								<c:if test="${status.index le 3 }">
 									<div class="col-6">
 										<a class="d-block instagram-image"
-											href="https://instagram.com/semicolonweb" target="_blank"
-											style="background: url('/resources/user/demos/furniture/images/instagram/1.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+											href="/user/feed/MyFeedModal?feNo=${feed[0]}" target="_blank"
+											style="background: url('/resources/user/feedimages/${feed[1]}') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
 									</div>
 								</c:if>
 							</c:forEach>
@@ -202,8 +202,8 @@
 								<c:if test="${status.index ge 4 && status.index lt 8}">
 									<div class="col-6">
 										<a class="d-block instagram-image"
-											href="https://instagram.com/semicolonweb" target="_blank"
-											style="background: url('/resources/user/demos/furniture/images/instagram/5.jpg') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
+											href="/user/feed/MyFeedModal?feNo=${feed[0]}" target="_blank"
+											style="background: url('/resources/user/feedimages/${feed[1]}') no-repeat center center; background-size: cover; min-height: 33vh;"></a>
 									</div>
 								</c:if>
 							</c:forEach>

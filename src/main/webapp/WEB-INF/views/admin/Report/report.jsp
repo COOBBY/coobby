@@ -31,9 +31,11 @@
 #report{
   margin: 10px;
 }
-.btn-block{
-
-
+.reportContent{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+max-width: 350px;
 }
 
 
@@ -117,7 +119,7 @@
                   <c:forEach items="${commList }" var="colist">
                   <tr>
                     <td>${colist.reportCate }</td>
-                    <td><a href="reportCommentDetail?reportNo=${colist.reportNo }">${colist.reportContent }</a></td>
+                    <td class="reportContent"><a href="reportCommentDetail?reportNo=${colist.reportNo }">${colist.reportContent }</a></td>
                     <td>${colist.reportSusid }</td>
                     <td>${colist.reportVicid }</td>
                     <td>${colist.reportDate }</td>
@@ -176,7 +178,7 @@
                   <c:forEach items="${boardList }" var="bolist">
                   <tr>
                     <td>${bolist.reportCate }</td>
-                    <td><a href="reportBoardDetail?reportNo=${bolist.reportNo }">${bolist.reportContent }</a></td>
+                    <td class="reportContent"><a href="reportBoardDetail?reportNo=${bolist.reportNo }">${bolist.reportContent }</a></td>
                     <td>${bolist.reportSusid }</td>
                     <td>${bolist.reportVicid }</td>
                     <td>${bolist.reportDate }</td>
