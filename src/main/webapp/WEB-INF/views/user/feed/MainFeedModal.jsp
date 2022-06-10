@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>  
 			<div class="single-product shop-quick-view-ajax">
 
 					<!-- Close Button
@@ -54,12 +54,17 @@
 								<input type="text" name="feContent" class="modifyinput aftermodify" maxlength="1000" style="resize: none; height: 150px; width:100%;" value="${feedmodal.feContent }"/>
 								<div class="line my-5"></div>
 								<!-- 댓글 시작 -->
+								<!--<c:forEach items="${ feedcomm}" var="feedcomm">
+								<span>${feedcomm.memId } 님 </span>
+								<div class="fecommview">${feedcomm.feContent }</div>
+								</c:forEach>-->
 								<div class="feedcomment">
 									<div class="feedcomment input-group">
 										<textarea id="write_comment" placeholder="댓글을 입력해주세요" class="form-control" maxlength="1000" style="resize: none; height: 35px;" name="commentContent"></textarea>
-										<button id="com_btn" class="btn btn-dark px-3 input-group-text" type="submit"><i class="icon-line-corner-down-left"></i></button>	
+										<button id="com_btn" class="btn btn-dark px-3 input-group-text fecommbtn" type="submit"><i class="icon-line-corner-down-left"></i></button>	
 									</div>
 								</div>
+								
 								<!-- 댓글 끝 -->
 							</div>
 							</form>
@@ -69,3 +74,48 @@
 					</div>
 
 				</div>
+				<script src="http://code.jquery.com/jquery-latest.js"></script>
+				<script type="text/javascript">
+					$(function(){
+ 					/*	$.ajax({
+							type:'POST',
+							url : '/user/feed/MainFeedModal',
+							type:'post',
+							contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+							data : {
+								feContent : $('#write_comment').val()
+							},
+							success : function(data) {
+								if(data=='yes') {
+									alert('댓글이 등록되었습니다');
+									
+								}
+							}
+						})
+					}) */
+				</script>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

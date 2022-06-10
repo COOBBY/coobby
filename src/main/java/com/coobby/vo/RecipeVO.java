@@ -30,6 +30,7 @@ public class RecipeVO {
 //	@CreatedDate
 //	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Column(insertable=false, updatable=false, columnDefinition="DATE DEFAULT (current_date)", name="re_createtime")
+//	@Temporal(TemporalType.DATE)
 //	@Column(name="re_createtime")
 	private String reCreatetime;
 

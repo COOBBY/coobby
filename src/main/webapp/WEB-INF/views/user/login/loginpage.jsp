@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -118,15 +119,15 @@ color:blue;
 		<div class="input-form-backgroud row" style="text-align: center;">
 			<div class="input-form col-md-12 mx-auto" style="text-align: center;">
 				<h4 style="text-align: center;" class="mb-3">
-					<b>로그인</b>
+					<a href='loginpage'><b>로그인</b></a>
 				</h4>
-				<form class="validation-form" novalidate>
+				<form class="validation-form" novalidate method="post" action="checkLogin">
 					<!-- <div class="row">  -->
 
 					<div class="col-md-12 mb-3"
 						style="padding: 0; text-align: center; margin: auto; width: 35%">
 						<label for="name" style="text-align: center;">ID</label> <input
-							type="text" class="form-control" id="name"
+							type="text" class="form-control" id="name" name="memId"
 							placeholder="example@naver.com" style='font-style: ltalic'
 							value="" required>
 						<div class="invalid-feedback">ID를 입력해주세요.</div>
@@ -143,9 +144,14 @@ color:blue;
 					비밀번호
 					<div class="form-group"
 						style="padding: 0; text-align: center; margin: auto; width: 35%">
-						<input type="password" name="user_pass" id="password"
+						<input type="password" name="memPass" id="password"
 							class="form-control" placeholder="비밀번호 입력." /> <span class="pass"></span>
 					</div>
+					<div class="form-group" style=text-align:center; margin:auto;>
+              		<c:if test="${fail ne null}">
+              		<div class="alert alert-danger alert-common" role="alert" id="alert-danger" style= "width:35%; text-align:center; justify-content:center; margin:auto;">아이디/패스워드가<br/> 일치하지 않습니다.<i class="tf-ion-close-circled"></i>
+              		</div> </c:if>
+					
 					<br/><br/>
 
 					<!--                                   <div class="form-group" style="padding: 0; text-align:center; margin:auto; width:35%">
@@ -173,7 +179,7 @@ color:blue;
                             <div class="row">
                             </div> -->
 
-					<br /> <br />
+					<br/><br/>
 
 
 

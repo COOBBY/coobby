@@ -7,7 +7,30 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="SemiColonWeb" />
 
-	
+	<!-- Stylesheets
+	============================================= -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Zilla+Slab:wght@400;500&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="/resources/css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/style.css" type="text/css" />
+
+	<link rel="stylesheet" href="/resources/css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="/resources/css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="/resources/css/custom.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Furniture Demo Specific Theme Stylesheet - #193532 -->
+	<link rel="stylesheet" href="/resources/css/colors.php?color=193532" type="text/css" />
+
+	<!-- Furniture Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="/resources/demos/furniture/furniture.css" type="text/css" /> <!-- Furniture Custom Css -->
+	<link rel="stylesheet" href="/resources/demos/furniture/css/fonts.css" type="text/css" /> <!-- Furniture Custom Fonts -->
+	<!-- / -->
+
 	<!-- Document Title
 	============================================= -->
 	<title>COOBBY | Nav-Bar </title>
@@ -88,8 +111,8 @@
 						<!-- Logo
 						============================================= -->
 						<div id="logo" class="mx-auto col-auto flex-column order-2">
-							<a href="demo-furniture.html" class="standard-logo"><img src="/resources/img/coobbylogo.png" /></a>
-							<a href="demo-furniture.html" class="retina-logo"><img src="/resources/img/coobbylogo.png" /></a>
+							<a href="/user/main/mainpage" class="standard-logo"><img src="/resources/img/coobbylogo.png" /></a>
+							<a href="/user/main/mainpage" class="retina-logo"><img src="/resources/img/coobbylogo.png" /></a>
 						</div><!-- #logo end -->
 
 						<div class="header-misc col-auto order-3 justify-content-lg-end ms-0 ms-sm-3 px-0">
@@ -108,10 +131,26 @@
 							-->
 							<!-- #top-search end -->
 
+
+
 							<!-- Top 회원가입
 							============================================= -->
 							<div id="useridcontainer">
-								<span>사용자ID</span>
+								 <span class="dropdown">
+               
+               					<c:choose>
+								<c:when test="${sessionScope.user eq null}">
+								<h5>
+									<a href="/user/login/loginpage">LOGIN</a>
+								</h5>
+								</c:when>
+								<c:otherwise>
+								<h5>
+									<a href="logout">LOGOUT</a>
+								</h5>
+								</c:otherwise>
+							</c:choose>
+              				</span>
 							</div>
 							
 							<!-- 비로그인 시 
@@ -135,7 +174,6 @@
 									</div>
 								</c:otherwise>
 							</c:choose>
-
 						</div>
 
 						<!-- Mobile Menu Icon
@@ -188,6 +226,12 @@
 
 	<!-- JavaScripts
 	============================================= -->
+	<script src="/resources/js/jquery.js"></script>
+	<script src="/resources/js/plugins.min.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="/resources/js/functions.js"></script>
 
 </body>
 </html>

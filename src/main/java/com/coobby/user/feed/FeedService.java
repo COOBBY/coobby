@@ -29,6 +29,9 @@ public interface FeedService {
 	public int todayFeed();
 
 	List<FeedImageVO> getFeedModalimg(FeedVO vo);
+	
+	// 좋아요 
+	public void likeFeed(FeedVO vo);
 
 	
 	// 마이피드 이미지 삭제

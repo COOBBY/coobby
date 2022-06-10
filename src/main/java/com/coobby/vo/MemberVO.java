@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -46,7 +47,7 @@ public class MemberVO {
 	private String memUpdatetime;
 	
 	@Column(name="mem_auth")
-	private int memAuth;
+	private Integer memAuth;
 	
 	@Column(name="mem_stored_image")
 	private String memStoredimage;
@@ -62,5 +63,6 @@ public class MemberVO {
 	
 	@Column(name="report_cnt")
 	private Integer reportCnt;
+	
 
 }

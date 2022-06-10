@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -117,7 +117,7 @@ body {
 				<h4 style="text-align: center;" class="mb-3">
 					<b>Email authentication</b>
 				</h4>
-				<span> È¸¿ø°¡ÀÔÀ» À§ÇÏ¿© ÀÌ¸ÞÀÏ ÀÎÁõÀ» ÁøÇàÇÕ´Ï´Ù.</span>
+				<span> íšŒì›ê°€ìž…ì„ ìœ„í•˜ì—¬ ì´ë©”ì¼ ì¸ì¦ì„ ì§„í–‰í•©ë‹ˆë‹¤.</span>
 				<br/><br/>
 				<form class="validation-form" novalidate>
 					<!-- <div class="row">  -->
@@ -127,36 +127,36 @@ body {
 						<label for="name" style="text-align: center;">E-mail ID</label>
 						<input type="text" class="form-control" id="name" placeholder="Example@ex.com" style='font-style: ltalic' value="" required>
 							<button class="btn btn-warning  btn-block" type="submit"
-							style="width: 60%; height: 20%; margin: auto;">ÀÎÁõ¸ÞÀÏ ¹ß¼Û</button>
+							style="width: 60%; height: 20%; margin: auto;">ì¸ì¦ë©”ì¼ ë°œì†¡</button>
 							
-						<div class="invalid-feedback">!ÀÌ¸ÞÀÏ ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.</div>
+						<div class="invalid-feedback">!ì´ë©”ì¼ IDë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”.</div>
 
 
 						
 						<!-- <input name="email1" type="text"> @ <input name="email2" type="text">
     <select name="select_email" onChange="selectEmail(this)">
-        <option value="" selected>¼±ÅÃÇÏ¼¼¿ä</option>
+        <option value="" selected>ì„ íƒí•˜ì„¸ìš”</option>
         <option value="naver.com">naver.com</option>
         <option value="gmail.com">gmail.com</option>
         <option value="hanmail.com">hanmail.com</option>
-        <option value="1">Á÷Á¢ÀÔ·Â</option>
+        <option value="1">ì§ì ‘ìž…ë ¥</option>
     </select> -->
 					</div><br/>
 
 
-					<!-- <div class="col-md-12 mb-3" style="padding: 0;"> <label for="nickname">º°¸í(´Ð³×ÀÓ)</label> <input type="text"
+					<!-- <div class="col-md-12 mb-3" style="padding: 0;"> <label for="nickname">ë³„ëª…(ë‹‰ë„¤ìž„)</label> <input type="text"
                                         class="form-control" id="nickname" placeholder="" value="" style="width: 100%;" required>
-                                        <button type="button" style="border: #92b5db;">Áßº¹È®ÀÎ</button>
-                                        <input type="text" style="display:none">ÀÌ¹Ì »ç¿ëÁßÀÎ ´Ð³×ÀÓÀÔ´Ï´Ù.
-                                        <input type="text" style="display:none">»ç¿ë °¡´ÉÇÑ ´Ð³×ÀÓÀÔ´Ï´Ù.
-                                    <div class="invalid-feedback"> º°¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä. </div>
+                                        <button type="button" style="border: #92b5db;">ì¤‘ë³µí™•ì¸</button>
+                                        <input type="text" style="display:none">ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ë‹‰ë„¤ìž„ìž…ë‹ˆë‹¤.
+                                        <input type="text" style="display:none">ì‚¬ìš© ê°€ëŠ¥í•œ ë‹‰ë„¤ìž„ìž…ë‹ˆë‹¤.
+                                    <div class="invalid-feedback"> ë³„ëª…ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”. </div>
                                 </div> -->
 					
 					<div class="form-group"
 						style="padding: 0; text-align: center; margin: auto; width: 35%">
-						<label for="name" style="text-align: center;">ÀÎÁõ¹øÈ£ ÀÔ·Â</label>
+						<label for="name" style="text-align: center;">ì¸ì¦ë²ˆí˜¸ ìž…ë ¥</label>
 						<input type="password" name="user_pass" id="password"
-							class="form-control" placeholder="ÀÎÁõ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä." /> <span class="pass"></span>
+							class="form-control" placeholder="ì¸ì¦ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”." /> <span class="pass"></span>
 					</div>
 					<br/><br/>
 
@@ -166,22 +166,22 @@ body {
                                       name="password_check"
                                       id="password_check"
                                       class="form-control"
-                                      placeholder="ºñ¹Ð¹øÈ£ È®ÀÎ."
+                                      placeholder="ë¹„ë°€ë²ˆí˜¸ í™•ì¸."
                                     /><br/></div> -->
 					<div class="mb-4" style='text-align: center; margin: auto;'>
 						<button class="btn btn-primary btn-lg btn-block" type="submit"
-							style="width: 20%; height: 20%; margin: auto;">ÀÎÁõ¿Ï·á</button>
+							style="width: 20%; height: 20%; margin: auto;">ì¸ì¦ì™„ë£Œ</button>
 					</div>
 					<a href="loginpage"><span type="button" class="yu"
 						style="color: #FFBF00; height: 47px; text-align: center;"><b
-							class="yu" style="font-size: 125%;">ÀÌ¹Ì °èÁ¤ÀÌ ÀÖÀ¸½Å°¡¿ä?(·Î±×ÀÎ È­¸é)</b></span></a>
+							class="yu" style="font-size: 125%;">ì´ë¯¸ ê³„ì •ì´ ìžˆìœ¼ì‹ ê°€ìš”?(ë¡œê·¸ì¸ í™”ë©´)</b></span></a>
 					<!-- </div> -->
-					<!-- <div class="mb-3"> <label for="address">ºñ¹Ð¹øÈ£</label> <input type="text" class="form-control"
-                                    id="address" placeholder="¼­¿ïÆ¯º°½Ã °­³²±¸" required>
-                                <div class="invalid-feedback"> ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. </div>
+					<!-- <div class="mb-3"> <label for="address">ë¹„ë°€ë²ˆí˜¸</label> <input type="text" class="form-control"
+                                    id="address" placeholder="ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬" required>
+                                <div class="invalid-feedback"> ì£¼ì†Œë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”. </div>
                             </div>
-                            <div class="mb-3"> <label for="address2">ºñ¹Ð¹øÈ£ È®ÀÎ<span class="text-muted"></span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="»ó¼¼ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."> </div>
+                            <div class="mb-3"> <label for="address2">ë¹„ë°€ë²ˆí˜¸ í™•ì¸<span class="text-muted"></span></label>
+                                <input type="text" class="form-control" id="address2" placeholder="ìƒì„¸ì£¼ì†Œë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”."> </div>
                             <div class="row">
                             </div> -->
 
@@ -196,7 +196,7 @@ body {
 				style='text-align: center'>
 				<input type="checkbox" class="custom-control-input" id="aggrement"
 					required> <label class="custom-control-label"
-					for="aggrement">°³ÀÎÁ¤º¸ ¼öÁý ¹× ÀÌ¿ë¿¡ µ¿ÀÇÇÕ´Ï´Ù.</label>
+					for="aggrement">ê°œì¸ì •ë³´ ìˆ˜ì§‘ ë° ì´ìš©ì— ë™ì˜í•©ë‹ˆë‹¤.</label>
 			</div> -->
 
 			</form>

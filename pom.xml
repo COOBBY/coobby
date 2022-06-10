@@ -75,7 +75,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
+		<!--  Mail 인증 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>1.4.3.RELEASE</version>
+		</dependency>
 		<!-- websocket -->
 		<dependency>
 			<groupId>javax.websocket</groupId>
@@ -95,7 +100,6 @@
 		  <artifactId>json-simple</artifactId>
 		  <version>1.1.1</version>
 		</dependency>
-			
 	</dependencies>
 
 	<build>

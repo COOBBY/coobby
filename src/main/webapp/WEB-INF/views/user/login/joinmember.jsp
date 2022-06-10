@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -67,6 +68,22 @@
                 -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
                 box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
             }
+            
+/*             #alert-success{
+             display:none;
+             }
+             #alert-danger{
+             display:none;
+             }
+             #success{
+             display:none;
+             }
+             #danger{
+             display:none;
+             }  */
+             
+             
+            
         </style>
 
 </head>
@@ -91,79 +108,87 @@
             <div class="container">
                 <div class="input-form-backgroud row">
                     <div class="input-form col-md-12 mx-auto">
-                        <h4 class="mb-3"><b style="text-align: center;">ȸ������</b></h4>
-                        <form class="validation-form" novalidate>
+                        <h4 class="mb-3"><b style="text-align: center;">회원가입</b></h4>
+                        <form class="validation-form" id='from' method="post" action='/userinsert' novalidate >
                            <!-- <div class="row">  -->
     
-                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="email">�̸���</label> <input type="email" class="form-control"
-                                    id="email" placeholder="you@example.com" disabled>
-                                <div class="invalid-feedback"> �̸����� �Է����ּ���. </div>
+                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="email">이메일</label> <input type="email" class="form-control"
+                                    id="email" name='memId' placeholder="${memEmail}={$memEmail}">
+                                <div class="invalid-feedback"> 이메일을 입력해주세요. </div>
                                 </div>
     
-                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="name">�̸�</label> <input type="text" class="form-control"
-                                    id="name" placeholder="" value="" required>
-                                <div class="invalid-feedback"> �̸��� �Է����ּ���. </div>
+                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="name">이름</label> <input type="text" class="form-control"
+                                    id="name" name="memName" placeholder="이름입력" value="" required>
+                                    
+                                <div class="invalid-feedback"> 이름을 입력해주세요. </div>
                             </div>
-    
-    
-                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="nickname">����(�г���)</label> <input type="text"
-                                        class="form-control" id="nickname" placeholder="" value="" style="width: 100%;" required>
-                                        <button type="button" style="border: #92b5db;">�ߺ�Ȯ��</button>
-                                        <!-- <input type="text" style="display:none">�̹� ������� �г����Դϴ�.
-                                        <input type="text" style="display:none">��� ������ �г����Դϴ�. -->
-                                    <div class="invalid-feedback"> ������ �Է����ּ���. </div>
+                            
+                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="userNickname">별명(닉네임)</label> <input type="text"
+                                        class="form-control" id="nickname" name="memNickname" placeholder="닉네임입력" value="" style="width: 100%;" required>
+                                        <button type="button" style="border: #92b5db" id='joongbokBtn'>중복확인</button>
+                                        <div class="alert alert-success alert-common" role="alert" id="success" style="width:100%"><i class="tf-ion-thumbsup"></i>사용 가능한 닉네임입니다.</div>
+                						<div class="alert alert-danger alert-common" role="alert" id="danger" style="width:100%"><i class="tf-ion-close-circled"></i>중복된 닉네임입니다.</div>
+                                        <!-- <input type="text" style="display:none">이미 사용중인 닉네임입니다.
+                                        <input type="text" style="display:none">사용 가능한 닉네임입니다. -->
+                                    <div class="invalid-feedback"> 별명을 입력해주세요. </div>
                                 </div>
-                                  ��й�ȣ
+                                
+                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="labelpassword">비밀번호</label> <input type="password"
+                                        class="form-control" id="password" name="memPass" placeholder="비밀번호 입력" value="" style="width: 100%;" required>
+                                    <div class="invalid-feedback"> 비밀번호를 입력해주세요. </div>
+                                </div>
+                                
+                                <div class="col-md-12 mb-3" style="padding: 0;"> <label for="labelpassword_check">비밀번호 확인</label> <input type="password"
+                                        class="form-control" id="password_check" placeholder="비밀번호 재입력" value="" style="width: 100%;" required>
+                                    <div class="invalid-feedback"> 비밀번호를 재입력해주세요. </div>
+                                </div>
+                                
+                                    <div class="alert alert-success alert-common" role="alert" id="alert-success" style= "width:100%"><i class="tf-ion-thumbsup"></i>비밀번호가 일치합니다.</div>
+              						<div class="alert alert-danger alert-common" role="alert" id="alert-danger" style= "width:100%"><i class="tf-ion-close-circled"></i>비밀번호가 일치하지 않습니다.</div>
+                               
+                               
+                                <!-- <div>
+                                  비밀번호
                                 <div class="form-group">
-                                    <input
-                                      type="password"
-                                      name="user_pass"
-                                      id="password"
-                                      class="form-control"
-                                      placeholder="��й�ȣ�� �Է��ϼ���."
-                                    />
-                                    <span class="pass"></span>
+							<input type="password" name="user_pass" id="password" class="form-control" placeholder="비밀번호 입력" />
+							<span class="pass"></span>
+                                  <div class="invalid-feedback"> 비밀번호를 입력해주세요. </div>
                                   </div>
-                                  ��й�ȣ Ȯ��
+                                  </div> -->
+                                  
+                                 
+                                  <!-- 비밀번호 확인
                                   <div class="form-group">
-                                    <input
-                                      type="password"
-                                      name="password_check"
-                                      id="password_check"
-                                      class="form-control"
-                                      placeholder="��й�ȣ�� ���Է��Ͻʽÿ�."
-                                    /><br/>
+							<input type="password" name="password_check" id="password_check"
+							class="form-control" placeholder="비밀번호 재입력" /><br/>
+							</div> -->
                             <!-- </div> -->
-                            <!-- <div class="mb-3"> <label for="address">��й�ȣ</label> <input type="text" class="form-control"
-                                    id="address" placeholder="����Ư���� ������" required>
-                                <div class="invalid-feedback"> �ּҸ� �Է����ּ���. </div>
+                            <!-- <div class="mb-3"> <label for="address">비밀번호</label> <input type="text" class="form-control"
+                                    id="address" placeholder="서울특별시 강남구" required>
+                                <div class="invalid-feedback"> 주소를 입력해주세요. </div>
                             </div>
-                            <div class="mb-3"> <label for="address2">��й�ȣ Ȯ��<span class="text-muted"></span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="���ּҸ� �Է����ּ���."> </div>
+                            <div class="mb-3"> <label for="address2">비밀번호 확인<span class="text-muted"></span></label>
+                                <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요."> </div>
                             <div class="row">
                             </div> -->
-                            �������
+                            생년월일
                             <div class="form-group">
-                              <input
-                                type="date"
-                                name="user_birth"
-                                id="birth_date"
-    
+                              <input type="date" name="memBirth" id="birth_date"
                             /><br/><br/>
-                            ����
+                            성별
                             <div class="form-group">
                               
-                                <input type="radio" name="gender" value="M" checked/>
-                                ��  &ensp;
-                                <input type="radio" name="gender" value="F" />
-                                ��
+                                <input type="radio" name="memSex" value="0" checked/>
+                                남  &ensp;
+                                <input type="radio" name="memSex" value="1" />
+                                여
                               
                             </div>
-                            �޴���ȭ
+                            휴대전화
                             <div class="form-group">
-                              <input type="tel" name="user_tel" id="tel" class="form-control" placeholder="- ���� �� ��ȣ�� �Է�" style="width: 40%;"
+                              <input type="tel" name="user_tel" id="tel" class="form-control" placeholder=" '-' 포함하여 입력 " style="width: 40%;"
                               />
-                              <button type="button" style="border: none;">������ȣ ����</button>
+                              <!-- <button type="button" style="border: none;">인증번호 전송</button> -->
                             </div>
                             <br/>
                             <br/>
@@ -171,34 +196,35 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-3">
-                                        <img src="images/my/user.png" style="width: 50%; height:90%; text-align: left;">
-                                        <br/> <span>�����ʻ���</span>
+                                        <img src="/resources/user/images/my/user.png" style="width: 50%; height:90%; text-align: left;">
+                                        <br/> <span>프로필사진</span>
                                     </div>
                                     <div class="col-8" style="height: 50%;">
-                                        <button type="button" style="width: 30%; border: navajowhite;">÷�������߰�</button>
+                                       <!--  <button type="button" style="width: 30%; border: navajowhite;">첨부파일추가</button> -->
+                                        <input type="file" id="file" name="file">
                                     </div>
                                 </div> 
                                <button type="button" id="btn" class="btn btn-main text-center"> 
-                                <!-- <div class="col-md-12 mb-3"> <label for="root">�������</label> <select
+                                <!-- <div class="col-md-12 mb-3"> <label for="root">생년월일</label> <select
                                         class="custom-select w-30" id="root" style="width: 1%">
-                                        <option value="�� ����" selected ></option>
-                                        <option>1��</option><option>2��</option><option>3��</option><option>4��</option><option>5��</option><option>6��</option><option>7��</option><option>8��</option><option>9��</option>
-                                        <option>12��</option>
+                                        <option value="월 선택" selected ></option>
+                                        <option>1월</option><option>2월</option><option>3월</option><option>4월</option><option>5월</option><option>6월</option><option>7월</option><option>8월</option><option>9월</option>
+                                        <option>12월</option>
                                     </select> 
-                                    <div class="invalid-feedback"> ���� ��θ� �������ּ���. </div>-->
+                                    <div class="invalid-feedback"> 가입 경로를 선택해주세요. </div>-->
                                     
-                                <!-- <div class="col-md-4 mb-3"> <label for="code">��õ�� �ڵ�</label> <input type="text"
+                                <!-- <div class="col-md-4 mb-3"> <label for="code">추천인 코드</label> <input type="text"
                                         class="form-control" id="code" placeholder="" required>
-                                    <div class="invalid-feedback"> ��õ�� �ڵ带 �Է����ּ���. </div>
+                                    <div class="invalid-feedback"> 추천인 코드를 입력해주세요. </div>
                                 </div> -->
     
                                 </div>
                              </div> 
                             <hr class="mb-4">
                             <div class="custom-control custom-checkbox" style='text-align:center'> <input type="checkbox" class="custom-control-input"
-                                    id="aggrement" required> <label class="custom-control-label" for="aggrement">�������� ���� �� �̿뿡
-                                    �����մϴ�.</label><br/> </div>
-                            <div class="mb-4" style= 'text-align:center;'> <button class="btn btn-primary btn-lg btn-block" type="submit">���ԿϷ�</button></div>
+                                    id="aggrement" required> <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에
+                                    동의합니다.</label><br/> </div>
+                            <div class="mb-4" style= 'text-align:center;'> <button class="btn btn-primary btn-lg btn-block" type="submit" id='joincomplete'>가입완료</button></div>
                         </form>
                     </div>
                 </div>
@@ -211,7 +237,7 @@
 
 
 		<!-- Footer
-		============================================= -->
+		=============================================== -->
 		<footer id="footer">
 			<div class="container">
 
@@ -341,6 +367,255 @@
 	<script src="/resources/user/vendors/jquery.ajaxchimp.min.js"></script>
 	<script src="/resources/user/vendors/mail-script.js"></script>
 	<script src="/resources/user/js/main.js"></script>
-
+	
+	<script type="text/javascript">
+	$(function(){
+		
+		  $("#joincomplete").click(function(){
+		      if(checks()){
+		         $("#from").submit()
+		      }
+		  });
+	   function checks() {
+	        var getEmail =
+	          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	        var getPassword = /^[A-Za-z0-9]{4,12}$/;
+	        var getName = /^[가-힣]{2,6}$/;
+	        var getPhone = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+	   
+	
+	       //아이디 공백 확인
+	       /* if ($("#email").val() == "") {
+	          const err =
+	            '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 이메일을 작성해주세요</div>';
+	          $("#email").parent().append(err);
+	          $("#email").focus();
+	          return false;
+	        } */
+	        $("#frm").remove();
+	
+	       // 아이디 유효성 검사
+	       /*  if(!getEmail.test($("#email").val())){
+	        alert("이메일 양식에 맞지 않습니다.");
+	        $("#email").val("");
+	        $("#email").focus();
+	        return false;
+	       } */
+	        
+	       // 비밀번호 공백 확인
+	       if ($("#password").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i>영어대문자, 소문자, 숫자 중에서 4~12자로만 입력 가능합니다.</div>';
+	
+	          $("#password").parent().append(err);
+	          $("#password").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	       // 비밀번호 유효성 검사
+	         if(!getPassword.test($("#password").val())){
+	        alert("비밀번호가 양식에 맞지 않습니다.");
+	        $("#password").val("");
+	        $("#password").focus();
+	        return false;
+	       } 
+	
+	       // 비밀번호 재입력란의 공백 확인
+	       if ($("#password_check").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 비밀번호를 다시 한번 작성해주세요.</div>';
+	          $("#password_check").parent().append(err);
+	          $("#password_check").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	       
+	        
+	       // 비밀번호 확인 유효성 검사
+	       if(!getPassword.test($("#password_check").val())){
+	        alert("비밀번호가 틀렸습니다. 다시한번 입력해주세요.");
+	        $("#password_check").val("");
+	        $("#password_check").focus();
+	        return false;
+	       }
+	
+	        //이름 공백 확인
+	        if ($("#name").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 한글로 2~6자까지 가능합니다.</div>';
+	
+	          $("#name").parent().append(err);
+	          $("#name").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	         // 이름 유효성 검사
+	        if(!getName.test($("#name").val())){
+	        alert("이름 양식에 맞지 않습니다.");
+	        $("#name").val("");
+	        $("#name").focus();
+	        return false;
+	       }
+	         
+	         // 닉네임 유효성 검사
+	        if(!getName.test($("#nickname").val())){
+	        alert("닉네임 양식에 맞지 않습니다.");
+	        $("#nickname").val("");
+	        $("#nickname").focus();
+	        return false;
+	       }
+	
+	        // 성별 공백 확인
+	       if($("#gender").val() == "") {
+	          const err =
+	            '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 필수 입력사항입니다.</div>';
+	
+	          $("#gender").parent().append(err);
+	          $("#gender").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	         // 생년월일 공백 확인
+	          if ($("#birth_date").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 생년월일이 입력되지 않았습니다.</div>';
+	
+	          $("#birth_date").parent().append(err);
+	          $("#birth_date").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	        // 휴대전화 공백 확인
+	          if ($("#tel").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 휴대전화번호를 작성해주세요 ex)010-1234-5678</div>';
+	
+	          $("#tel").parent().append(err);
+	          $("#tel").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	         // 휴대전화 유효성 검사
+	         if(!getPhone.test($("#tel").val())){
+	        alert("휴대전화번호 양식에 맞게 기입해주세요.");
+	        $("#tel").val("");
+	        $("#tel").focus();
+	        return false;
+	       }
+	         return true;
+	      }
+	
+	
+	    // 닉네임 중복확인 체크
+	     $("#success").css('display', 'none');
+	     $("#danger").css('display', 'none');
+	     
+	    $(function(){
+	       $('#joongbokBtn').on('click',function(){
+	    	    /* console.log($('#nickname').val())  */
+	          $.ajax({
+	             type:'POST',
+	             url:'checkNickname',
+	             data: {
+	                "nickname" : $('#nickname').val()
+	                },
+	                contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+	             success: function(data){
+	            	 alert(data)
+	                if(data!=null){
+	                   $('#success').css('display', 'none');
+	                   $("#danger").css('display', 'none');
+	                   checkNickname=true;
+	                } else{
+	                   $("#success").css('display', 'none');
+	                   $('#danger').css('display', 'none');
+	                   checkNickname=false;
+	                   }
+	                },
+	             error : function(err){
+	                console.log(err);
+	             }
+	          }); //end of ajax
+	       }); //end on
+	    });
+	    // 닉네임 중복확인 체크
+	/*     $("#success").css('display', 'none');
+	    $("#danger").css('display', 'none');
+	   $(function(){
+	      $('#checkbtn').on('click',function(){
+	         $.ajax({
+	            type:'GET',
+	            url:'checkNickname',
+	            data: {
+	               "user_nickname" : $('#nickname').val()
+	               },
+	            success: function(data){
+	               if(data=='0'){
+	                  $('#success').css('display', 'inline-block');
+	                  $("#danger").css('display', 'none');
+	               } else{
+	                  $("#success").css('display', 'none');
+	                  $('#danger').css('display', 'inline-block');
+	                  }
+	               },
+	            error : function(err){
+	               console.log(err);
+	            }
+	         }); //end of ajax
+	      }); //end on
+	   }); */
+	    
+	   
+	   
+	    // 비밀번호와 비밀번호 확인 일치 불일치 여부
+	     $("#alert-success").css('display', 'none');
+	     $("#alert-danger").css('display', 'none');
+	    $('.form-control').focusout(function() {
+	        var pwd1 = $("#password").val();
+	        var pwd2 = $("#password_check").val();
+	  
+	        if ( pwd1 != '' && pwd2 == '' ) {
+	            null;
+	        } else if (pwd1 != "" || pwd2 != "") {
+	            if (pwd1 == pwd2) {
+	                $("#alert-success").css('display', 'inline-block');
+	                $("#alert-danger").css('display', 'none');
+	            } else {
+	                $("#alert-success").css('display', 'none');
+	                $("#alert-danger").css('display', 'inline-block');
+	            }
+	        }
+	
+	
+	});
+	    
+	    //닉네임 중복확인 여부 체크
+	/*      	$('#joongbokBtn').click(function(){
+	    		$.ajax({
+	    			url:"/api/checkNickname",
+	    			data:{memNickname : $('#nickname').val()},
+	    			success:function(data){
+	    	                alert(data)
+	    				
+	    				if(data=='yes'){
+	    					$('#success').css('display', 'inline-block');
+	    	                $("#danger").css('display', 'none');
+	    	                checkNickname=true;				
+	    				}else{
+	    					 $("#success").css('display', 'none');
+	    	                 $('#danger').css('display', 'inline-block');
+	    	                 checkNickname=false;				
+	    				}
+	    			}
+	    		})	
+	    	}) */  
+	    })
+	</script>
+	
 </body>
 </html>

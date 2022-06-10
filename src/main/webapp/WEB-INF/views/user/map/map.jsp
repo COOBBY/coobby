@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -44,6 +45,16 @@
 <link rel="stylesheet"
 	href="/resources/user/demos/furniture/css/fonts.css" type="text/css" />
 <!-- Furniture Custom Fonts -->
+
+<!-- datatable css -->
+<link rel="stylesheet"
+	href="/resources/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="/resources/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="/resources/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+
 <!-- / -->
 
 
@@ -82,10 +93,11 @@
 	z-index: 1;
 	cursor: pointer;
 	background: white 0 -450px no-repeat;
-	border-radius: 1%;
-	border-color: black;
-	margin-top: 110px;
-	margin-left : 10px;
+	border-radius: 10%;
+	border-color: #EEEEEE;
+	
+	margin-top: 115px;
+	margin-left: 10px;
 }
 
 #getCurrentPosBtn.active {
@@ -122,7 +134,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: stretch;
-	width: 50%;
+	width: 60%;
+	margin-bottom: 5px;
 }
 
 .icon-map-marked-alt {
@@ -159,9 +172,15 @@
 	margin-top: 5px
 }
 
-#sample5_address{
-background-color: white;
+#sample5_address {
+	background-color: white;
 }
+.productName{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+max-width: 300px;
+  }
 </style>
 
 <script
@@ -206,8 +225,8 @@ background-color: white;
 						</div>
 						<div class="row">
 
-							<div class="row bg-light border col-lg-6 p-0" id="contentbox"
-								style="height: 400px;">
+							<div class="bg-light border col-lg-6 p-0" id="contentbox"
+								style="height: 500px;">
 
 								<!--지도-->
 
@@ -223,7 +242,8 @@ background-color: white;
 
 										<input type="email" id="sample5_address"
 											name="widget-subscribe-form-email"
-											class="form-control required email" placeholder="주소를 입력하세요" onclick="sample5_execDaumPostcode()" readonly>
+											class="form-control required email" placeholder="주소를 입력하세요"
+											onclick="sample5_execDaumPostcode()" readonly>
 										<button class="btn btn-dark bg-color px-3 input-group-text"
 											type="submit" id="searchBtn"
 											onclick="sample5_execDaumPostcode()">
@@ -235,7 +255,7 @@ background-color: white;
 
 									<!-- 카카오 지도 -->
 									<div id="mapWrapper">
-										<div id="map" style="width: 96%; height: 95%"></div>
+										<div id="map" style="width: 100%; height: 380px"></div>
 										<!-- 지도를 표시할 div 입니다 -->
 										<!-- 내 위치 찾기 버튼 -->
 										<div id="getCurrentPosBtn" onclick="getCurrentPosBtn()">
@@ -246,8 +266,8 @@ background-color: white;
 
 
 							</div>
-							<div class="row bg-light border col-lg-6 p-0" id="contentbox"
-								style="height: 400px;">
+							<div class="bg-light border col-lg-6 p-0" id="contentbox"
+								style="height: 500px;">
 
 								<div class="pageContainer">
 
@@ -257,33 +277,32 @@ background-color: white;
 									</div>
 									<!--매장 및 재료-->
 									<div class="storetable" id="offlinestore">
-										<table class="table table-bordered">
-											<thead>
-												<tr>
-													<th>매장명</th>
-													<th>상품명</th>
-													<th>가격</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${storeList }" var="list">
-												<tr>
-													<td>${list.storeName }</td>
-													<td>${list.productName }</td>
-													<td>${list.price }</td>
-												</tr>
-												</c:forEach>
-											</tbody>
-										</table>
+										<div class="card-body">
+											<table id="example2" class="table table-border">
+												<thead>
+													<tr>
+														<th>매장명</th>
+														<th>상품명</th>
+														<th>가격</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${storeList }" var="list">
+														<tr>
+															<td>${list.storeName }</td>
+															<td class="productName"><a href="${list.link }">${list.productName }</a></td>
+															<td><fmt:formatNumber value="${list.price }"
+																	pattern="#,###" />원</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
 									</div>
-									<div class="page">
-										<nav aria-label="Page navigation">
-											<ul class="pagination justify-content-center mt-4">
-												<li class="page-item"><a class="page-link" >&lt;</a></li>
-												<li class="page-item"><a class="page-link" >&gt;</a></li>
-											</ul>
-										</nav>
-									</div>
+
+
+
+
 								</div>
 
 							</div>
@@ -448,14 +467,8 @@ background-color: white;
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f4496b4ce2cc735f6cb9bea2e2ec80e&libraries=services"></script>
-	<script>
- 
-
-	</script>
-
-
-
-
+		
+		
 	<script src="/resources/user/js/map.js"></script>
 	<script src="/resources/user/js/jquery.js"></script>
 	<script src="/resources/user/js/plugins.min.js"></script>
@@ -463,6 +476,36 @@ background-color: white;
 	<!-- Footer Scripts
 	============================================= -->
 	<script src="/resources/user/js/functions.js"></script>
+
+<script src="/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- datatable script -->
+<script src="/resources/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/resources/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/resources/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+
+
+
+	<script>
+	//datatable script
+  $(function () {
+
+    $('#example2').DataTable({
+      "paging": true,
+      pagingType : "numbers",
+     "lengthChange" : false,
+      "displayLength" : 7,
+      "searching" : false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "responsive": true
+    });
+  });
+</script>
 
 </body>
 </html>

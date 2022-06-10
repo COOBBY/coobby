@@ -36,4 +36,6 @@ public class MapVO {
 	
 	@Column(name="product_name")
 	private String productName;
+	
+	private String link;
 }

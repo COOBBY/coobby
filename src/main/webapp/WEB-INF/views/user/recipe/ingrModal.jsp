@@ -66,7 +66,7 @@
 	</div>
 	<div id="modalbtn" class="modal-footer">
 		<a href="#"><button class="btn btn-info">관련 레시피 검색</button></a>
-		<a href="#"><button class="btn btn-info">매장 위치 검색</button></a>
+		<a href="/user/map/map?ingrCode=${ ingr.ingrCode }"><button class="btn btn-info">매장 위치 검색</button></a>
 	</div>
 </div>
 

@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.coobby.vo.MemberVO;
 import com.coobby.vo.RecipeVO;
-import com.coobby.vo.MemberVO;
 
 public interface MemberRepository extends CrudRepository<MemberVO, String>{
-
+	
 	List<RecipeVO> findBymemCreatetime(String date);
 	
 	@Query(value="SELECT CASE "
@@ -28,7 +28,46 @@ public interface MemberRepository extends CrudRepository<MemberVO, String>{
 			+ "GROUP BY age_group "
 			+ "ORDER BY age_group ", nativeQuery=true)
 	List<Object[]> ageGroupSexRate();
+	//로그인 아이디 체크
+	@Query(value="SELECT * from member  "
+			+ " WHERE mem_id = :memId AND mem_pass = :memPass  ",
+			nativeQuery=true)
+	MemberVO loginCheck(@Param("memId") String memId, @Param("memPass")String password);
+
+	//닉네임 중복검사
+	//SELECT * FROM member WHERE mem_nickname="hm";
+	/*
+	 * @Query("SELECT m FROM MemberVO m WHERE m.memNickname=:memNickname") MemberVO
+	 * checkNickname(String memNickname);
+	 */
 	
+	// 닉네임 중복검사
+	@Query(value="SELECT * FROM MEMBER WHERE memNickname=:memNickname", nativeQuery=true)
+	MemberVO checkNickname(@Param("memNickname") String memNickname);
+
+	MemberVO findByMemNickname(String nickname);
+
+	/* MemberVO userinsert(MemberVO vo); */
+	
+	
+	
+	
+	//회원정보 삽입
+/*	MemberVO findByMemId(String memid);
+	List<MemberVO> findAll();*/
+/*
+ * @Query(value="INSERT INTO member values())
+ */	
+
+	//Object[] checklogin(MemberVO vo);
+	
+	//세션에 띄울 값 가져오기
+	/*
+	 * @Query(value="SELECT mem_id, mem_nickname, mem_stored_image from member  " +
+	 * " WHERE mem_id = 1? AND mem_pass = 2?  AND mem_stored_image = 3? ",
+	 * nativeQuery=true) Object[] loginSession(String memId, String password, String
+	 * mem_stored_image);
+	 */
 	@Query(value="WITH RECURSIVE cte AS "
 			+ " (  SELECT DATE_ADD(NOW(), INTERVAL -7 day) AS d "
 			+ "   UNION all "
@@ -50,4 +89,3 @@ public interface MemberRepository extends CrudRepository<MemberVO, String>{
 			+ "   ON date_format(c.d, '%m-%d') = m.day", nativeQuery=true)
 	List<Object[]> weekKktWebMemberCnt();
 }
-

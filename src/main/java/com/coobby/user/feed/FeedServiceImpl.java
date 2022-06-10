@@ -11,8 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.coobby.repository.FeedImageRepository;
 //import com.coobby.repository.FeedImageRepository;
 import com.coobby.repository.FeedRepository;
+import com.coobby.repository.LikeFeedRepository;
+import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
+import com.coobby.vo.MemberVO;
 
 @Service
 public class FeedServiceImpl implements FeedService {
@@ -21,6 +24,8 @@ public class FeedServiceImpl implements FeedService {
 	private FeedRepository feedRepo;
 	@Autowired
 	private FeedImageRepository feedimgrepo;
+	@Autowired
+	private LikeFeedRepository likefeedrepo;
 	 
 	private static final String DATE_PATTERN = "yyyy-MM-dd"; 
 	private static final Date today = new Date();
@@ -54,6 +59,7 @@ public class FeedServiceImpl implements FeedService {
 	public FeedVO getFeedModal(FeedVO vo) {
 		return feedRepo.findById(vo.getFeNo()).get();
 	}
+	
 	// 마이피드 사진 보기
 	@Override
 	public List<FeedImageVO> getFeedModalimg(FeedVO vo) {
@@ -83,6 +89,16 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepo.findByfeRegdate(date.format(today)).size();
 	}
 
+	@Override
+	public void likeFeed(FeedVO vo) {
+		feedRepo.findById(vo.getFeNo()).get();
+		
+		// 중복 좋아요 방지
+		
+	}
+	
+	// 유저가 이미 좋아요 한 게시물인지 체크
+	
 
 	
 	

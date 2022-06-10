@@ -47,7 +47,7 @@
 
 	
 			
-		<jsp:include page="../user-nav.jsp"/>
+		<jsp:include page="../user-nav.jsp" />
 		
 		<!-- Page Title
 		============================================= -->
@@ -73,7 +73,7 @@
 						<div class="row shadow bg-light border">
 							<div class="col-lg-12 p-5">
 								<form class="row mb-0" id="fitness-form" action="recipesave" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="memberVO.memId" value="test" />
+									<input type="hidden" name="memberVO.memId" value="test1" />
 									<input type="hidden" name="reViewcnt" value="0" />
 									<div class="form-process">
 										<div class="css3-spinner">
