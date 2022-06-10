@@ -38,12 +38,11 @@ $(function(){
     
 	for(let i=1;i<100;i++){
 		$(document).on('click','.recomm'+i,function(){
-			
+			$('.reComm'+i).toggle('slow');
 			$('.reCommentInput'+i).toggle('slow');	
 		});
 	}
 
-	
 
 
 

@@ -64,28 +64,22 @@
 	<table class="table">
 		 <thead>
 			  <tr>
-				 <th scope="col">번호	제목:</th>                                         
+				 <th scope="col">No.${board.boardNo} ${board.boardTitle }</th>                                         
 			  </tr>
 		 </thead>
 		 <tbody>
 			  <tr>
-				 <th scope="col" >작성일자 : </th>    
+				 <th scope="col" >${board.boardCreatetime } </th>    
 			  </tr>
 			  <tr>
 				  <td height="300">
-				 
+				 ${board.boardContent }
 				 </td>
 				</tr>
 		  </tbody>
-		  <tfoot>
-		  <tr>
-			 <td clospan="2" align="left">          
-			   첨부파일 : <a href="fileDownload.do?fileName=${board.boardRFname}"></a>                            			
-			  </td>
-		  </tr> 
-		  </tfoot>
+
 	   </table>
-	   <a href="Boarddetail"><button type="button" class="btn btn-secondary m-2" id="btnList">목록보기</button> </a>
+	   <a href="Boardlist"><button type="button" class="btn btn-secondary m-2" id="btnList">목록보기</button> </a>
 		</div>
 	</main>
   <!--================End Checkout Area =================-->

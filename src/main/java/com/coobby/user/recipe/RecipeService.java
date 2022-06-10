@@ -84,6 +84,8 @@ public interface RecipeService {
 	List<CateSituVO> selectSitu();
 	// 재료 카테고리
 	List<CateIngrVO> selectIngr();
+
+	List<Object[]> getSearchList(String searchKeyword);
 	
 	
 }

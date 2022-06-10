@@ -5,7 +5,7 @@
  */
 
  [class*="icheck-"] {
-    min-height: 22px;
+    min-height: 30px;
     margin-top: 6px !important;
     margin-bottom: 6px !important;
     padding-left: 0px;

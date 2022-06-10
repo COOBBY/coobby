@@ -33,9 +33,13 @@ public class FeedCommServiceImpl implements FeedCommService {
 		fevo.setMember(vo.getMember());
 		fevo.setFeContent(vo.getFeContent());
 		
-		commRepo.save(fevo);
+		return commRepo.save(fevo);
 		
-		return commRepo.findById(commRepo.getMaxFeCommNo()).get();
+	}
+
+	@Override
+	public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {
+		return commRepo.save(fevo);
 	}
 
 

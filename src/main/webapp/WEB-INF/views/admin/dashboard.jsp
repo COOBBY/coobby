@@ -419,7 +419,6 @@
 						"endDate" : endDate},
 				success : function(result){
 					for(var i =0; i<result.length; i++){
-						console.log(result[i])
 						dateAjaxLabel.push(result[i][0])
 						feedAjax.push(result[i][1])
 						recipeAjax.push(result[i][2])

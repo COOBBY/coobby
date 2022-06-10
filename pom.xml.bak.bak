@@ -62,34 +62,51 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-
+<<<<<<< HEAD
+	
+=======
+		
+>>>>>>> upstream/main
 		<!--Multipart File Up&Download -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.0</version>
 		</dependency>
-<
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> upstream/main
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-
+		
+<<<<<<< HEAD
+<<<<<<< HEAD
 		<!-- TensorFlow dependency -->
 		<dependency>
 			<groupId>org.tensorflow</groupId>
 			<artifactId>tensorflow-core-platform</artifactId>
 			<version>0.3.3</version>
 		</dependency>
-
+	
+=======
+		
 		<!--  Mail 인증 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>1.4.3.RELEASE</version>
 		</dependency>
+		
+		
+		
 
+>>>>>>> upstream/main
+=======
 		<!-- websocket -->
 		<dependency>
 			<groupId>javax.websocket</groupId>
@@ -109,7 +126,15 @@
 		  <artifactId>json-simple</artifactId>
 		  <version>1.1.1</version>
 		</dependency>
-	
+			
+>>>>>>> upstream/main
+	</dependencies>
+
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> upstream/main
 	<build>
 		<plugins>
 			<plugin>

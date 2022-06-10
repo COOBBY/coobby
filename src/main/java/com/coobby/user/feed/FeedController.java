@@ -51,13 +51,15 @@ public class FeedController {
 		// 피드 댓글 등록
 		@RequestMapping("/insertFeComm")
 		@ResponseBody
-		public List<FeedCommentVO> insertFeComm(FeedCommentVO fevo) {
-			feedcommService.insertFeComm(fevo);
-			
-			List<FeedCommentVO> list = feedcommService.getFeComm(fevo.getFeed().getFeNo());
-			return list;
+		public FeedCommentVO insertFeComm(FeedCommentVO fevo) {
+			return feedcommService.insertFeComm(fevo);
 		}
 		
+		@RequestMapping("/insertChildFeComm")
+		@ResponseBody
+		public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {
+			return feedcommService.insertChildFeComm(fevo);
+		}
 		
 		@RequestMapping("/insertFeed")
 		public void insertFeed() {

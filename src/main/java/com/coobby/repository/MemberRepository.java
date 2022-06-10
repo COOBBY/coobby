@@ -88,4 +88,7 @@ public interface MemberRepository extends CrudRepository<MemberVO, String>{
 			+ "      ) m "
 			+ "   ON date_format(c.d, '%m-%d') = m.day", nativeQuery=true)
 	List<Object[]> weekKktWebMemberCnt();
+
+	@Query(value="SELECT mem_id, mem_pass FROM member WHERE mem_id=?1 AND mem_pass=?2", nativeQuery=true)
+	public MemberVO checkPass(String memId, String memPass);
 }
