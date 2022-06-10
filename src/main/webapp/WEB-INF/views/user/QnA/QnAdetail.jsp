@@ -54,7 +54,7 @@
   <div class="text-center" style="text-align: center;">
     <h2>Q&A 상세페이지</h2><br/>
    </div>
-   <main>        
+   <main id="connect">        
       <!--? Hero Area Start-->
        <div class="slider-area ">
           <hr/>
@@ -66,34 +66,34 @@
      <table class="table">
        <thead>
          <tr>
-           <th scope="col">번호	제목:</th>
+           <th scope="col">No.${qna.qnaNo} ${qna.qtitle }</th>
          </tr>
        </thead>
        <tbody>
          <tr>
-           <th scope="col">작성일자 :</th>
+           <th scope="col">작성일자 :${qna.qdate }</th>
          </tr>
          <tr>
-           <td height="300"></td>
+           <td height="300">${qna.qcontent }</td>
          </tr>
        </tbody>
-       <c:if test=>	
+       <c:if test="${qna.acontent ne null}">	
        <table class="table">
          <tr>
          <th scope="col">답변입니다</th>
          </tr>
          <tr>
-           <th scope="col">작성일자 : </th>
+           <th scope="col">작성일자 :${qna.adate} </th>
          </tr>			
          <tr>
-           <td height="150"></td>
+           <td height="150">${qna.acontent }</td>
          </tr>	
        </table>
        </c:if>
      </table>	
      <a href="QnAlist">
      <button type="button"
-         class="btn btn-secondary m-2" id="btnQnAList">목록보기</button></a>			
+         class="btn btn-secondary m	-2" id="btnQnAList">목록보기</button></a>		
      </div>	
    </div>
    </main>
@@ -208,7 +208,7 @@
 		</footer><!-- #footer end -->
 
 	</div><!-- #wrapper end -->
-	</div>
+
 
 	<!-- Go To Top
 	============================================= -->

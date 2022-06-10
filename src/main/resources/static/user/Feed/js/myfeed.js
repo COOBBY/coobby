@@ -38,10 +38,11 @@ $(function(){
     
 	for(let i=1;i<100;i++){
 		$(document).on('click','.recomm'+i,function(){
-			
+			$('.reComm'+i).toggle('slow');
 			$('.reCommentInput'+i).toggle('slow');	
 		});
 	}
+
 
 	
 	// 마이피드 기능들 *********************
@@ -147,6 +148,7 @@ $(function(){
 		})
 		
 	})
+
 
 	
 	

@@ -257,8 +257,12 @@ input{
 }
 
 
-
-
+.lineComm{
+	border-bottom : 1px solid #80808073;
+}
+.childComm{
+	margin-left : 10px;
+}
 
 
 

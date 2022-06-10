@@ -12,6 +12,8 @@ public interface FeedCommService {
 	
 	// 댓글 등록
 	public FeedCommentVO insertFeComm(FeedCommentVO fevo);
+
+	public FeedCommentVO insertChildFeComm(FeedCommentVO fevo);
 	
 	
 	

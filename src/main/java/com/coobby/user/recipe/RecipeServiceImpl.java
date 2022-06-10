@@ -130,4 +130,10 @@ public class RecipeServiceImpl implements RecipeService{
 	public List<CateIngrVO> selectIngr() {
 		return (List<CateIngrVO>)ingrRepo.findAll();
 	}
+
+	@Override
+	public List<Object[]> getSearchList(String searchKeyword) {
+		
+		return null;
+	}
 }
