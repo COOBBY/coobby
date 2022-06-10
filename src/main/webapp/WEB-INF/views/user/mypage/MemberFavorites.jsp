@@ -106,25 +106,10 @@ font-size: 25px;
 					<!--사이드 -->
 					<div class="col-md-3" style="border-right: 2px solid; height: 100%">
 						<aside class="sidebar">
-							<div class="navigation">
-								<div class="menuToggle"></div>
-								<ul style="list-style-type: none;">
-									<li>
-										<h4 style="text-align: center">마이페이지</h4>
-										<hr />
-									</li>
-									<li class="list"><a href="#"
-										class="btn btn-solid-border w-100">내피드</a></li>
-									<li class="list"><a href="/user/mypage/scrap"
-										class="btn btn-solid-border w-100">즐겨찾기</a></li>
-									<li class="list"><a href="Memberupdate"
-										class="btn btn-solid-border w-100">회원정보수정</a></li>
-									<li class="list"><a href="inquery"
-										class="btn btn-solid-border w-100">1:1 문의글</a></li>
-									<li class="list"><a href="Membersignout"
-										class="btn btn-main w-100">회원탈퇴</a></li>
-								</ul>
-							</div>
+							
+							
+							<jsp:include page="../user-sidebar.jsp" />
+							
 						</aside> 
 					</div>
 					<!-- 사이드 닫음 -->
