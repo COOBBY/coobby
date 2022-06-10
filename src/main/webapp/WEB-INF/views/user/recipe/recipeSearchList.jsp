@@ -110,25 +110,11 @@
 						</div>
 						</c:forEach>
 					</div><!-- #shop end -->
+						<div id="moreBtnContain">
+                        	<button id="morebtn3" class="button button-circle button-large mt-3">더보기</button>
+                        </div>
 
 					<div class="clear"></div>
-
-					<nav aria-label="Page navigation">
-						<ul class="pagination justify-content-center mt-4">
-							
-							<c:forEach var="i" begin="1" end="${ pageNum }" step="1" >
-								<c:choose>
-									<c:when test="${ nowPage eq i-1 }">
-										<li class="page-item active"><a class="page-link" href="recipelist?page=${ i-1 }">${ i }</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="recipelist?page=${ i-1 }">${ i }</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>							
-						</ul>
-					</nav>
-
 				</div>
 
 			</div>

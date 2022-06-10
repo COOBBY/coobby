@@ -184,4 +184,18 @@ public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 			+ "on r.re_no = i.re_no  "
 			+ "where i.re_split = 1 and i.re_seq = 1 and r.re_title like '%?1%'  ", nativeQuery=true)
 	public List<Object[]> getRelatedRecipe(String reTitle);
+	
+	@Query(value="SELECT r.re_no, r.re_title, r.re_content, r.re_createtime, i.re_stored_image, m.mem_nickname  "
+			+ " FROM recipe r LEFT OUTER JOIN recipe_image i  "
+			+ "	ON r.re_no = i.re_no  "
+			+ "	LEFT OUTER JOIN member m  "
+			+ " ON r.mem_id = m.mem_id  "
+			+ "	LEFT OUTER JOIN cook c  "
+			+ "	ON r.re_no = c.re_no  "
+			+ "	LEFT OUTER JOIN ingr ingr  "
+			+ "	ON c.ingr_code = ingr.ingr_code  "
+			+ "	WHERE i.re_split = 1 and i.re_seq = 1 and (r.re_title like %?1% or m.mem_nickname like %?2% or m.mem_name like %?3% or ingr.ingr_name like %?4%)  "
+			+ "	ORDER BY r.re_no  ", nativeQuery=true)
+	public List<Object[]> getSearchList(String searchKeywordTitle, String searchKeywordNickname, String searchKeywordName, String searchKeywordIngr);
+	
 }

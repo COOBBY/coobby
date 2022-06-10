@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -61,7 +62,7 @@ public class RecipeController {
 
 	// 레시피 상세보기
 	@RequestMapping("recipedetail")
-	public void recipedetail(@RequestParam("reNo") int reNo,@RequestParam("memId") String memId, Model m) {
+	public void recipedetail(@RequestParam("reNo") int reNo, Model m, HttpSession session ) {
 		// 레시피정보, 작성자정보 가져오기
 		RecipeVO recipeResult = recipeService.getrecipe(reNo);
 		String reCook = recipeResult.getReCook();
@@ -82,11 +83,13 @@ public class RecipeController {
 		// 음식 완성 사진
 		List<Recipe_imageVO> finalimage = recipeService.getResultImage(reNo);
 		
+		MemberVO memId = (MemberVO)session.getAttribute("user");
+		
 		// 즐겨찾기 여부 확인
-		ScrapVO scrap = recipeService.getScrap(memId, reNo);
+		ScrapVO scrap = recipeService.getScrap(memId.getMemId(), reNo);
 		
 		// 좋아요 여부 확인
-		ReLoveVO love = recipeService.getLove(memId, reNo);
+		ReLoveVO love = recipeService.getLove(memId.getMemId(), reNo);
 		
 		// 댓글 조회
 		List<Re_commentVO> commentParent = recipeService.getComment(reNo);
@@ -213,7 +216,7 @@ public class RecipeController {
 	}
 	//검색
 	@RequestMapping(value="search")		//검색했을때 동작
-	public String getList(@RequestParam("chooseFile") MultipartFile files, Model m, HttpServletRequest request, String searchKeyword) throws Exception{
+	public String getList(@RequestParam("chooseFile") MultipartFile files, Model m, HttpServletRequest request, String searchKeyword, RecipeVO reVO) throws Exception{
 		
 		if(files.isEmpty()) {
 			System.out.println(searchKeyword);
@@ -289,9 +292,23 @@ public class RecipeController {
 				System.out.println("파일이 존재하지 않습니다.");
 			}
 		} 
-		System.out.println(searchKeyword);
-		m.addAttribute("searchList",recipeService.getSearchList(searchKeyword));
-		return "/user/recipe/recipeSearch";
+		
+		// 방법 카테고리 검색
+		List<CateHowVO> howresult = recipeService.selectHow();
+		// 종류 카테고리 검색
+		List<CateKindVO> kindresult = recipeService.selectKind();
+		// 재료 카테고리 검색
+		List<CateIngrVO> ingrresult = recipeService.selectIngr();
+		// 상황 카테고리 검색
+		List<CateSituVO> situresult = recipeService.selectSitu();
+				
+		m.addAttribute("kind", kindresult);
+		m.addAttribute("how", howresult);
+		m.addAttribute("ingr", ingrresult);
+		m.addAttribute("situ", situresult);
+		m.addAttribute("recipeList",recipeService.getSearchList(searchKeyword));
+		
+		return "/user/recipe/recipeSearchList";
 		
 	}
 

@@ -81,7 +81,6 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 	// 페이지 번호 검색
 	public int getPageNum(RecipeVO reVO) {
-		int totalRecCount;
 		if(reVO.getCateHow() != null) {
 			totalRecCount = recipeRepo.getHowPageNum(reVO.getCateHow().getHowCode());
 		} else if(reVO.getCateIngr() != null) {
@@ -271,7 +270,6 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	public List<Object[]> getSearchList(String searchKeyword) {
-		
-		return null;
+		return recipeRepo.getSearchList(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
 	}
 }

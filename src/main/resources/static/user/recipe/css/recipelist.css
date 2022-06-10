@@ -39,3 +39,23 @@ td {
 .cateText {
 	margin-left: 10px;
 }
+
+#searchContain {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding-left: 20%;
+}
+
+.product {
+	display: none;
+}
+
+#morebtn3 {
+	display: none;
+}
+#moreBtnContain{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}

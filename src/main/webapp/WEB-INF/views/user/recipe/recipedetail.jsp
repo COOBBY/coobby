@@ -205,7 +205,7 @@
 																	placeholder="답글 추가..."></textarea>
 															</div>
 														</div>
-														<input id="userId" type="hidden" name="memberVO" value="${ recipe.memberVO.memId }" />
+														<input id="userId" type="hidden" name="memberVO" value="${ sessionScope.user.memId }" />
 														<input id="recipeNo" type="hidden" name="recipeVO" value="${ recipe.reNo }" />
 														<input id="parentId" type="hidden" name="reParent" value="${ commparent.reCommNo }" />
 														<div class="comm_btn">
@@ -344,8 +344,10 @@
 						</div>
 						<div id="btncontainer">
 							<a href="recipelist"><button class="button button-circle button-large mt-3">목록보기</button></a>
-							<button class="button button-circle button-large mt-3">수정</button>
-							<button class="button button-circle button-large mt-3">삭제</button>
+							<%-- <c:if test="${ recipe.memId eq sessionScope.user.memId }"> --%>
+								<a href=""><button class="button button-circle button-large mt-3">수정</button></a>
+								<a href=""><button class="button button-circle button-large mt-3">삭제</button></a>
+							<%-- </c:if> --%>
 						</div>
 					</div>
 				</div>
