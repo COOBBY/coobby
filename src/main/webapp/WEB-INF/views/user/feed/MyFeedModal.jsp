@@ -71,43 +71,58 @@
 					
 					<div class="Feedcomment">
 						<c:set var='commListVar' value="${ feedcomm}" />
-						<c:set var="idx" value="0"/>
-						<c:set var="parentIdx" value="0"/>
+						<c:set var="idx" value="0" />
+						<c:set var="parentIdx" value="0" />
 						<c:forEach items="${ feedcomm}" var="feedcomm" varStatus="status">
 							<c:if test="${ feedcomm.feParent eq 0}">
+
 								<c:set var="parentIdx" value="${parentIdx +1 }"/>
 								<c:set var="idx" value="0"/>
 								<!-- 댓글  -->
 								<div class="row lineComm">
 									<div class="col-md-10 memberId ">${feedcomm.member.memId }
+
 										님 | ${feedcomm.feContent }</div>
-									<div class="col-md-2 commtime">${feedcomm.feCommUpdatetime }</div>
-									<input type="hidden" name="feCommNo" class="parentIdx${parentIdx}"
-										value="${feedcomm.feCommNo }">
+									<div class="col-md-3 commtime">${feedcomm.feCommCreatetime }</div>
+									<c:if test="${feedcomm.member.memId eq sessionScope.user.memId}">
+										<div class="col-md-2 modify">
+											<button type="button" class="mdfBtn btn btn-default">수정</button>
+										</div>
+									</c:if>
+									<input type="hidden" name="feCommNo"
+										class="parentIdx${parentIdx}" value="${feedcomm.feCommNo }">
 								</div>
 							</c:if>
 							<!-- 대댓글 -->
-							<c:forEach items="${commListVar}" var="feedcommchild" varStatus="childStatus">
+							<c:forEach items="${commListVar}" var="feedcommchild"
+								varStatus="childStatus">
 								<c:if test="${ feedcommchild.feParent eq feedcomm.feCommNo}">
 									<div class="row childComm">
-										<div class="col-md-10 memberId">${feedcommchild.member.memId }
+										<div class="col-md-6 memberId">${feedcommchild.member.memId }
 											님 | ${ feedcommchild.feContent}</div>
 										<input type="hidden" name="feCommNo"
 											value="${feedcommchild.feCommNo }">
-										<div class="col-md-2 commtime">${feedcommchild.feCommUpdatetime }</div>
+										<div class="col-md-3 commtime">${feedcommchild.feCommCreatetime }</div>
+										<c:if test="${feedcommchild.member.memId eq sessionScope.user.memId}">
+											<div class="col-md-2 modify">
+												<button type="button" class="mdfBtn btn btn-default">수정</button>
+											</div>
+										</c:if>
 									</div>
 								</c:if>
-								<c:if test="${idx  eq 0 && childStatus.count eq commListVar.size()}">
-									<c:set var="idx" value="1"/>
+								<c:if
+									test="${idx  eq 0 && childStatus.count eq commListVar.size()}">
+									<c:set var="idx" value="1" />
 									<div class="col-md-4 col-md-offset-4 recomm${ status.count } openReComm">
 										-> 답글 달기</div>
-									<div class="reCommentInput${ status.count }"
+									<div class="reCommentInput${ status.count } row"
 										id="reCommentInput">
 										<textarea placeholder="답글을 입력해주세요"
-											class="form-control reComment" maxlength="1000"
+											class="form-control reComment col-md-6" maxlength="1000"
 											style="resize: none; height: 35px;" name="commentContent"></textarea>
 										<button name="insertFeComm"
-											class="btn btn-dark px-3 input-group-text reCommBtn" type="button">
+											class="btn btn-dark px-3 input-group-text reCommBtn col-md-2"
+											type="button">
 											<i class="icon-line-corner-down-left"></i>
 										</button>
 									</div>
@@ -379,5 +394,3 @@ $('.heartlike').click(function(){
 		});
 })
 </script>
-
-
