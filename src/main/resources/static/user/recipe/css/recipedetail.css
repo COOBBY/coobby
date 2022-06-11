@@ -181,3 +181,17 @@
 	    margin: 1.75rem auto;
 	}
 }
+
+#likeBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loveCount {
+	margin: 0 0 0 5px;
+}
+
+#btnContain {
+	display : flex;
+}

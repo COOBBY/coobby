@@ -31,6 +31,9 @@ public interface RecipeService {
 	// 레시피 상세보기
 	RecipeVO getrecipe(int reNo);
 	
+	// 레시피 삭제
+	void deleteRecipe(RecipeVO reNo);
+	
 	// 관련 레시피 조회
 	List<Object[]> getRelatedRecipe(int reNo);
 	
@@ -64,6 +67,9 @@ public interface RecipeService {
 	// 좋아요 삭제
 	void loveDelete(Integer reNo, String memId);
 	
+	// 좋아요 갯수
+	Integer getLoveCount(int reNo);
+	
 	// 댓글 등록
 	void saveComment(Re_commentVO reVO);
 	
@@ -84,8 +90,23 @@ public interface RecipeService {
 	List<CateSituVO> selectSitu();
 	// 재료 카테고리
 	List<CateIngrVO> selectIngr();
-
+	
+	// 재료, 레시피명, 회원명 검색
 	List<Object[]> getSearchList(String searchKeyword);
 	
+	// 레시피 수정 레시피 데이터 가져오기
+	RecipeVO modifyGetRecipe(int reNo);
+	
+	// 레시피 수정 레시피 재료 데이터 가져오기
+	List<Object[]> modifyGetIngr(int reNo);
+	
+	// 레시피 수정 레시피 사진 데이터 가져오기
+	List<Recipe_imageVO> modifyGetCookImg(int reNo);
+	
+	// 레시피 수정 레시피 완성 사진 데이터 가져오기
+	List<Recipe_imageVO> modifyGetComleteCookImg(int reNo);
+	
+	// 레시피 수정
+	void updateRecipe(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, String[] ingrCount, String[] ingrName, List<CookVO> cookVO, List<Recipe_imageVO> imageVO);
 	
 }

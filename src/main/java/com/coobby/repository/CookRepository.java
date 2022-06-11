@@ -16,4 +16,10 @@ public interface CookRepository extends CrudRepository<CookVO, Integer>{
 			+ "WHERE c.re_no = ?1  ",
 			nativeQuery=true)
 	List<Object[]> getingr(int reNo);
+	
+	@Query(value="select ingr.ingr_name, c.ingr_count, c.cook_no  "
+			+ "from cook c left outer join ingr ingr  "
+			+ "on c.ingr_code = ingr.ingr_code  "
+			+ "where c.re_no = ?1", nativeQuery=true)
+	List<Object[]> modifyGetIngr(int reNo);
 }

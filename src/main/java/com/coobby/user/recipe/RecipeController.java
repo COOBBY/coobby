@@ -82,14 +82,21 @@ public class RecipeController {
 		List<Recipe_imageVO> imageresult = recipeService.getImage(reNo);
 		// 음식 완성 사진
 		List<Recipe_imageVO> finalimage = recipeService.getResultImage(reNo);
+		if(session.getAttribute("user") != null) {
+			MemberVO memId = (MemberVO)session.getAttribute("user");
+			
+			// 즐겨찾기 여부 확인
+			ScrapVO scrap = recipeService.getScrap(memId.getMemId(), reNo);
+			
+			// 좋아요 여부 확인
+			ReLoveVO love = recipeService.getLove(memId.getMemId(), reNo);
+			
+			m.addAttribute("checkLove", love);
+			m.addAttribute("checkScrap", scrap);
+		}
 		
-		MemberVO memId = (MemberVO)session.getAttribute("user");
-		
-		// 즐겨찾기 여부 확인
-		ScrapVO scrap = recipeService.getScrap(memId.getMemId(), reNo);
-		
-		// 좋아요 여부 확인
-		ReLoveVO love = recipeService.getLove(memId.getMemId(), reNo);
+		// 좋아요 갯수 확인
+		Integer loveCount = recipeService.getLoveCount(reNo);
 		
 		// 댓글 조회
 		List<Re_commentVO> commentParent = recipeService.getComment(reNo);
@@ -103,10 +110,59 @@ public class RecipeController {
 		m.addAttribute("cook", reCookArr);
 		m.addAttribute("reimage", imageresult);
 		m.addAttribute("finalimage", finalimage);
-		m.addAttribute("checkLove", love);
-		m.addAttribute("checkScrap", scrap);
 		m.addAttribute("relatedRecipe",relatedRecipe);
+		m.addAttribute("loveCount", loveCount);
 	}
+	
+	// 레시피 수정
+	@RequestMapping("recipeModify")
+	public void modifyRecipe(@RequestParam("reNo") int reNo, Model m) {
+		List<CateHowVO> howresult = recipeService.selectHow();
+		List<CateKindVO> kindresult = recipeService.selectKind();
+		List<CateIngrVO> ingrresult = recipeService.selectIngr();
+		List<CateSituVO> situresult = recipeService.selectSitu();
+		
+		// 레시피 수정 레시피 데이터 가져오기
+		RecipeVO reResult = recipeService.modifyGetRecipe(reNo);
+		String reCookArr[] = reResult.getReCook().split(",");
+		
+		System.out.println(reCookArr);
+		
+		// 레시피 수정 레시피 재료 데이터 가져오기
+		List<Object[]> ingrResult = recipeService.modifyGetIngr(reNo);
+		
+		// 레시피 수정 레시피 사진 데이터 가져오기
+		List<Recipe_imageVO> cookImage = recipeService.modifyGetCookImg(reNo);
+		
+		// 레시피 수정 레시피 완성 사진 데이터 가져오기
+		List<Recipe_imageVO> cookCompleteImage = recipeService.modifyGetComleteCookImg(reNo);
+		
+		m.addAttribute("cookImg", cookImage);
+		m.addAttribute("cookCompleteImg", cookCompleteImage);
+		m.addAttribute("seqCook", reCookArr);
+		m.addAttribute("recipeData", reResult);
+		m.addAttribute("ingrData", ingrResult);
+		m.addAttribute("kind", kindresult);
+		m.addAttribute("how", howresult);
+		m.addAttribute("ingr", ingrresult);
+		m.addAttribute("situ", situresult);
+
+	}
+	
+	// 레시피 수정 action
+	@RequestMapping("recipeUpdate")
+	public String recipeUpdate(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, @RequestParam("ingrCount") String[] ingrCount, @RequestParam("ingrName") String[] ingrName, List<CookVO> cookVO, List<Recipe_imageVO> imageVO) {
+		recipeService.updateRecipe(revo, file, resultFile, ingrCount, ingrName, cookVO, imageVO);
+		return "recipelist";
+	}
+	
+	// 레시피 삭제
+	@RequestMapping("deleteRecipe")
+	public String deleteRecipe(RecipeVO reNo) {
+		recipeService.deleteRecipe(reNo);
+		return "recipelist";
+	}
+	
 	// 즐겨찾기 추가
 	@RequestMapping("scrapSave")
 	@ResponseBody

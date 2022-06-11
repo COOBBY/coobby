@@ -108,8 +108,7 @@ $("#submit-button").click(() => {
 			recipeVO : recipeNo,
 			reContent : reContent
 		},
-		success : function(data){
-			alert("댓글 등록 성공");
+		success : function(){
 			$("#reContent").val("");
 			location.reload();
 			/*$(".commentlist.clearfix").empty();

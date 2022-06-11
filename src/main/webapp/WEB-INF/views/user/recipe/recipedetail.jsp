@@ -82,6 +82,7 @@
 				<div class="container">
 					<div class="card border-0 shadow-sm" style="top: -100px">
 						<div class="card-body px-4">
+						<div id="btnContain">
 							<button id="scrapBtn" class="btn btn-default">
 								<c:choose>
 									<c:when test="${ checkScrap eq null }">
@@ -101,7 +102,9 @@
 										<i id="likeicon" class="bi-heart-fill"></i>
 									</c:otherwise>
 								</c:choose>
+								<p id="loveCount">${ loveCount }</p>
 							</button>
+							</div>
 							<div class="row justify-content-between mt-5 mb-4 clearfix">
 								<div class="col-lg-8 mt-5 mt-lg-0">
 									<div style="margin-bottom: 30px;">
@@ -315,7 +318,7 @@
 													<a href="ingrModal?ingrName=${ ingr.INGR_NAME }"
 														class="detailIngr" data-lightbox="ajax">
 														<li id="ingrmodal${ status.count }" class="ingrcontainer">
-														<img class="ingrimg" src="/resources/user/ingrimages/${ ingr.INGR_STORED_IMAGE }" alt="" />
+															<img class="ingrimg" src="/resources/user/ingrimages/${ ingr.INGR_STORED_IMAGE }" alt="" />
 															<div id="ingrName${ status.count }" class="ingrcenter">${ ingr.INGR_NAME }</div>
 															<div class="ingrcount">${ ingr.INGR_COUNT }</div>
 														</li>
@@ -344,10 +347,10 @@
 						</div>
 						<div id="btncontainer">
 							<a href="recipelist"><button class="button button-circle button-large mt-3">목록보기</button></a>
-							<%-- <c:if test="${ recipe.memId eq sessionScope.user.memId }"> --%>
-								<a href=""><button class="button button-circle button-large mt-3">수정</button></a>
-								<a href=""><button class="button button-circle button-large mt-3">삭제</button></a>
-							<%-- </c:if> --%>
+							<c:if test="${ recipe.memberVO.memId eq sessionScope.user.memId }">
+								<a href="recipeModify?reNo=${ recipe.reNo }"><button class="button button-circle button-large mt-3">수정</button></a>
+								<a href="deleteRecipe?reNo=${ recipe.reNo }"><button class="button button-circle button-large mt-3">삭제</button></a>
+							</c:if>
 						</div>
 					</div>
 				</div>
