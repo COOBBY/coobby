@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
-import com.coobby.vo.MemberVO;
 
 
 public interface FeedService {
 	
-	// 마이피드 목록
+	// 피드 목록
 	List<Object[]> getFeedList(FeedVO vo);
 	
-	// 마이피드 상세보기
+	// 피드 상세보기
 	public FeedVO getFeedModal(FeedVO vo);
 	
 	// 마이피드 등록
@@ -29,10 +29,11 @@ public interface FeedService {
 	// 당일 피드 생성 갯수
 	public int todayFeed();
 
+	// 사진 보기
 	List<FeedImageVO> getFeedModalimg(FeedVO vo);
 	
 	// 좋아요 
-	public boolean likeFeed(Integer feedVO, String memberVO);
+	public boolean likeFeed(String userId, Integer feNO);
 	
 	// 좋아요 체크
 	public boolean likeFeedCheck(Integer feedVO, String memberVO);

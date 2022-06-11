@@ -129,7 +129,7 @@ color:blue;
 						<label for="name" style="text-align: center;">ID</label> <input
 							type="text" class="form-control" id="name" name="memId"
 							placeholder="example@naver.com" style='font-style: ltalic'
-							value="" required>
+							value="test1" required>
 						<div class="invalid-feedback">ID를 입력해주세요.</div>
 					</div><br/>
 
@@ -145,7 +145,7 @@ color:blue;
 					<div class="form-group"
 						style="padding: 0; text-align: center; margin: auto; width: 35%">
 						<input type="password" name="memPass" id="password"
-							class="form-control" placeholder="비밀번호 입력." /> <span class="pass"></span>
+							class="form-control" placeholder="비밀번호 입력." value="test1"/> <span class="pass"></span>
 					</div>
 					<div class="form-group" style=text-align:center; margin:auto;>
               		<c:if test="${fail ne null}">

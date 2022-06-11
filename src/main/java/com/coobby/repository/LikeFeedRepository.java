@@ -9,6 +9,6 @@ import com.coobby.vo.FeedVO;
 import com.coobby.vo.MemberVO;
 
 public interface LikeFeedRepository extends CrudRepository<FeLoveVO, Integer> {
-	FeLoveVO findByMemberVOAndFeedVO(MemberVO memvo, FeedVO fvo);
+	FeLoveVO findByMemberVOAndFeedVO(MemberVO MemberVO, FeedVO FeedVO);
 
 }

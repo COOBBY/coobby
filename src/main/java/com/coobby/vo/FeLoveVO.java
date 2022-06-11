@@ -15,8 +15,8 @@ import lombok.Data;
 public class FeLoveVO {
 	
 	@Id
-	@Column(name="re_love_no")
-	private int reLoveNo;
+	@Column(name="fe_love_no")
+	private int feLoveNo;
 
 	@ManyToOne
 	@JoinColumn(name="fe_no")

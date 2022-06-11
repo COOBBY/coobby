@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coobby.user.feed.comment.FeedCommService;
+import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedCommentVO;
+import com.coobby.vo.FeedImageVO;
 import com.coobby.vo.FeedVO;
 import com.coobby.vo.MemberVO;
 
@@ -22,9 +24,10 @@ public class FeedController {
 	
 	@Autowired
 	private FeedService feedService;
-	
 	@Autowired
 	private FeedCommService feedcommService;
+	@Autowired
+	private MainFeedService mainfeedservice;
 
 	
 		// 마이피드 목록 출력
@@ -36,21 +39,23 @@ public class FeedController {
 			m.addAttribute("feedList",list);
 		}
 
-		// 마이피드 상세보기
+		// 피드 상세보기
 		@RequestMapping("/MyFeedModal")
 		public void myFeedModal(FeedVO vo, Model m, HttpSession session) {
 			System.out.println(vo.getFeNo()+"@@@@@@@@@@");
 			m.addAttribute("myfeedmodal", feedService.getFeedModal(vo));
 			m.addAttribute("feedimg", feedService.getFeedModalimg(vo));
-
+			boolean result=false;
 			// 댓글 보기
 			List<FeedCommentVO> list = feedcommService.getFeComm(vo.getFeNo());
 			m.addAttribute("feedcomm",list);
 			System.out.println(">>>>>"+list.size());
-			//return "redirect:MyFeedModal?feNo=" + vo.getFeNo();
+			
+			// 좋아요 확인
 			MemberVO mem = (MemberVO)session.getAttribute("user");
-			boolean result = feedService.likeFeedCheck(vo.getFeNo(), mem.getMemId());
-			System.out.println("아럼나ㅣㅇ러아니러"+result);
+			if(mem != null)
+				result = feedService.likeFeedCheck(vo.getFeNo(), mem.getMemId());
+			System.out.println("@@@@@@댓글몇개니@@"+result);
 			if(result) {
 				m.addAttribute("likeCheck", 1);
 			} else {
@@ -106,33 +111,58 @@ public class FeedController {
 		// 좋아요 기능
 		@RequestMapping("/likeFeed")
 		@ResponseBody
-		public void likeFeed(Integer feedVO, String memberVO, Model m) {
-			boolean result = feedService.likeFeed(feedVO, memberVO);
+		public String likeFeed(String userId, Integer feNo, Model m) {
+			System.out.println(userId + "" + feNo);
+			String bool="false";
+			boolean result = feedService.likeFeed(userId, feNo);
 			if(result) {
 				m.addAttribute("likeCheck", 1);
+				bool="true";
 			} else {
 				m.addAttribute("likeCheck", 0);
 			}
+			return bool;
 		}
 
 		
 	// ------------------------- 메인피드
-		// 마이피드 목록 출력
+		// 메인피드 목록 출력
 		@RequestMapping("/MainFeed")
 		public void getMainFeedList(Model m) {
 			FeedVO vo = new FeedVO();
-			List<Object[]> list = feedService.getFeedList(vo);
+			List<Object[]> mainlist = mainfeedservice.getMainFeedList(vo);
 			
-			m.addAttribute("feedList",list);
+			m.addAttribute("mainfeedList",mainlist);
 		}
 		
 		// 메인피드 상세보기
 		@RequestMapping("/MainFeedModal")
 		public void MainFeedModal(FeedVO vo, Model m) {
-			m.addAttribute("feedmodal", feedService.getFeedModal(vo));
+			System.out.println("잘넘어오니 : "+ vo);
+			m.addAttribute("mainfeedmodal", mainfeedservice.MainFeedModal(vo));
+			m.addAttribute("mainfeedimg", mainfeedservice.MainFeedModalimg(vo));
+			
+			// 댓글 보기
+			List<FeedCommentVO> list = feedcommService.getFeComm(vo.getFeNo());
+			m.addAttribute("feedcomm",list);
+			System.out.println(">>>>>"+list.size());			
 		}
 		
-		
+		// 메인피드 좋아요 기능
+		@RequestMapping("/likeMainFeed")
+		@ResponseBody
+		public String likeMainFeed(String userId, Integer feNo, Model m) {
+			System.out.println(userId + "" + feNo);
+			String bool="false";
+			boolean result = feedService.likeFeed(userId, feNo);
+			if(result) {
+				m.addAttribute("likeCheck", 1);
+				bool="true";
+			} else {
+				m.addAttribute("likeCheck", 0);
+			}
+			return bool;
+		}
 		
 }
 

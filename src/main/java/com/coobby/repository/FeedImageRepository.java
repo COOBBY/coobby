@@ -17,6 +17,8 @@ public interface FeedImageRepository extends CrudRepository<FeedImageVO, String>
 			+ "where m.report_cnt <3 or m.report_cnt is null "
 			+ "group by f.fe_no", nativeQuery=true)
 	List<Object[]> FeedImage();
+	
+	
 
 	//List<FeedImageVO> findByfeNo(Integer feNo);
 	List<FeedImageVO> findByfeed(FeedVO vo);

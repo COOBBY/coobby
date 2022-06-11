@@ -33,7 +33,7 @@
 	<!-- / -->
 	<!-- CSS -->
 	<link rel="stylesheet" href="/resources/user/Feed/css/Feed.css" type="text/css" />
-	
+	<script src="/resources/user/js/jquery.js"></script>
 
 
 	<!-- Document Title
@@ -145,7 +145,7 @@
 
 	<!-- JavaScripts
 	============================================= -->
-	<script src="/resources/user/js/jquery.js"></script>
+	
 	<script src="/resources/user/js/plugins.min.js"></script>
 
 	<!-- Footer Scripts

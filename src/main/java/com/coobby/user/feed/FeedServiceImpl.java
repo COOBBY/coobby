@@ -93,39 +93,39 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	// 피드 좋아요
-	public boolean likeFeed(Integer feedVO, String memberVO) {
+	public boolean likeFeed(String userId, Integer feNO) {
 		System.out.println("너...와...?");
-		MemberVO membervo = memberRepo.findById(memberVO).get();
-		FeedVO feedNoVO = feedRepo.findById(feedVO).get();
+		MemberVO membervo = memberRepo.findById(userId).get();
+		FeedVO feedNoVO = feedRepo.findById(feNO).get();
 		FeLoveVO feloveVO = likefeedrepo.findByMemberVOAndFeedVO(membervo, feedNoVO);
 		// feloveVO에 값이 있으면 좋아요가 눌린 거라서 값이 없어져야됨
 		// feloveVO에 값이 없으면 좋아요가 안눌린 거라서 값이 들어가야됨
-		System.out.println(">>>>>>>>>>>"+feloveVO);
+		System.out.println(feloveVO);
 		boolean result = false;
 		if(feloveVO != null) {
-			feloveVO.getReLoveNo();
-			likefeedrepo.deleteById(feloveVO.getReLoveNo());
+			likefeedrepo.deleteById(feloveVO.getFeLoveNo());
+			System.out.println(result);
 		}else if(feloveVO == null) {
-			FeLoveVO feluv = new FeLoveVO();
-			feluv.setFeedVO(feedNoVO);
-			feluv.setMemberVO(membervo);
-			likefeedrepo.save(feluv);
+			FeLoveVO fvo = new FeLoveVO();
+			fvo.setFeedVO(feedNoVO);
+			fvo.setMemberVO(membervo);
+			likefeedrepo.save(fvo);
 			result = true;
 		}
 		return result;
 	}
 	
 	// 피드 좋아요 체크 하는 함수
-	public boolean likeFeedCheck(Integer feedVO, String memberVO) {
+	public boolean likeFeedCheck(Integer feNo, String memId) {
 		System.out.println("너...와...?");
-		MemberVO membervo = memberRepo.findById(memberVO).get();
-		FeedVO feedNoVO = feedRepo.findById(feedVO).get();
+		MemberVO membervo = memberRepo.findById(memId).get();
+		FeedVO feedNoVO = feedRepo.findById(feNo).get();
 		FeLoveVO feloveVO = likefeedrepo.findByMemberVOAndFeedVO(membervo, feedNoVO);
 		// feloveVO에 값이 있으면 좋아요가 눌린 거라서 값이 없어져야됨
 		// feloveVO에 값이 없으면 좋아요가 안눌린 거라서 값이 들어가야됨
 		System.out.println(">>>>>>>>>>>"+feloveVO);
 		boolean result = false;
-		if(feloveVO == null) {
+		if(feloveVO != null) {
 			result = true;
 		}
 		return result;
