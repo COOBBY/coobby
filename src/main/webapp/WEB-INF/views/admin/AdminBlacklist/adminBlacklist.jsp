@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>관리자 페이지 - 댓글신고</title>
+  <title>COOBBY</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,9 +31,6 @@
 #report{
   margin: 10px;
 }
-
-
-
 
 </style>
 </head>
@@ -117,12 +114,6 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
-   
-         
-          <!-- ---------------------------------------------------------------------------------- -->
-        
-         
-          
         </div>
         <!-- /.row -->
       </div>

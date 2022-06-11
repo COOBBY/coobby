@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US">
+<html dir="ltr" lang="ko">
 <head>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -10,6 +10,8 @@
 
 <!-- Stylesheets
 	============================================= -->
+
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Zilla+Slab:wght@400;500&display=swap"
@@ -32,9 +34,18 @@
 	type="text/css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<link rel="stylesheet" href="/resources/user/css/magnific-popup.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="/resources/user/css/components/ion.rangeslider.css"
+	type="text/css" />
+
 <!-- Furniture Demo Specific Theme Stylesheet - #193532 -->
 <link rel="stylesheet"
 	href="/resources/user/css/colors.php?color=193532" type="text/css" />
+<link rel="stylesheet" href="/resources/user/css/custom.css"
+	type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <!-- Furniture Demo Specific Stylesheet -->
 <link rel="stylesheet"
@@ -42,38 +53,12 @@
 <!-- Furniture Custom Css -->
 <link rel="stylesheet"
 	href="/resources/user/demos/furniture/css/fonts.css" type="text/css" />
-<!-- Furniture Custom Fonts -->
-<!-- / -->
-<style>
-.list:hover {
-	opacity: 0.8;
-	background-color: #F2F2F2;
-}
+	
+<!-- scrap-css -->
+<link rel="stylesheet"
+	href="/resources/user/scrap/css/scrap.css" type="text/css" />
 
-.page-wrapper {
-	margin-top: 150px;
-}
 
-#footer {
-	margin-top: 100px;
-}
-
-.scrapList {
-	display: none;
-}
-
-#morebtn3 {
-	display: none;
-}
-.emptyList{
-    text-align: center;
-    margin: 20px;
-    font-size: x-large;
-}
-.scrapTitle{
-font-size: 25px;
-}
-</style>
 <!-- Document Title
 	============================================= -->
 <title>COOBBY</title>
@@ -81,7 +66,6 @@ font-size: 25px;
 </head>
 
 <body class="stretched">
-
 	<!-- Cart Panel Background
 	============================================= -->
 	<div class="body-overlay"></div>
@@ -91,7 +75,6 @@ font-size: 25px;
 	<div id="wrapper" class="clearfix">
 		<jsp:include page="../user-nav.jsp" />
 
-		<!--================Checkout Area =================-->
 		<section class="page-header">
 			<div class="container">
 				<div class="row">
@@ -99,44 +82,62 @@ font-size: 25px;
 				</div>
 			</div>
 		</section>
+
 		<div class="page-wrapper">
 			<div class="container">
-				<div class="row" style="margin-top: 20px;">
+				<div class="row" style="margin-top: 20px;" id="connect">
 					<!--사이드 -->
 					<div class="col-md-3" style="border-right: 2px solid; height: 100%">
 						<aside class="sidebar">
-							
-							
-							<jsp:include page="../user-sidebar.jsp" />
-							
-						</aside> 
+							<div class="navigation">
+								<div class="menuToggle"></div>
+								<ul style="list-style-type: none;">
+									<li>
+										<h4 style="text-align: center">마이페이지</h4>
+										<hr />
+									</li>
+									<li class="list"><a href="#"
+										class="btn btn-solid-border w-100">내피드</a></li>
+									<li class="list"><a href="MemberFavorites"
+										class="btn btn-solid-border w-100">즐겨찾기</a></li>
+									<li class="list"><a href="Memberupdate"
+										class="btn btn-solid-border w-100">회원정보수정</a></li>
+									<li class="list"><a href="inquery"
+										class="btn btn-solid-border w-100">1:1 문의글</a></li>
+									<li class="list"><a href="Membersignout"
+										class="btn btn-main w-100">회원탈퇴</a></li>
+								</ul>
+							</div>
+						</aside>
 					</div>
 					<!-- 사이드 닫음 -->
 					<div class="col-md-9" style="padding-left: 30px;">
-						<p class="scrapTitle">내가 찜한 레시피<p>
+						<p class="scrapTitle">내가 찜한 레시피
+						<p>
 						<hr style="margin-top: -32px;" />
 
 						<div id="shop" class="shop row gutter-30 col-mb-30 mt-3">
-						<c:if test="${scrapList.isEmpty() }">
-							<p class="emptyList"> 즐겨찾기 목록이 없습니다.</p>
-						</c:if>
+							<c:if test="${scrapList.isEmpty() }">
+								<p class="emptyList">즐겨찾기 목록이 없습니다.</p>
+							</c:if>
 							<c:forEach items="${scrapList }" var="list">
 								<!-- Product -->
 								<div class="product col-lg-3 col-md-4 col-sm-6 col-12 scrapList"
 									id="scrapList">
 									<div class="grid-inner">
 										<div class="product-image">
-											<a href="/user/recipe/recipedetail?reNo=${list.RE_NO }&memId=${ sessionScope.user.memId }"><img
+											<a
+												href="/user/recipe/recipedetail?reNo=${list.RE_NO }&memId=${ sessionScope.user.memId }"><img
 												src="/resources/user/recipeimages/${list.RE_STORED_IMAGE }"
 												alt="레시피 사진"></a>
 										</div>
 										<div class="product-desc">
 											<div class="product-title mb-0">
-												<h4 class="mb-0">
+												<p class="mb-0">
 													<a class="#"
 														href="/user/recipe/recipedetail?reNo=${list.RE_NO }&memId=${ sessionScope.user.memId }">
 														${list.RE_TITLE } </a>
-												</h4>
+												</p>
 											</div>
 											<h5 class="product-price fw-normal">${list.MEM_ID}</h5>
 										</div>
@@ -157,133 +158,6 @@ font-size: 25px;
 			<!-- page-wrapper 끝 -->
 
 			<!--================End Checkout Area =================-->
-
-
-			<!-- Footer
-		============================================= -->
-			<footer id="footer" class="border-0 bg-white">
-				<div class="container">
-
-					<!-- Footer Widgets
-				============================================= -->
-					<div class="footer-widgets-wrap py-lg-6">
-						<div class="row col-mb-30">
-
-							<!-- Footer Col 1 -->
-							<div class="col-lg-2 col-md-3 col-6">
-								<div class="widget widget_links widget-li-noicon">
-
-									<h4 class="ls0 nott">Social</h4>
-
-									<ul class="list-unstyled iconlist ms-0">
-										<li><a href="https://facebook.com/semicolonweb"
-											target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-										<li><a href="https://instagram.com/semicolonweb"
-											target="_blank"><i class="icon-instagram"></i> Instagram</a></li>
-										<li><a href="https://twitter.com/__semicolon"
-											target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
-										<li><a href="https://youtube.com/c/SemiColonweb/videos"
-											target="_blank"><i class="icon-youtube"></i> YouTube</a></li>
-										<li><a href="https://wa.me/00112233344"><i
-												class="icon-whatsapp"></i> WhatsApp</a></li>
-									</ul>
-
-								</div>
-							</div>
-
-							<!-- Footer Col 2 -->
-							<div class="col-lg-2 col-md-3 col-6">
-								<div class="widget widget_links widget-li-noicon">
-
-									<h4 class="ls0 nott">Support</h4>
-
-									<ul class="list-unstyled iconlist ms-0">
-										<li><a href="demo-furniture.html">Home</a></li>
-										<li><a href="demo-furniture-about.html">About</a></li>
-										<li><a href="demo-furniture-contact.html">Contact</a></li>
-									</ul>
-
-								</div>
-							</div>
-
-							<!-- Footer Col 3 -->
-							<div class="col-lg-2 col-md-3 col-6">
-								<div class="widget widget_links widget-li-noicon">
-
-									<h4 class="ls0 nott">Trending</h4>
-
-									<ul class="list-unstyled iconlist ms-0">
-										<li><a href="demo-furniture-products.html">Shop</a></li>
-										<li><a href="demo-forum-single.html">Single</a></li>
-										<li><a href="demo-furniture-about.html">Who are we</a></li>
-									</ul>
-
-								</div>
-							</div>
-
-							<!-- Footer Col 4 -->
-							<div class="col-lg-2 col-md-3 col-6">
-								<div class="widget widget_links widget-li-noicon">
-
-									<h4 class="ls0 nott">Get to Know us</h4>
-
-									<ul class="list-unstyled iconlist ms-0">
-										<li><a href="intro.html#section-niche">Niche Demos</a></li>
-										<li><a href="intro.html#section-multipage">Home Pages</a></li>
-										<li><a href="intro.html#section-onepage">One Pages</a></li>
-									</ul>
-
-								</div>
-							</div>
-
-							<!-- Footer Col 5 -->
-							<div class="col-lg-4">
-								<div class="widget subscribe-widget clearfix"
-									data-loader="button">
-									<h4>Subscribe Us</h4>
-									<h5 class="font-body op-04">
-										<strong>Subscribe</strong> to Our Newsletter to get Important
-										News, Amazing Offers &amp; Inside Scoops:
-									</h5>
-									<div class="widget-subscribe-form-result"></div>
-									<form id="widget-subscribe-form" action="include/subscribe.php"
-										method="post" class="mb-0">
-										<div class="input-group">
-											<input type="email" id="widget-subscribe-form-email"
-												name="widget-subscribe-form-email"
-												class="form-control required email"
-												placeholder="Enter your Email Address">
-											<button class="btn btn-dark bg-color px-3 input-group-text"
-												type="submit">Subscribe</button>
-										</div>
-									</form>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-					<!-- .footer-widgets-wrap end -->
-
-				</div>
-
-				<!-- Copyrights
-			============================================= -->
-				<div id="copyrights" class="py-3 bg-color-light">
-					<div class="container">
-
-						<div class="d-flex justify-content-between op-04">
-							<span>&copy; 2020 All Rights Reserved by Canvas Inc.</span>
-							<div class="copyright-links">
-								<a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<!-- #copyrights end -->
-			</footer>
-			<!-- #footer end -->
 
 		</div>
 		<!-- #wrapper end -->
@@ -306,12 +180,10 @@ font-size: 25px;
 	<!-- JavaScripts
 	============================================= -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.min.js"></script>
+	<script src="/resources/user/js/jquery.js"></script>
+	<script src="/resources/user/js/plugins.min.js"></script>
 
-	<!-- Footer Scripts
-	============================================= -->
-	<script src="js/functions.js"></script>
+
 
 	<script type="text/javascript">
 		//즐겨찾기 제이쿼리
