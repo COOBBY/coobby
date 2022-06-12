@@ -12,9 +12,8 @@ public class DashBoardController {
 	@Autowired
 	private DashBoardService dashService;
 
-	@RequestMapping("/dashboard")
+	@RequestMapping("/dashboard")		//dashborad 요청이 들어왔을 때 실행
 	public void chartMain(Model m) {
-		//m.addAttribute("countBoard",dashService.recipeCount());// 총 게시물 수
 		 m.addAttribute("todayRecipeCnt", dashService.todayRecipe());//당일 레시피 게시 수
 		 m.addAttribute("todaySingUpCnt", dashService.todayUser());//당일 가입 수
 		 m.addAttribute("todayFeedCnt", dashService.todayFeed());// 당일 피드 게시 수

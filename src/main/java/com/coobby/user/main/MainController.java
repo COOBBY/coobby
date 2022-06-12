@@ -16,10 +16,9 @@ public class MainController {
 	
 	@RequestMapping("/mainpage")
 	public void mainPage(Model m) {
-		List<Object[]> list = mainService.mainTopRecipeList();	//탑7 레시피
-		m.addAttribute("topRecipe", list);
-		m.addAttribute("recentRecipe", mainService.mainRecentRecipeList());
-		m.addAttribute("feedList", mainService.mainRandomFeed());
+		m.addAttribute("topRecipe", mainService.mainTopRecipeList());		//조회수 top7 리스트
+		m.addAttribute("recentRecipe", mainService.mainRecentRecipeList()); //최근 레시피 리스트
+		m.addAttribute("feedList", mainService.mainRandomFeed());			//랜덤 피드 리스트
 	}
 	
 }

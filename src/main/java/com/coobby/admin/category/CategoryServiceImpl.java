@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.coobby.repository.CateHowAdminRepository;
-import com.coobby.repository.CateIngrAdminRepository;
-import com.coobby.repository.CateKindAdminRepository;
-import com.coobby.repository.CateSituAdminRepository;
+import com.coobby.repository.CateHowRepository;
+import com.coobby.repository.CateIngrRepository;
+import com.coobby.repository.CateKindRepository;
+import com.coobby.repository.CateSituRepository;
 import com.coobby.vo.CateHowVO;
 import com.coobby.vo.CateIngrVO;
 import com.coobby.vo.CateKindVO;
@@ -21,40 +21,39 @@ public class CategoryServiceImpl implements CategoryService{
 
 	
 	@Autowired
-	private CateHowAdminRepository cateHowRepo;
+	private CateHowRepository cateHowRepo;
 	@Autowired
-	private CateKindAdminRepository cateKindRepo;
+	private CateKindRepository cateKindRepo;
 	@Autowired
-	private CateSituAdminRepository cateSituRepo;
+	private CateSituRepository cateSituRepo;
 	@Autowired
-	private CateIngrAdminRepository cateIngrRepo;
+	private CateIngrRepository cateIngrRepo;
+	
+	
+	
+	//		4개의 테이블에서 각 카테고리의 전부를 findAll()함수를 사용하여 리턴
 	@Override
-	public List<CateKindVO> getKindList() {
-		
+	public List<CateKindVO> getKindList() {		
 		return (List<CateKindVO>) cateKindRepo.findAll();
 	}
 
-
 	@Override
 	public List<CateHowVO> getHowList() {
-		
 		return (List<CateHowVO>) cateHowRepo.findAll();
 	}
 
-
 	@Override
 	public List<CateIngrVO> getIngrList() {
-		
 		return (List<CateIngrVO>) cateIngrRepo.findAll();
 	}
 
-
 	@Override
 	public List<CateSituVO> getSituList() {
-		
 		return (List<CateSituVO>) cateSituRepo.findAll();
 	}
 	
+	//매개변수로 받은 cateType으로 어떤 repository를 실행시킬 것인지 결정, 
+	//그리고 cateName을 그 repository의 인자로 건내 save함수 실행
 	@Override
 	public int insertCate(String cateType, String cateName) {
 		if(cateType.equals("종류별")) {
@@ -84,7 +83,8 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 	}
 
-
+	//매개변수로 받은 cateType으로 어떤 repository를 실행시킬 것인지 결정, 
+	//cateCode와 cateName으로 cateCode의 튜플인 cateName의 값을 변경
 	@Override
 	public void updateCate(String cateName, int cateCode, String cateType) {
 		if(cateType.equals("종류별")) {
@@ -111,7 +111,8 @@ public class CategoryServiceImpl implements CategoryService{
 		
 	}
 
-
+	//매개변수로 받은 cateType으로 어떤 repository를 실행시킬 것인지 결정, 
+	//deleteById를 사용하여 category 삭제 실행 
 	@Override
 	public void deleteCate(String cateType, int cateCode) {
 		if(cateType.equals("종류별")) {
@@ -129,18 +130,6 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 		
 	}
-
-	
-//	@Override
-//	public List<CategoryVO> getCateList() {
-//		return (List<CategoryVO>) cateRepo.findAll();
-//	}
-
-//
-//	@Override
-//	public void deleteCate(Integer cateCode) {
-//		cateRepo.deleteById(cateCode);	
-//	}
 
 
 }

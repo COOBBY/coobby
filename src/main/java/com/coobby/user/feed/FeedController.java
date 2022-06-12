@@ -51,14 +51,14 @@ public class FeedController {
 		// 피드 댓글 등록
 		@RequestMapping("/insertFeComm")
 		@ResponseBody
-		public FeedCommentVO insertFeComm(FeedCommentVO fevo) {
-			return feedcommService.insertFeComm(fevo);
+		public FeedCommentVO insertFeComm(FeedCommentVO fevo) {		//피드 댓글 등록시 실행하는 ajax 요청 메소드
+			return feedcommService.insertFeComm(fevo);				//feedcommService의 insertFeComm메소드 호출
 		}
 		
 		@RequestMapping("/insertChildFeComm")
 		@ResponseBody
-		public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {
-			return feedcommService.insertChildFeComm(fevo);
+		public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {//피드 대댓글 등록시 실행하는 ajax 요청 메소드
+			return feedcommService.insertChildFeComm(fevo);			//feedcommService의 insertChildFeComm메소드 호출
 		}
 		
 		@RequestMapping("/insertFeed")

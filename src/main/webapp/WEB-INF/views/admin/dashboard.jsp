@@ -264,30 +264,30 @@
 		womenData=[]
 		agelabels= ['10대','20대','30대','40대','50대','60대','70대'];			//라벨
 		for(var i =0; i<agelabels.length ; i++){							//men과 women에 값을 넣음
-			<c:forEach items="${ageGroup}" var="items" varStatus="status">
-				men = menData.length
-				women = womenData.length
+			<c:forEach items="${ageGroup}" var="items" varStatus="status">	//jstl을 사용해 model에 있는 ageGroup을 가져옴
+				men = menData.length										//men 에 menData의 길이를
+				women = womenData.length									//women에 womenData의 길이를 할당
 				if('${items[0]}'== agelabels[i]){	//연령대 index값이 같다면 데이터 입력
-					menData.push(${items[1]});
-					womenData.push(${items[2]});
+					menData.push(${items[1]});		//menData에 값 입력
+					womenData.push(${items[2]});	//womenData에 값 입력
 					continue;
 				}
 			</c:forEach>
-			if(men == menData.length){
-				menData.push(0)
+			if(men == menData.length){				//미리 넣어둔 menData의 길이와 if문을 거친 후의 길이가 같다면 데이터가 들어가지 않은것이니
+				menData.push(0)						//menData에 0 push
 			}
-			if(women == womenData.length){
-				womenData.push(0)
+			if(women == womenData.length){			//미리 넣어둔 womenData의 길이와 if문을 거친 후의 길이가 같다면 데이터가 들어가지 않은것이니
+				womenData.push(0)					//womenData에 0 push
 			}
 		}
 		
-		var myChart = new Chart(sexRate, {
+		var myChart = new Chart(sexRate, {			//bar Chart 생성
 		    // ①차트의 종류(String)
 		    type: 'bar',
 		    // ②차트의 데이터(Object)
 		    data: {
-		        // ③x축에 들어갈 이름들(Array)
-		        labels: agelabels,
+		    
+		        labels: agelabels,					//label에 미리 선언한 agelabels 입력 
 		        // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
 		      datasets: [{
             label: '남자',
@@ -319,12 +319,12 @@
 		const kktLabel=[]
 		const webLabel=[]
 		const signLabel=[]
-		<c:forEach items="${kktWebCnt}" var="kktWeb">
-		signLabel.push("${kktWeb[0]}")
-		kktLabel.push(${kktWeb[1]})
-		webLabel.push(${kktWeb[2]})
+		<c:forEach items="${kktWebCnt}" var="kktWeb">		//model에 있는 kktWebCnt를 불러옴
+		signLabel.push("${kktWeb[0]}")						//0번째 값을 signLabel에 기입
+		kktLabel.push(${kktWeb[1]})							//1번째값을 kktLabel에 기입
+		webLabel.push(${kktWeb[2]})							//2번째 값을 webLabel에 기입
 		</c:forEach>
-		var myChart = new Chart(kktWeb, {
+		var myChart = new Chart(kktWeb, {					//stacked bar chart 생성
 		    // ①차트의 종류(String)
 		    type: 'bar',
 		    // ②차트의 데이터(Object)
@@ -348,7 +348,7 @@
 		        responsive : true,
 		        scales: {
 		            x: {
-		              stacked: true,
+		              stacked: true,		//stack bar를 사용하기 위한 stacked : true 선언
 		            },
 		            y: {
 		              stacked: true
@@ -357,7 +357,7 @@
 		    }
 		});
 	});
-/* 		const recipeCnt=[]
+ 		const recipeCnt=[]
 		const feedCnt=[]
 		const dateLabel=[]
 		<c:forEach items="${feedDate}" var="date">
@@ -369,7 +369,7 @@
 		</c:forEach>
 	
 	
-    var myChart = new Chart(reFeedCnt, {
+    var myChart = new Chart(reFeedCnt, {		//선 그래프 차트 생성
 	    // ①차트의 종류(String)
 	    type: 'line',
 	    // ②차트의 데이터(Object)
@@ -399,31 +399,31 @@
 				}
 			}
 	 	   }
-		}); */
+		}); 
 		 
 		
-		$(document).on('click','.applyBtn',function(){
+		$(document).on('click','.applyBtn',function(){		//datepicker의 날짜를 선택 후 class applyBtn을 눌렀을때 동작하는 함수
 			const recipeAjax=[]
 			const feedAjax=[]
 			const dateAjaxLabel=[]
-			let range=""
-			range = $('.drp-selected').text().split(" ~ ");
-			range_s = range[0].split("/");
-			range_e = range[1].split("/");
-			startDate = range_s[2]+"-"+range_s[0]+"-"+range_s[1]
+			let range=""	
+			range = $('.drp-selected').text().split(" ~ ");	//range에 클래스 drp_selected의 텍스트를 ~를 기준으로 split
+			range_s = range[0].split("/");					//startdate를 /기준으로 split
+			range_e = range[1].split("/");					//enddate를 / 기준으로 spit
+			startDate = range_s[2]+"-"+range_s[0]+"-"+range_s[1]	//06/13/2022 형식의 날짜를 2022-06-13 형식으로 데이트 날짜 포맷
 			endDate = range_e[2]+"-"+range_e[0]+"-"+range_e[1]
 			$.ajax({
 				type : 'GET',
 				url : 'ajaxChart',
 				data : {"startDate" : startDate,
 						"endDate" : endDate},
-				success : function(result){
+				success : function(result){					//ajax 성공 시 받아온 result를 각 라벨에 맞게끔 재설정
 					for(var i =0; i<result.length; i++){
 						dateAjaxLabel.push(result[i][0])
 						feedAjax.push(result[i][1])
 						recipeAjax.push(result[i][2])
 					}
-					initChart(feedAjax, recipeAjax, dateAjaxLabel);
+					initChart(feedAjax, recipeAjax, dateAjaxLabel);	//initChart 호출
 					
 				},
 				error : function(err){
@@ -432,14 +432,14 @@
 			});
 		 })
 		
-		 function initChart(fe,re,label){
-			$("canvas#reFeedCnt").remove();
+		 function initChart(fe,re,label){		//ajax성공시 실행되는 차트 함수
+			$("canvas#reFeedCnt").remove();		//기존 canvas#reFeedCnt 태그를 삭제
 			$("div.ajax").append('<canvas id="reFeedCnt" style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>');
+			//이후 같은 태그를 생성(truncated나 udpate를 이용한 함수가 적용이 안되어 이 방식으로 진행함)
 			
 			
 			
-			
-			var ChartName = document.getElementById('reFeedCnt').getContext('2d');
+			var ChartName = document.getElementById('reFeedCnt').getContext('2d');		//새로운 차트 생성
 				 ChartName = new Chart(reFeedCnt, {
 			    // ①차트의 종류(String)
 			    type: 'line',
