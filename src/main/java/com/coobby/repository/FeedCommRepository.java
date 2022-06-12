@@ -15,4 +15,5 @@ public interface FeedCommRepository extends CrudRepository<FeedCommentVO, Intege
 
 	@Query(value="SELECT max(fe_comm_no) FROM feed_comment", nativeQuery=true)
 	int getMaxFeCommNo();
+
 }

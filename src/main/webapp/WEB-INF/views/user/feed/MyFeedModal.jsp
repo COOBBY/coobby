@@ -248,7 +248,34 @@ $('.afterbtn').click(function(){
 	});
 });
 
-// 댓글 등록 ajax
+// 삭제 ajax
+$('.delbtn').click(function(){
+	const delfeNo = $('input[name="feNo"]').val();
+	$.ajax({
+		url:'/user/feed/deleteFeed',
+		type:'post',
+		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+		data : { 
+			feNo : delfeNo
+				}, 
+		success : function(data) {
+			if(data=='yes') {
+				alert('삭제 되었습니다');	
+				location.href="MyFeed"
+			}
+			else {
+				alert('안됨');
+			}
+			
+		},
+		error : function(err) {
+			alert('삭제되지 않았습니다.');
+			console.log(err);
+		}
+		
+	});
+});
+
 
 
 

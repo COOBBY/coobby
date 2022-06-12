@@ -20,9 +20,6 @@ public interface FeedService {
 	// 마이피드 등록
 	public void insertFeed(FeedVO vo, MultipartFile[] file);
 	
-	// 마이피드 삭제
-	//public void deleteFeed(FeedVO vo);
-	
 	// 마이피드 수정
 	public FeedVO modifyFeed(FeedVO vo);
 	
@@ -37,10 +34,10 @@ public interface FeedService {
 	
 	// 좋아요 체크
 	public boolean likeFeedCheck(Integer feedVO, String memberVO);
-
 	
-	// 마이피드 이미지 삭제
-//	public void deleteFeedImage(FeedImageVO imgvo);
+	// 피드 삭제 (댓글, 이미지, 좋아요)
+	public FeedVO deleteFeed(FeedVO vo);
+	
 	
 	
 	

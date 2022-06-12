@@ -17,33 +17,35 @@ $(function(){
         
     })
 
-      //피드 댓글 더보기 버튼
-    $(function() {
-         $('.mainComm').slice(0, 3).show();
-         /*$('.reCommCntWriteBtn').slice(0, 3).show();
-
+	// 게시글 유효성 검사 완료
+	$('.savebtn').click(function(){
+		if($("textarea[name='feTitle']").val() == ""){
+			alert("제목을 입력해주세요")
+			$('#write_content').focus();
+			return false;
+		} else if($("textarea[name='feContent']").val() == ""){
+			alert("내용을 입력해주세요")
+			$('#write_content').focus();
+			return false;
+		} else if ($('#uploadFile').val() == "") {
+			alert("사진을 최소 1개 이상 선택해주세요.")
+			return false;
+		}
+	})
+	
+	// 로그인 이후 게시글 글쓰기 가능
+	$('#writefeed').click(function(){
+		const userId = $('#insertfebtn').val();
 		
-		
-         if ($('.mainComm').length > 4) {
-            $('#morebtn3').show();
-            //더보기 버튼 클릭했을 때
-            $('#morebtn3').click(function() {
-               $('.mainComm:hidden').slice(0, 3).show();
-               $('.reCommCntWriteBtn:hidden').slice(0, 3).show();
+		if(userId == 'notLogin'){
+		alert("로그인 후 이용 가능한 서비스입니다.");
+		location.href="/user/login/loginpage";
+		return;
+		} else {
+			location.href="insertFeed";
+		}
+	})
 
-               if ($('.mainComm:hidden').length == 0) {
-                  $('#morebtn3').css('display', 'none');
-               }
-
-            }); // 버튼 클릭 끝
-
-         }//1. if문끝
-         else {
-            $('#morebtn3').css('display', 'none');
-         }//else 끝
-*/
-      });
-   
  
 
 })

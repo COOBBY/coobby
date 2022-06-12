@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,11 +91,16 @@ public class FeedController {
 		}
 		
 		// 마이피드 삭제
-//		@RequestMapping("/deleteFeed")
-//		public String deleteFeed(FeedVO vo) {
-//			feedService.deleteFeed(vo);
-//			return "redirect:MyFeed";
-//		}
+		@RequestMapping(value="/deleteFeed", produces = "application/text;charset=utf-8")
+		@ResponseBody
+		public String deleteFeed(FeedVO vo) {
+			FeedVO fevo = feedService.deleteFeed(vo);
+			if(fevo != null) return "yes";
+			return "no";
+			
+		}
+		
+
 		
 		
 		
@@ -105,7 +111,6 @@ public class FeedController {
 			FeedVO result = feedService.modifyFeed(vo);
 			if(result!=null) return "yes";
 			return "no";
-			
 		}
 		
 		// 좋아요 기능
@@ -163,6 +168,7 @@ public class FeedController {
 			}
 			return bool;
 		}
+		
 		
 }
 

@@ -72,8 +72,18 @@
 					<div id="myTabContent" class="shop row gutter-30 col-mb-30 mt-3">
 
 						<!-- 글쓰기 버튼 -->
+						<c:choose>
+							<c:when test="${sessionScope.user eq null}">
+								<input type="hidden" id="insertfebtn"
+							value="notLogin" />
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" id="insertfebtn"
+							value="${sessionScope.user.memId }" />
+							</c:otherwise>
+						</c:choose>
 						<div class="writefeed" id="writefeed">
-							<a href="insertFeed" class="button button-border button-rounded button-yellow"><i class="icon-pencil"></i>작성하기</a>
+							<a class="button button-border button-rounded button-yellow"><i class="icon-pencil"></i>작성하기</a>
 						</div>
 						<!-- 마이 피드 내용 -->
 						<div id="myfeed2" role="tabpanel" aria-labelledby="home-tab">						

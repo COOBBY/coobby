@@ -71,17 +71,15 @@
 
 					<div class="container">
 						<!-- 검색 폼 시작  -->
-						<form class="contact_form">
-							<div class="input-group">
-								<input type="text" name="widget-subscribe-form-email"
+						<form action="serachfeed" method="get" class="contact_form">
+							<div class="input-group search">
+								<input type="text" name="keyword"
 									class="form-control required searchform"
 									placeholder="검색어를 입력해주세요">
 								<button class="btn btn-dark px-3 input-group-text" type="submit">
 									<i class="icon-line-search"></i>
 								</button>
 							</div>
-
-
 						</form>
 						<!-- 검색폼 끝 -->
 						<!-- Shop

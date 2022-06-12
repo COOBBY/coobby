@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedVO;
 import com.coobby.vo.MemberVO;
 
+@Repository
 public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 	
 	List<FeedVO> findByfeRegdate(String format);
