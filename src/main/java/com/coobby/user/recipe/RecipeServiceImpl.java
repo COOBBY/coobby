@@ -3,6 +3,7 @@ package com.coobby.user.recipe;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class RecipeServiceImpl implements RecipeService{
 	private int pageTotalCount;		// 전체 페이지 수
 	private int countPerPage = 4;	// 한페이지당 레코드 수
 	
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final Date today = new Date();
+	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);
+	
 	// 레시피 리스트 검색
 	public List<Object[]> getRecipeList(Pageable pageable, RecipeVO reVO){
 		if(reVO.getCateHow() != null) {
@@ -109,6 +114,11 @@ public class RecipeServiceImpl implements RecipeService{
 		result.setReViewcnt(result.getReViewcnt()+1);
 		recipeRepo.save(result);
 		return result;
+	}
+	
+	// 레시피 삭제
+	public void deleteRecipe(RecipeVO reNo) {
+		recipeRepo.delete(reNo);
 	}
 	
 	//관련 레시피 검색
@@ -169,12 +179,19 @@ public class RecipeServiceImpl implements RecipeService{
 		loveRepo.deleteLove(reNo, memId);
 	}
 	
+	// 좋아요 갯수
+	public Integer getLoveCount(int reNo) {
+		return loveRepo.getCount(reNo);
+	}
+	
 	// 댓글 등록
 	public void saveComment(Re_commentVO reVO) {
 		Re_commentVO commentVO = new Re_commentVO();
 		commentVO.setReContent(reVO.getReContent());
 		commentVO.setMemberVO(reVO.getMemberVO());
 		commentVO.setRecipeVO(reVO.getRecipeVO());
+		commentVO.setReCommCreatetime(date.format(today));
+		commentVO.setReCommStatus(0);
 		commentVO.setReParent(0);
 		commentRepo.save(commentVO);
 	}
@@ -186,7 +203,16 @@ public class RecipeServiceImpl implements RecipeService{
 		commentVO.setMemberVO(reVO.getMemberVO());
 		commentVO.setRecipeVO(reVO.getRecipeVO());
 		commentVO.setReParent(reVO.getReParent());
+		commentVO.setReCommStatus(0);
+		commentVO.setReCommCreatetime(date.format(today));
 		commentRepo.save(commentVO);
+	}
+	
+	//댓글 삭제
+	public void deleteComm(Re_commentVO reVO) {
+		Re_commentVO result = commentRepo.findById(reVO.getReCommNo()).get();
+		result.setReCommStatus(1);
+		commentRepo.save(result);
 	}
 	
 	// 댓글 조회
@@ -194,21 +220,10 @@ public class RecipeServiceImpl implements RecipeService{
 		return commentRepo.getComment(reNo);
 	}
 	
-//	// 대댓글 조회
-//	public List<List<Re_commentVO>> getChildComment(int reNo){
-//		List<Re_commentVO> result = commentRepo.getComment(reNo);
-//		List<List<Re_commentVO>> childResult = new ArrayList<List<Re_commentVO>>();
-//		for(Re_commentVO re : result) {
-//			System.out.println(re.getReCommNo());
-//			childResult.add(commentRepo.getChildComment(reNo, re.getReCommNo()));
-//		}
-//		System.out.println(childResult);
-//		return childResult;
-//	}
-	
 	//레시피 입력
 	public void saverecipe(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, String[] ingrCount, String[] ingrName) {
 		//기본 레시피 정보 저장
+		revo.setReCreatetime(date.format(today));
 		RecipeVO result = recipeRepo.save(revo);
 		
 		//레시피 사진 저장
@@ -271,5 +286,27 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public List<Object[]> getSearchList(String searchKeyword) {
 		return recipeRepo.getSearchList(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
+	}
+	@Override
+	public RecipeVO modifyGetRecipe(int reNo) {
+		return recipeRepo.findById(reNo).get();
+	}
+	@Override
+	public List<Object[]> modifyGetIngr(int reNo) {
+		return cookRepo.modifyGetIngr(reNo);
+	}
+	@Override
+	public List<Recipe_imageVO> modifyGetCookImg(int reNo) {
+		return imageRepo.getImage(reNo);
+	}
+	@Override
+	public List<Recipe_imageVO> modifyGetComleteCookImg(int reNo) {
+		return imageRepo.getResultImage(reNo);
+	}
+	@Override
+	public void updateRecipe(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, String[] ingrCount,
+			String[] ingrName, List<CookVO> cookVO, List<Recipe_imageVO> imageVO) {
+	
+		
 	}
 }

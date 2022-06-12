@@ -35,14 +35,16 @@ public class Re_commentVO {
 	@Column(name="re_content")
 	private String reContent;
 	
-	@Column(insertable=false, updatable=false, columnDefinition="date default (current_date)", name="re_comm_createtime")
-	@Temporal(TemporalType.DATE)
-	private Date reCommCreatetime;
+	@Column(name="re_comm_createtime")
+	private String reCommCreatetime;
 	
 	@Column(name="re_comm_updatetime")
 	private String re_comm_updatetime;
 	
 	@Column(name="re_parent")
 	private int reParent;
+	
+	@Column(name="re_comm_status")
+	private int reCommStatus;
 
 }

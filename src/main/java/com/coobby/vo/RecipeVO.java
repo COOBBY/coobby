@@ -2,6 +2,7 @@ package com.coobby.vo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,9 @@ import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 
 @Data
@@ -27,11 +31,7 @@ public class RecipeVO {
 	@Column(name="re_no")
 	private Integer reNo;
 	
-//	@CreatedDate
-//	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Column(insertable=false, updatable=false, columnDefinition="DATE DEFAULT (current_date)", name="re_createtime")
-//	@Temporal(TemporalType.DATE)
-//	@Column(name="re_createtime")
+	@Column(name="re_createtime")
 	private String reCreatetime;
 
 	@Column(name="re_updatetime")
@@ -74,8 +74,8 @@ public class RecipeVO {
 	@OneToOne
 	@JoinColumn(name="kind_Code")
 	private CateKindVO cateKind;
-
-	@OneToMany(mappedBy ="recipeVO")
+	
+	@OneToMany(mappedBy ="recipeVO", cascade = CascadeType.ALL)
 	List<Recipe_imageVO> recipe_imageVO;
 	
 //	@PrePersist

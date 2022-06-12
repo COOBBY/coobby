@@ -175,9 +175,17 @@
 	color: #dc3545;
 }
 
-@media (min-width: 576px){
-	.modal-dialog {
-	    max-width: 1000px;
-	    margin: 1.75rem auto;
-	}
+
+#likeBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loveCount {
+	margin: 0 0 0 5px;
+}
+
+#btnContain {
+	display : flex;
 }
