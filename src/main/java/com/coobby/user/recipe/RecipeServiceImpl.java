@@ -2,10 +2,13 @@ package com.coobby.user.recipe;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,8 +16,10 @@ import com.coobby.repository.CateHowRepository;
 import com.coobby.repository.CateIngrRepository;
 import com.coobby.repository.CateKindRepository;
 import com.coobby.repository.CateSituRepository;
+import com.coobby.repository.CommentRepository;
 import com.coobby.repository.CookRepository;
 import com.coobby.repository.IngrRepository;
+import com.coobby.repository.ReLoveRepository;
 import com.coobby.repository.RecipeRepository;
 import com.coobby.repository.Recipe_imageRepository;
 import com.coobby.repository.ScrapRepository;
@@ -25,6 +30,8 @@ import com.coobby.vo.CateSituVO;
 import com.coobby.vo.CookVO;
 import com.coobby.vo.IngrVO;
 import com.coobby.vo.MemberVO;
+import com.coobby.vo.ReLoveVO;
+import com.coobby.vo.Re_commentVO;
 import com.coobby.vo.RecipeVO;
 import com.coobby.vo.Recipe_imageVO;
 import com.coobby.vo.ScrapVO;
@@ -50,6 +57,56 @@ public class RecipeServiceImpl implements RecipeService{
 	private CookRepository cookRepo;
 	@Autowired
 	private ScrapRepository scrapRepo;
+	@Autowired
+	private ReLoveRepository loveRepo;
+	@Autowired
+	private CommentRepository commentRepo;
+	
+	private int totalRecCount;		// 전체 레코드 수	
+	private int pageTotalCount;		// 전체 페이지 수
+	private int countPerPage = 4;	// 한페이지당 레코드 수
+	
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final Date today = new Date();
+	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);
+	
+	// 레시피 리스트 검색
+	public List<Object[]> getRecipeList(Pageable pageable, RecipeVO reVO){
+		if(reVO.getCateHow() != null) {
+			return recipeRepo.getRecipeHowList(pageable, reVO.getCateHow().getHowCode());
+		} else if(reVO.getCateIngr() != null) {
+			return recipeRepo.getRecipeIngrList(pageable, reVO.getCateIngr().getIngrCode());
+		} else if(reVO.getCateKind() != null) {
+			return recipeRepo.getRecipeKindList(pageable, reVO.getCateKind().getKindCode());
+		} else if(reVO.getCateSitu() != null) {
+			return recipeRepo.getRecipeSituList(pageable, reVO.getCateSitu().getSituCode());
+		} else {
+			return recipeRepo.getRecipeList(pageable);
+		}
+	}
+	// 페이지 번호 검색
+	public int getPageNum(RecipeVO reVO) {
+		if(reVO.getCateHow() != null) {
+			totalRecCount = recipeRepo.getHowPageNum(reVO.getCateHow().getHowCode());
+		} else if(reVO.getCateIngr() != null) {
+			totalRecCount = recipeRepo.getIngrPageNum(reVO.getCateIngr().getIngrCode());
+		} else if(reVO.getCateKind() != null) {
+			totalRecCount = recipeRepo.getKindPageNum(reVO.getCateKind().getKindCode());
+		} else if(reVO.getCateSitu() != null) {
+			totalRecCount = recipeRepo.getSituPageNum(reVO.getCateSitu().getSituCode());
+		} else {
+			totalRecCount = recipeRepo.getPageNum();
+		}
+
+		if(totalRecCount%countPerPage>0) {
+			pageTotalCount = (totalRecCount/countPerPage) + 1;
+		}
+		else {
+			pageTotalCount = (totalRecCount/countPerPage);
+		}
+		
+		return pageTotalCount;
+	}
 	
 	// 레시피 상세보기
 	public RecipeVO getrecipe(int reNo) {
@@ -59,14 +116,41 @@ public class RecipeServiceImpl implements RecipeService{
 		return result;
 	}
 	
+	// 레시피 삭제
+	public void deleteRecipe(RecipeVO reNo) {
+		recipeRepo.delete(reNo);
+	}
+	
+	//관련 레시피 검색
+	@Override
+	public List<Object[]> getRelatedRecipe(int reNo) {
+		RecipeVO result = recipeRepo.findById(reNo).get();
+		return recipeRepo.getRelatedRecipe(result.getReTitle());
+	}
+	
 	//레시피 이미지 가져오기
 	public List<Recipe_imageVO> getImage(int reNo){
 		return imageRepo.getImage(reNo);
 	}
 	
+	//조리 완성 사진 가져오기
+	public List<Recipe_imageVO> getResultImage(int reNo){
+		return imageRepo.getResultImage(reNo);
+	}
+	
 	//재료 정보 가져오기
 	public List<Object[]> getIngr(int reNo){
 		return cookRepo.getingr(reNo);
+	}
+	
+	// 즐겨찾기 여부 확인
+	public ScrapVO getScrap(String memId, int reNo) {
+		return scrapRepo.getScrap(reNo, memId);
+	}
+	
+	// 좋아요 여부 확인
+	public ReLoveVO getLove(String memId, int reNo) {
+		return loveRepo.getLove(reNo, memId);
 	}
 	
 	// 즐겨찾기 추가
@@ -78,13 +162,68 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 	
 	// 즐겨찾기 삭제
-	public void scrapDelete(ScrapVO scrapVO) {
-		scrapRepo.delete(scrapVO);
+	public void scrapDelete(Integer reNo, String memId) {
+		scrapRepo.deleteScrap(reNo, memId);
+	}
+	
+	// 좋아요 추가
+	public void loveSave(RecipeVO recipeVo, MemberVO memberVO) {
+		ReLoveVO reLoveVO = new ReLoveVO();
+		reLoveVO.setRecipeVO(recipeVo);
+		reLoveVO.setMemberVO(memberVO);
+		loveRepo.save(reLoveVO);
+	}
+	
+	// 좋아요 삭제
+	public void loveDelete(Integer reNo, String memId) {
+		loveRepo.deleteLove(reNo, memId);
+	}
+	
+	// 좋아요 갯수
+	public Integer getLoveCount(int reNo) {
+		return loveRepo.getCount(reNo);
+	}
+	
+	// 댓글 등록
+	public void saveComment(Re_commentVO reVO) {
+		Re_commentVO commentVO = new Re_commentVO();
+		commentVO.setReContent(reVO.getReContent());
+		commentVO.setMemberVO(reVO.getMemberVO());
+		commentVO.setRecipeVO(reVO.getRecipeVO());
+		commentVO.setReCommCreatetime(date.format(today));
+		commentVO.setReCommStatus(0);
+		commentVO.setReParent(0);
+		commentRepo.save(commentVO);
+	}
+	
+	// 대댓글 등록
+	public void saveChildComment(Re_commentVO reVO) {
+		Re_commentVO commentVO = new Re_commentVO();
+		commentVO.setReContent(reVO.getReContent());
+		commentVO.setMemberVO(reVO.getMemberVO());
+		commentVO.setRecipeVO(reVO.getRecipeVO());
+		commentVO.setReParent(reVO.getReParent());
+		commentVO.setReCommStatus(0);
+		commentVO.setReCommCreatetime(date.format(today));
+		commentRepo.save(commentVO);
+	}
+	
+	//댓글 삭제
+	public void deleteComm(Re_commentVO reVO) {
+		Re_commentVO result = commentRepo.findById(reVO.getReCommNo()).get();
+		result.setReCommStatus(1);
+		commentRepo.save(result);
+	}
+	
+	// 댓글 조회
+	public List<Re_commentVO> getComment(int reNo){
+		return commentRepo.getComment(reNo);
 	}
 	
 	//레시피 입력
-	public void saverecipe(RecipeVO revo, MultipartFile[] file, String[] ingrCount, String[] ingrName) {
+	public void saverecipe(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, String[] ingrCount, String[] ingrName) {
 		//기본 레시피 정보 저장
+		revo.setReCreatetime(date.format(today));
 		RecipeVO result = recipeRepo.save(revo);
 		
 		//레시피 사진 저장
@@ -94,9 +233,22 @@ public class RecipeServiceImpl implements RecipeService{
 				imageVO.setFile(file[i]);
 				imageVO.setRecipeVO(result);
 				imageVO.setReSeq(i+1);
+				imageVO.setReSplit(1);
 				imageRepo.save(imageVO);
 			}
 		}
+		
+		if(resultFile != null) {
+			for(int i = 0; i < resultFile.length; i++) {
+				Recipe_imageVO imageVO = new Recipe_imageVO();
+				imageVO.setResultFile(resultFile[i]);
+				imageVO.setRecipeVO(result);
+				imageVO.setReSeq(i+1);
+				imageVO.setReSplit(0);
+				imageRepo.save(imageVO);
+			}
+		}
+		
 		//레시피 재료 저장
 		for(int i = 0; i < ingrCount.length; i++) {
 			CookVO cookVO = new CookVO();
@@ -133,7 +285,28 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	public List<Object[]> getSearchList(String searchKeyword) {
+		return recipeRepo.getSearchList(searchKeyword, searchKeyword, searchKeyword, searchKeyword);
+	}
+	@Override
+	public RecipeVO modifyGetRecipe(int reNo) {
+		return recipeRepo.findById(reNo).get();
+	}
+	@Override
+	public List<Object[]> modifyGetIngr(int reNo) {
+		return cookRepo.modifyGetIngr(reNo);
+	}
+	@Override
+	public List<Recipe_imageVO> modifyGetCookImg(int reNo) {
+		return imageRepo.getImage(reNo);
+	}
+	@Override
+	public List<Recipe_imageVO> modifyGetComleteCookImg(int reNo) {
+		return imageRepo.getResultImage(reNo);
+	}
+	@Override
+	public void updateRecipe(RecipeVO revo, MultipartFile[] file, MultipartFile[] resultFile, String[] ingrCount,
+			String[] ingrName, List<CookVO> cookVO, List<Recipe_imageVO> imageVO) {
+	
 		
-		return null;
 	}
 }

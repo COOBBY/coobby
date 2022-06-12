@@ -73,9 +73,8 @@
 						<div class="row shadow bg-light border">
 							<div class="col-lg-12 p-5">
 								<form class="row mb-0" id="fitness-form" action="recipesave" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="memberVO.memId" value="test1" />
+									<input type="hidden" name="memberVO.memId" value="${ sessionScope.user.memId }" />
 									<input type="hidden" name="reViewcnt" value="0" />
-									<input type="hidden" name="reCreatetime" value="now()" />
 									<div class="form-process">
 										<div class="css3-spinner">
 											<div class="css3-spinner-scaler"></div>
@@ -122,25 +121,25 @@
 											</div>
 											<div class="col-sm-10">
 												<div class="btn-group d-flex" role="group">
-													<select class="form-select" name="cateKindVO" id="event-registration-interests">
+													<select class="form-select" name="cateKind" id="event-registration-interests">
 														<option value="">종류별</option>
 														<c:forEach items="${ kind }" var="catekind">
 															<option value="${ catekind.kindCode }">${ catekind.kindName }</option>
 														</c:forEach>
 													</select>
-													<select class="form-select" name="cateSituVO" id="">
+													<select class="form-select" name="cateSitu" id="">
 														<option value="">상황별</option>
 														<c:forEach items="${ situ }" var="catesitu">
 															<option value="${ catesitu.situCode }">${ catesitu.situName }</option>
 														</c:forEach>
 													</select>
-													<select class="form-select" name="cateHowVO" id="event-registration-interests">
+													<select class="form-select" name="cateHow" id="event-registration-interests">
 														<option value="">방법별</option>
 														<c:forEach items="${ how }" var="catehow">
 															<option value="${ catehow.howCode }">${ catehow.howName }</option>
 														</c:forEach>
 													</select>
-													<select class="form-select" name="cateIngrVO" id="event-registration-interests">
+													<select class="form-select" name="cateIngr" id="event-registration-interests">
 														<option value="">재료별</option>
 														<c:forEach items="${ ingr }" var="cateingr">
 															<option value="${ cateingr.ingrCode }">${ cateingr.ingrName }</option>
@@ -190,7 +189,7 @@
 										<div class="mb-3">
 											<label for="formFile" class="form-label">완성된 요리사진을 선택해주세요.</label>
 											<input type="file" class="form-control " id="uploadFile"
-							                  name="file" accept="image/jpeg, image/jpg, image/png"
+							                  name="resultFile" accept="image/jpeg, image/jpg, image/png"
 							                  multiple />
 										</div>
 									</div>

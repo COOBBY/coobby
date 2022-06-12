@@ -6,6 +6,10 @@
 	text-align: center;
 }
 
+#mainTitle{
+	color: black;
+}
+
 .writerimg{
 	width:300px;
 	height:300px;
@@ -50,7 +54,7 @@
 }
 
 .relrecipeimg{
-	width:200px;
+	width: 150px;
 	margin-right:20px;
 }
 
@@ -161,9 +165,27 @@
 	justify-content: end;
 }
 
-@media (min-width: 576px){
-	.modal-dialog {
-	    max-width: 1000px;
-	    margin: 1.75rem auto;
-	}
+#scrapicon {
+	font-size: 25px;
+	color: #ffc107;
+}
+
+#likeicon {
+	font-size: 25px;
+	color: #dc3545;
+}
+
+
+#likeBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loveCount {
+	margin: 0 0 0 5px;
+}
+
+#btnContain {
+	display : flex;
 }

@@ -1,12 +1,8 @@
 package com.coobby.vo;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import javax.persistence.PrePersist;
 import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.Data;
 
@@ -40,11 +31,7 @@ public class RecipeVO {
 	@Column(name="re_no")
 	private Integer reNo;
 	
-//	@CreatedDate
-//	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Column(insertable=false, updatable=false, columnDefinition="DATE DEFAULT (current_date)", name="re_createtime")
-//	@Temporal(TemporalType.DATE)
-//	@Column(name="re_createtime")
+	@Column(name="re_createtime")
 	private String reCreatetime;
 
 	@Column(name="re_updatetime")
@@ -87,8 +74,8 @@ public class RecipeVO {
 	@OneToOne
 	@JoinColumn(name="kind_Code")
 	private CateKindVO cateKind;
-
-	@OneToMany(mappedBy ="recipeVO")
+	
+	@OneToMany(mappedBy ="recipeVO", cascade = CascadeType.ALL)
 	List<Recipe_imageVO> recipe_imageVO;
 	
 //	@PrePersist

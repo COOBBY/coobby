@@ -15,7 +15,7 @@ import com.coobby.vo.CateKindVO;
 import com.coobby.vo.CateSituVO;
 
 
- 
+
 @Service
 public class CategoryServiceImpl implements CategoryService{
 
@@ -28,9 +28,7 @@ public class CategoryServiceImpl implements CategoryService{
 	private CateSituRepository cateSituRepo;
 	@Autowired
 	private CateIngrRepository cateIngrRepo;
-	
-	
-	
+
 	//		4개의 테이블에서 각 카테고리의 전부를 findAll()함수를 사용하여 리턴
 	@Override
 	public List<CateKindVO> getKindList() {		

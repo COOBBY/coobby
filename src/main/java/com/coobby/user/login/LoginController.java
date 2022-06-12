@@ -34,7 +34,6 @@ import com.coobby.user.login.EmailService;
 import com.coobby.vo.MemberVO;
 import com.fasterxml.jackson.core.JsonParser;
 
-	 
 
 @Controller
 @RequestMapping("user/login")
