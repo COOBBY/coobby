@@ -103,6 +103,8 @@ public class RecipeController {
 		// 관련 레시피 조회
 		List<Object[]> relatedRecipe = recipeService.getRelatedRecipe(reNo);
 		
+		System.out.println(reCookArr);
+		
 		m.addAttribute("commentparent", commentParent);
 		m.addAttribute("ingr", cookResult);
 		m.addAttribute("recipe", recipeResult);
@@ -305,7 +307,7 @@ public class RecipeController {
 			try (Socket client = new Socket()) {
 
 				// 소켓에 접속하기 위한 접속 정보를 선언한다.
-				InetSocketAddress ipep = new InetSocketAddress("192.168.0.43", 9001);
+				InetSocketAddress ipep = new InetSocketAddress("192.168.0.31", 9001);
 
 				// 소켓 접속
 				client.connect(ipep);

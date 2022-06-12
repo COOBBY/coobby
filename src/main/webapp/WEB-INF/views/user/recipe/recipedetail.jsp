@@ -246,7 +246,7 @@
 																<p>${ commchild.reContent }</p>
 																
 																<input id="reCommNo${ status.count }" type="hidden" value="${ commchild.reCommNo }" />
-
+																
 																<span id="delete${ status1.count }" class="comment-reply-link"> <svg 
 																		xmlns="http://www.w3.org/2000/svg" width="16"
 																		height="16" fill="currentColor"
@@ -298,12 +298,12 @@
 									<div id="writercontain"
 										class="single_sidebar_widget author_widget">
 										<img class="writerimg"
-											src="/resources/user/images/about/${ sessionScope.user.memStoredimage }"
+											src="/resources/user/images/about/${ recipe.memberVO.memStoredimage }"
 											alt="" />
 										<!-- 작성자 이름 -->
-										<h4>${ sessionScope.user.memName }</h4>
+										<h4>${ recipe.memberVO.memName }</h4>
 										<!-- 작성자 자기소개 -->
-										<p>${ sessionScope.user.memNickname }</p>
+										<p>${ recipe.memberVO.memNickname }</p>
 										<div class="br"></div>
 									</div>
 									<div class="line line-sm"></div>

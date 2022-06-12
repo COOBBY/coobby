@@ -82,7 +82,7 @@ public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 			+ "on r.re_no = i.re_no  "
 			+ "left outer join member m "
 			+ "on r.mem_id = m.mem_id  "
-			+ "where re_split = 0 and re_seq = 1  "
+			+ "where re_split = 0 and re_seq = 1 "
 			+ "order by r.re_no  ", nativeQuery=true)
 	public List<Object[]> getRecipeList(Pageable pageable);
 	

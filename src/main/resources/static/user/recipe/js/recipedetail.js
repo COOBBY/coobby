@@ -123,6 +123,7 @@ $("#submit-button").click(() => {
 	})
 
 })
+/*
 for(let i = 1; i<100; i++){
 	$("#delete"+i).click(() =>{
 		alert('asd');
@@ -142,3 +143,4 @@ for(let i = 1; i<100; i++){
 		})
 	})	
 }
+*/
