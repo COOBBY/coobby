@@ -1,15 +1,13 @@
 package com.coobby.user.recipe;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.file.FileSystemAlreadyExistsException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,21 +22,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.coobby.repository.CookRepository;
-import com.coobby.repository.RecipeRepository;
 import com.coobby.vo.CateHowVO;
 import com.coobby.vo.CateIngrVO;
 import com.coobby.vo.CateKindVO;
 import com.coobby.vo.CateSituVO;
-import com.coobby.vo.CookVO;
 import com.coobby.vo.IngrVO;
-import com.coobby.vo.MemberVO;
 import com.coobby.vo.RecipeVO;
 import com.coobby.vo.Recipe_imageVO;
-import com.coobby.vo.ScrapVO;
 
 @Controller
 @RequestMapping("user/recipe")
@@ -149,7 +141,7 @@ public class RecipeController {
 
 				files1 = new File(path+"/"+imageName);
 				pPath = path+"/"+imageName;
-				pPath = pPath.replace("\\" , "/");
+				
 				System.out.println(pPath);
 				try {
 					files.transferTo(files1);
@@ -169,9 +161,35 @@ public class RecipeController {
 				client.connect(ipep);
 
 				// 소켓이 접속이 완료되면 inputstream과 outputstream을 받는다.
-				try (OutputStream sender = client.getOutputStream();) {
-
-					// string -> byte 배열 형변환
+				try (DataOutputStream sender = new DataOutputStream(client.getOutputStream())) {
+					
+					byte[] array = Files.readAllBytes(files1.toPath());
+					
+					System.out.println("Array length : " + array.length);
+					
+					sender.writeInt(array.length);
+					sender.write(array);
+					
+					
+					
+					
+					/* 2차 수정
+					BufferedImage image = ImageIO.read(files1);
+					
+					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+					ImageIO.write(image,"jpg",byteArrayOutputStream);
+					
+					byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+					ByteBuffer b = ByteBuffer.allocate(4);
+					b.order(ByteOrder.LITTLE_ENDIAN);
+					b.putInt(size.length);
+					sender.write(size);
+					sender.write(byteArrayOutputStream.toByteArray());
+					sender.flush();
+					System.out.println("Flushed : " + System.currentTimeMillis());
+					*/
+					//정은씨 코드
+		/*			// string -> byte 배열 형변환
 					byte[] data = pPath.getBytes();
 
 					// ByteBuffer를 통해 데이터 길이를 byte형식으로 변환한다.
@@ -187,7 +205,7 @@ public class RecipeController {
 
 					// 데이터 전송
 					sender.write(data);
-					data = new byte[4];
+					data = new byte[4];*/
 
 
 					// 한글깨짐 방지
@@ -197,23 +215,24 @@ public class RecipeController {
 
 					// 공백제거를 안하면 이상한 값이 붙음
 					searchKeyword = reader.readLine().trim();
+					System.out.println(searchKeyword);
+					client.close();
 				}
 			} catch (Throwable e) {
 				e.printStackTrace();
 			}
-			if( files1.exists() ){
-				if(files1.delete()){
-				}else{
-				}
-				
-			}else{
-				System.out.println("파일이 존재하지 않습니다.");
-			}
+			/*
+			 * if( files1.exists() ){ if(files1.delete()){ }else{ }
+			 * 
+			 * }else{ System.out.println("파일이 존재하지 않습니다."); }
+			 */
 		} 
 		System.out.println(searchKeyword);
 		m.addAttribute("searchList",recipeService.getSearchList(searchKeyword));
 		return "/user/recipe/recipeSearch";
 		
 	}
+
+	
 
 }
