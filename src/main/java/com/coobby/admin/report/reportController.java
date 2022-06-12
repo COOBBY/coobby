@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.coobby.vo.ReportVO;
 @Controller
-	@RequestMapping("/admin/Report")
+@RequestMapping("/admin/Report")
 public class reportController {
 	
 	@Autowired
@@ -39,18 +39,13 @@ public class reportController {
 			return "/admin/Report/reportBoardDetail";
 		}
 		
-		//신고 처리
+		//댓글, 게시글 신고 처리
 		@RequestMapping("reportupdate")
 		public String reportUpdate(ReportVO vo) {
-			System.out.println(vo);
-			
 			reportService.reportCommentUpdate(vo);
 			return "redirect:/admin/Report/report";
 		}
 		
-		//
-	
-
 	}
 	
 
