@@ -49,26 +49,29 @@
 			 	<div class="container-fluid px-4">
 					<h1 class="mt-4">공지사항 수정</h1>
 					<form action="updateBoard" method="post" enctype="multipart/form-data">
-					<c:forEach items="${oneBoard }" var="oneBoard">
-						<input type="hidden" name="boardNo" value="${ oneBoard[0] }" />
+					
+						<input type="hidden" name="boardNo" value="${ oneBoard.boardNo }" />
 						<div class="form-floating mb-1">제 목</div>
 						<div class="row">
 						<div class="form-floating mb-3 col-11">
-							<input type="text" class="form-control" placeholder="제목을 입력하세요" value="${oneBoard[1]}"
+							<input type="text" class="form-control" placeholder="제목을 입력하세요" value="${oneBoard.boardTitle}"
 								id="floatingTextarea" style="height: 35px; align:left" name="boardTitle">
 						</div>
 						<div class="icheck-primary"><input type="checkbox" id="Check1" value="1" name="boardImp"><label for="Check1"></label></div>
 						</div>
 						내 용
 						<div class="form-floating">
-							<textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea" name="boardContent" style="height: 300px;">${oneBoard[2]}</textarea>						
+							<textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea" name="boardContent" style="height: 300px;">${oneBoard.boardContent}</textarea>						
 						</div>
-						<input class="form-control" type="file" id="file" name="file" value="${oneBoard[3] }">
-						<a href="deleteBoard?boardNo=${ oneBoard[0]}"><button type="button" class="btn btn-secondary m-2" id="btndelete" style= "float:right;">삭제하기</button></a>
+						<c:forEach items="${imageList}" var="image">
+							<img src="/resources/admin/announceimages/${image.BStoredImage}">
+						</c:forEach>
+						<input class="form-control" type="file" id="file" name="file" value="">
+						<a href="deleteBoard?boardNo=${ oneBoard.boardNo}"><button type="button" class="btn btn-secondary m-2" id="btndelete" style= "float:right;">삭제하기</button></a>
 						 <button type="submit" class="btn btn-secondary m-2" id="btnupdate" style= "float:right;">수정하기</button>
 						<a href="listpage"><button type="button"
 								class="btn btn-secondary m-2" id="btnList" style= "float:right;">목록보기</button></a>
-								</c:forEach>
+								
 					</form>
 					</div>
 

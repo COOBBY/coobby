@@ -96,7 +96,7 @@
                        <a href="MemberFavorites" class="btn btn-solid-border w-100">즐겨찾기</a>
                     </li>
                      <li class="list">
-                      <a href="Memberupdate" class="btn btn-solid-border w-100">회원정보수정</a>
+                      <a href="Memberpasswordcheck" class="btn btn-solid-border w-100">회원정보수정</a>
                     </li>
                     <li class="list">
                       <a href="inquery" class="btn btn-solid-border w-100">1:1 문의글</a>
@@ -112,35 +112,40 @@
                     <div class="col-md-9" style="display: flex; justify-content: center; margin-top: 40px;">
                       <div class="block text-center w-50">
                         <h2 class="text-center">회원정보 수정</h2><br/>
-                        <form class="text-left clearfix" action="index.html">
+                        <form class="text-left clearfix" id='from' method="post" action="ModifyMember">
                         <div class="col-md-12" style="text-align:left;">
                           <div class="form-group col-md-12">
                             <label>이메일아이디 (수정불가)</label>
-                            <input type="text" name="emailid" class="form-control" readonly="readonly"/>
+                            <input type="text" id="memId" name="memId" class="form-control" value="${memInfo.memId }"readonly="readonly"/>
                           </div>
                           <div class="form-group col-md-12">
                             <label>비밀번호</label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" id="password" name="memPass" class="form-control">
                           </div>
                           <div class="form-group col-md-12">
                             <label>비밀번호 확인</label>
-                            <input type="password" name="passwordcheck" class="form-control">
+                            <input type="password" id="password_check" name="passwordcheck" class="form-control">
                           </div>
+                            <div class="alert alert-success alert-common passCorrect" role="alert" id="alert-success" style= "width:100%"><i class="tf-ion-thumbsup"></i>비밀번호가 일치합니다.</div>
+              				<div class="alert alert-danger alert-common passDiff" role="alert" id="alert-danger" style= "width:100%"><i class="tf-ion-close-circled"></i>비밀번호가 일치하지 않습니다.</div>
                           <div class="form-group col-md-12">
                             <label>이름</label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" id="name" name="memName" class="form-control" value="${memInfo.memName }" readonly="readonly"/>
                           </div>
                           <div class="form-group col-md-12">
                             <label>닉네임</label>
-                            <input type="text" name="nickname" class="form-control">
+                            <input type="text" id="nickname" name="memNickname" class="form-control" value="${memInfo.memNickname }">
+                             <button type="button" style="border: #92b5db" id='joongbokBtn'>중복확인</button>
+                                <div class="alert alert-success alert-common nickCorrect" role="alert" id="success" style="width:100%"><i class="tf-ion-thumbsup"></i>사용 가능한 닉네임입니다.</div>
+                				<div class="alert alert-danger alert-common nickDiff" role="alert" id="danger" style="width:100%"><i class="tf-ion-close-circled"></i>중복된 닉네임입니다.</div>
                           </div>
                           <div class="form-group col-md-12">
                             <label>휴대전화</label>
-                            <input type="text" name="tel" class="form-control">
+                            <input type="text" id="tel" name="memTel" class="form-control" value="${memInfo.memTel }">
                           </div>
                         </div>
                         <div style="text-align: center">
-                        <a href=""></a><button type="button" class="btn btn-main" id="updatebtn" style="background-color: black; color: aliceblue;">수정하기</button>
+                        <button type="button" class="btn btn-main" id="updatebtn" style="background-color: black; color: aliceblue;">수정하기</button>
                         <button type="button" class="btn btn-main" id="cancelbtn" style="background-color: blue; color: aliceblue;">취소</button>
                         </div>
                         </form>
@@ -150,113 +155,6 @@
               </div>
   <!--================End Checkout Area =================-->
 
-
-		<!-- Footer
-		============================================= -->
-		<footer id="footer" class="border-0 bg-white">
-			<div class="container">
-
-				<!-- Footer Widgets
-				============================================= -->
-				<div class="footer-widgets-wrap py-lg-6">
-					<div class="row col-mb-30">
-
-						<!-- Footer Col 1 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Social</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="https://facebook.com/semicolonweb" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-									<li><a href="https://instagram.com/semicolonweb" target="_blank"><i class="icon-instagram"></i> Instagram</a></li>
-									<li><a href="https://twitter.com/__semicolon" target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
-									<li><a href="https://youtube.com/c/SemiColonweb/videos" target="_blank"><i class="icon-youtube"></i> YouTube</a></li>
-									<li><a href="https://wa.me/00112233344"><i class="icon-whatsapp"></i> WhatsApp</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 2 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Support</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture.html">Home</a></li>
-									<li><a href="demo-furniture-about.html">About</a></li>
-									<li><a href="demo-furniture-contact.html">Contact</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 3 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Trending</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture-products.html">Shop</a></li>
-									<li><a href="demo-forum-single.html">Single</a></li>
-									<li><a href="demo-furniture-about.html">Who are we</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 4 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Get to Know us</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="intro.html#section-niche">Niche Demos</a></li>
-									<li><a href="intro.html#section-multipage">Home Pages</a></li>
-									<li><a href="intro.html#section-onepage">One Pages</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 5 -->
-						<div class="col-lg-4">
-							<div class="widget subscribe-widget clearfix" data-loader="button">
-								<h4>Subscribe Us</h4>
-								<h5 class="font-body op-04"><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
-								<div class="widget-subscribe-form-result"></div>
-								<form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0">
-									<div class="input-group">
-										<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email Address">
-										<button class="btn btn-dark bg-color px-3 input-group-text" type="submit">Subscribe</button>
-									</div>
-								</form>
-							</div>
-						</div>
-
-					</div>
-
-				</div><!-- .footer-widgets-wrap end -->
-
-			</div>
-
-			<!-- Copyrights
-			============================================= -->
-			<div id="copyrights" class="py-3 bg-color-light">
-				<div class="container">
-
-					<div class="d-flex justify-content-between op-04">
-						<span>&copy; 2020 All Rights Reserved by Canvas Inc.</span>
-						<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
-					</div>
-
-				</div>
-			</div><!-- #copyrights end -->
-		</footer><!-- #footer end -->
 
 	</div><!-- #wrapper end -->
 	</div>
@@ -269,12 +167,207 @@
 
 	<!-- JavaScripts
 	============================================= -->
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.min.js"></script>
+	<script src="/resources/user/js/jquery.js"></script>
+	<script src="/resources/user/js/plugins.min.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>
+	<script src="/resources/user/js/functions.js"></script>
 
+<script type="text/javascript">
+	$(function(){
+			$('.alert').hide();
+		  $("#updatebtn").click(function(){
+		      if(checks()){
+		    	 alert('회원정보가 수정되었습니다.');
+		         $("#from").submit()
+		      }
+		  });
+	   function checks() {
+	        var getEmail =
+	          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	        var getPassword = /^[A-Za-z0-9]{4,12}$/;
+	        var getName = /^[가-힣]{2,6}$/;
+	        var getPhone = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+	   
+	
+	       //아이디 공백 확인
+	       /* if ($("#email").val() == "") {
+	          const err =
+	            '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 이메일을 작성해주세요</div>';
+	          $("#email").parent().append(err);
+	          $("#email").focus();
+	          return false;
+	        } */
+	        $("#frm").remove();
+	
+	       // 아이디 유효성 검사
+	       /*  if(!getEmail.test($("#email").val())){
+	        alert("이메일 양식에 맞지 않습니다.");
+	        $("#email").val("");
+	        $("#email").focus();
+	        return false;
+	       } */
+	        
+	       // 비밀번호 공백 확인
+	       if ($("#password").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i>영어대문자, 소문자, 숫자 중에서 4~12자로만 입력 가능합니다.</div>';
+	
+	          $("#password").parent().append(err);
+	          $("#password").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	       // 비밀번호 유효성 검사
+	         if(!getPassword.test($("#password").val())){
+	        alert("비밀번호가 양식에 맞지 않습니다.");
+	        $("#password").val("");
+	        $("#password").focus();
+	        return false;
+	       } 
+	
+	       // 비밀번호 재입력란의 공백 확인
+	       if ($("#password_check").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 비밀번호를 다시 한번 작성해주세요.</div>';
+	          $("#password_check").parent().append(err);
+	          $("#password_check").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	       
+	        
+	       // 비밀번호 확인 유효성 검사
+	       if(!getPassword.test($("#password_check").val())){
+	        alert("비밀번호가 틀렸습니다. 다시한번 입력해주세요.");
+	        $("#password_check").val("");
+	        $("#password_check").focus();
+	        return false;
+	       }
+	
+	        //이름 공백 확인
+	        if ($("#name").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 한글로 2~6자까지 가능합니다.</div>';
+	
+	          $("#name").parent().append(err);
+	          $("#name").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	         // 이름 유효성 검사
+	        if(!getName.test($("#name").val())){
+	        alert("이름 양식에 맞지 않습니다.");
+	        $("#name").val("");
+	        $("#name").focus();
+	        return false;
+	       }
+	         
+	         // 닉네임 유효성 검사
+	        if(!getName.test($("#nickname").val())){
+	        alert("닉네임 양식에 맞지 않습니다.");
+	        $("#nickname").val("");
+	        $("#nickname").focus();
+	        return false;
+	       }
+	
+	        // 휴대전화 공백 확인
+	          if ($("#tel").val() == "") {
+	          const err =
+	          '<div class="alert alert-danger alert-common" role="alert" id="frm"><i class="tf-ion-close-circled"></i> 휴대전화번호를 작성해주세요 ex)010-1234-5678</div>';
+	
+	          $("#tel").parent().append(err);
+	          $("#tel").focus();
+	          return false;
+	        }
+	        $("#frm").remove();
+	
+	         // 휴대전화 유효성 검사
+	         if(!getPhone.test($("#tel").val())){
+	        alert("휴대전화번호 양식에 맞게 기입해주세요.");
+	        $("#tel").val("");
+	        $("#tel").focus();
+	        return false;
+	       }
+	         return true;
+	      }
+	
+	
+	   $(function(){
+	          $('#joongbokBtn').on('click',function(){
+	            /*   console.log($('#nickname').val()) */ 
+	             $.ajax({
+	                type:'POST',
+	                url:'checkNickname',
+	                data: {
+	                   "nickname" : $('#nickname').val()
+	                   },
+	                   contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+	                 success: function(data){
+	                   alert(data)
+	                   if(data!=null){
+	                      $('#success').css('display', 'none');
+	                      $("#danger").css('display', 'none');
+	                      checkNickname=true;
+	                   } else{
+	                      $("#success").css('display', 'none');
+	                      $('#danger').css('display', 'none');
+	                      checkNickname=false;
+	                      }
+	                   }, 
+	                error : function(err){
+	                   console.log(err);
+	                }
+	             }); //end of ajax
+	          }); //end on
+	       });
+	   
+	    // 비밀번호와 비밀번호 확인 일치 불일치 여부
+	    $('.form-control').focusout(function() {
+	        var pwd1 = $("#password").val();
+	        var pwd2 = $("#password_check").val();
+	  		console.log(pwd1 + " | " + pwd2)
+	        if ( pwd1 != '' && pwd2 == '' ) {
+	            null;
+	        } else if (pwd1 != "" || pwd2 != "") {
+	            if (pwd1 == pwd2) {
+	                $("#alert-success").show();
+	                $("#alert-danger").hide();
+	            } else {
+	                $("#alert-success").hide();
+	                $("#alert-danger").show();
+	            }
+	        }
+	
+	
+	});
+	    
+	    //닉네임 중복확인 여부 체크
+	/*      	$('#joongbokBtn').click(function(){
+	    		$.ajax({
+	    			url:"/api/checkNickname",
+	    			data:{memNickname : $('#nickname').val()},
+	    			success:function(data){
+	    	                alert(data)
+	    				
+	    				if(data=='yes'){
+	    					$('#success').css('display', 'inline-block');
+	    	                $("#danger").css('display', 'none');
+	    	                checkNickname=true;				
+	    				}else{
+	    					 $("#success").css('display', 'none');
+	    	                 $('#danger').css('display', 'inline-block');
+	    	                 checkNickname=false;				
+	    				}
+	    			}
+	    		})	
+	    	}) */  
+	    })
+	</script>
+	
+	
 </body>
 </html>

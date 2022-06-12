@@ -27,7 +27,7 @@ public class QnAVO {
 	private String qcontent;
 	@Column(name = "q_check")
 	private Integer qcheck;
-	@Column(name = "q_date", insertable=false, updatable=false, columnDefinition="date default (current_date)")
+	@Column(name = "q_date", updatable=false, columnDefinition="date default (current_date)")
 	private String qdate;
 	@Column(length = 1000, name = "a_content")
 	private String acontent;
