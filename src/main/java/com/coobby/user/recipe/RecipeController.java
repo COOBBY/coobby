@@ -131,30 +131,27 @@ public class RecipeController {
 	@RequestMapping(value="search")		//검색했을때 동작
 	public String getList(@RequestParam("chooseFile") MultipartFile files, Model m, HttpServletRequest request, String searchKeyword) throws Exception{
 
-		if(files.isEmpty()) {
-			System.out.println(searchKeyword);
+		if(files.isEmpty()) {			//만약 매개변수로 받아온 files가 빈값이라면
+			System.out.println(searchKeyword);		//음성이나 텍스트로 검색한 텍스트로만 service 호출
 		}
 		else {
-			String pPath="";
-			String imageName;
-			File files1 = null;
-			if(!files.isEmpty()) {
-				imageName = files.getOriginalFilename();
-				Path path = Paths.get(System.getProperty("user.dir"), "/src/main/resources/static");
+			String imageName = "";		//imageName을 담을 변수 선언
+			imageName = files.getOriginalFilename();	//imageName 변수에 매개변수로 받아온 files의 원본 파일 명을 지정
+			Path path = Paths.get(System.getProperty("user.dir"), "/src/main/resources/static");	//경로를 지정해서 path변수에 지정
 
-				files1 = new File(path+"/"+imageName);
-				pPath = path+"/"+imageName;
+			File files1 = new File(path+"/"+imageName);	//files1에 경로와 이미지 이름으로 files1 생성
+			
 
-				try {
-					files.transferTo(files1);
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
+			try {
+				files.transferTo(files1);			//files1 파일 생성
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
+		
 
 
 			// 소켓을 선언
-			try (Socket client = new Socket()) {
+			try (Socket client = new Socket()) {		
 
 				// 소켓에 접속하기 위한 접속 정보를 선언한다.
 				InetSocketAddress ipep = new InetSocketAddress("localhost", 9001);
@@ -165,12 +162,12 @@ public class RecipeController {
 				// 소켓이 접속이 완료되면 inputstream과 outputstream을 받는다.
 				try (DataOutputStream sender = new DataOutputStream(client.getOutputStream())) {
 
-					byte[] array = Files.readAllBytes(files1.toPath());
+					byte[] array = Files.readAllBytes(files1.toPath());		//files1 이미지 파일의 모든 byte를 읽어 byte배열인 array에 지정
 
-					System.out.println("Array length : " + array.length);
+					System.out.println("Array length : " + array.length);	//array의 길이 출력
 
 
-					ByteBuffer b = ByteBuffer.allocate(4);
+					ByteBuffer b = ByteBuffer.allocate(4);		
 
 					b.order(ByteOrder.LITTLE_ENDIAN);
 					b.putInt(array.length);
@@ -188,6 +185,7 @@ public class RecipeController {
 
 					// 공백제거를 안하면 이상한 값이 붙음
 					searchKeyword = reader.readLine().trim();
+					//reader에 들어있는 결과값을 searchKeyword 변수에 지정
 					System.out.println(searchKeyword);
 					client.close();
 				}
@@ -195,8 +193,8 @@ public class RecipeController {
 				e.printStackTrace();
 			}
 
-			if( files1.exists() ){
-				if(files1.delete()) {}
+			if( files1.exists() ){	//files1파일이 존재한다면
+				if(files1.delete()) {}	//files1 삭제
 				else{}
 			}
 			else{

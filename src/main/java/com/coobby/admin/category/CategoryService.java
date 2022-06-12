@@ -8,9 +8,7 @@ import com.coobby.vo.CateKindVO;
 import com.coobby.vo.CateSituVO;
 
 public interface CategoryService {
-//
-//	List<CategoryVO> getCateList();
-//
+
 	int insertCate(String cateType, String cateName);
 
 	void updateCate(String cateName, int cateCode, String cateType);

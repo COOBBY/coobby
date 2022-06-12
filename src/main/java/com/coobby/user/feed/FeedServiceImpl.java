@@ -27,9 +27,9 @@ public class FeedServiceImpl implements FeedService {
 	@Autowired
 	private LikeFeedRepository likefeedrepo;
 	 
-	private static final String DATE_PATTERN = "yyyy-MM-dd"; 
-	private static final Date today = new Date();
-	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);
+	private static final String DATE_PATTERN = "yyyy-MM-dd"; 	//날짜형식 정의 후 DATE_PATTERN변수에 저장
+	private static final Date today = new Date();				//현재 날짜를 today변수에 저장
+	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);	//date변수에 SimpleDateFormat을 활용해 DATE_PATTERN적용
 	
 	// 피드 목록 출력
 	public List<Object[]> getFeedList(FeedVO vo) {

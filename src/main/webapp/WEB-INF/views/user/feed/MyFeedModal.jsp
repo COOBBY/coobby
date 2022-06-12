@@ -57,13 +57,13 @@
 					<div class="line my-5"></div>
 					<!-- 댓글 시작 -->
 					<div class="Feedcomment">
-						<c:set var='commListVar' value="${ feedcomm}" />
-						<c:set var="idx" value="0" />
-						<c:set var="parentIdx" value="0" />
+						<c:set var='commListVar' value="${ feedcomm}" />			<!-- 이중 forEach를 실행시키시 위한 변수 설정 -->
+						<c:set var="idx" value="0" />								<!-- 답글의 맨 마지막에 답글달기 버튼을 넣기 위한 변수 설정 -->
+						<c:set var="parentIdx" value="0" />							<!-- 답글의 댓글이 몇번째에 있는 것인지 알기 위한 변수 설정 -->
 						<c:forEach items="${ feedcomm}" var="feedcomm" varStatus="status">
-							<c:if test="${ feedcomm.feParent eq 0}">
-								<c:set var="parentIdx" value="${parentIdx +1 }" />
-								<c:set var="idx" value="0" />
+							<c:if test="${ feedcomm.feParent eq 0}">				<!-- feedcomm의 feParent가 0이라면 댓글이라는 뜻이므로 c:if 조건문 실행 -->
+								<c:set var="parentIdx" value="${parentIdx +1 }" />	<!-- 댓글이 써졌으므로 parentIdx +1 증가 -->
+								<c:set var="idx" value="0" />						<!-- 댓글이 등록되었으니 idx는 0 설정 -->
 								<div class="row lineComm">
 									<div class="col-md-7 memberId">${feedcomm.member.memId }
 										님 | ${feedcomm.feContent }</div>
@@ -74,13 +74,13 @@
 										</div>
 									</c:if>
 									<input type="hidden" name="feCommNo"
-										class="parentIdx${parentIdx}" value="${feedcomm.feCommNo }">
+										class="parentIdx${parentIdx}" value="${feedcomm.feCommNo }">	<!-- 몇번째 댓글의 번호인지 알기 위한 input type선언 -->
 								</div>
 							</c:if>
 							<!-- 대댓글 -->
 							<c:forEach items="${commListVar}" var="feedcommchild"
 								varStatus="childStatus">
-								<c:if test="${ feedcommchild.feParent eq feedcomm.feCommNo}">
+								<c:if test="${ feedcommchild.feParent eq feedcomm.feCommNo}">			<!-- 자식 forEach의 feParent와 부모 forEach의 feCommNo가 같다면 그 댓글의 답글이라는 뜻 -->
 									<div class="row childComm">
 										<div class="col-md-6 memberId">${feedcommchild.member.memId }
 											님 | ${ feedcommchild.feContent}</div>
@@ -95,8 +95,9 @@
 									</div>
 								</c:if>
 								<c:if
-									test="${idx  eq 0 && childStatus.count eq commListVar.size()}">
-									<c:set var="idx" value="1" />
+									test="${idx  eq 0 && childStatus.count eq commListVar.size()}">		<!-- idx가 0이라는것은 아직 답글 달기 버튼이 생성이 안되었다는 뜻이고 &&연산으로 답글 
+																										forEach가 commListVar.size()와 같다면 은 자식 forEach가 끝까지 돌았을때 답글 달기 버튼 생성  -->
+									<c:set var="idx" value="1" />										<!-- 답글 더보기가 생성되었으므로 idx를 1로 세팅 -->
 									<div class="col-md-4 col-md-offset-4 recomm${ status.count } openReComm">
 										-> 답글 달기</div>
 									<div class="reCommentInput${ status.count } row"
@@ -202,73 +203,68 @@
 						});
 
 		// 댓글 등록 ajax
-		$(document)
-				.on(
-						'click',
-						'#com_btn',
-						function() {
-							const lastPlace = $('.inputComm').last()
-							const feNum = $('input[name="feNo"]').val();
-							const member = $('#commentmem').val();
-							if (member == null || member == "") {
+		$(document).on('click',	'#com_btn',function() {
+							const lastPlace = $('.inputComm').last()		//댓글을 달기위한 마지막 위치 지정
+							const feNum = $('input[name="feNo"]').val();	//현재 피드의 feNo를 feNum에 지정
+							const member = $('#commentmem').val();			//member에 현재 session으로 로그인했다면 있는 memId값 member에 지정
+							if (member == null || member == "") {			//만약 member가 null이거나 공백이라면 로그인을 하지 않은 사용자이므로 alert창 이후 loginpage로 강제 이동
 								alert('로그인 후 이용 가능한 서비스입니다.');
 								location.href = "/user/login/loginpage";
 								return;
 							}
-							const commcontent = $('#write_comment').val();
-							const count = $('.memberId').length + 1;
+							const commcontent = $('#write_comment').val();	//댓글값 지정
+							const count = $('.memberId').length + 1;		//토글형식을 적용시키기 위해 memberId클래스의 갯수 + 1만큼을 count에 지정
 
 							if (commcontent == "" || commcontent == null) { //댓글이 없다면 alert
 								alert("답글을 입력해주세요");
 								return;
 							} else {
-								$
-										.ajax({
-											url : "insertFeComm",
-											type : "post",
-											contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-											data : {
-												feed : feNum,
-												member : member,
-												feContent : commcontent
-											},
-											success : function(data) {
-												alert('댓글 등록 성공')
-												$('#write_comment').val("");
-												const text = '<div class="row lineComm">'
-														+ '<div class="col-md-7 memberId">'
-														+ data.member.memId
-														+ '님 | '
-														+ data.feContent
-														+ '</div>'
-														+ '<div class="col-md-3 commtime">'
-														+ data.feCommCreatetime
-														+ '</div>'
-														+ '<div class="col-md-2 modify">'
-														+ '<button type="button" class="mdfBtn btn btn-default">수정</button>'
-														+ '</div>'
-														+ '<input type="hidden" name="feCommNo"'
-														+ 'value="'+data.feCommNo+'">'
-														+ '</div>'
-														+ '<div class="col-md-4 col-md-offset-4 recomm'+count+'">'
-														+ '-> 답글 달기</div>'
-														+ '<div class="reCommentInput'+count+'"'
-														+ 'id="reCommentInput">'
-														+ '<textarea id="reComment" placeholder="답글을 입력해주세요"'
-														+ 'class="form-control" maxlength="1000"'
-														+ 'style="resize: none; height: 35px;" name="commentContent"></textarea>'
-														+ '<button name="insertFeComm"'
-														+ 'class="btn btn-dark px-3 input-group-text reCommBtn" type="button">'
-														+ '<i class="icon-line-corner-down-left"></i>'
-														+ '</button>'
-														+ '</div>';
-												lastPlace.before(text);
-											},
-											error : function(err) {
-												alert("댓글 에러")
-												console.log(err);
-											}
-										})
+								$.ajax({		//ajax 실행
+									url : "insertFeComm",
+									type : "post",
+									contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+									data : {
+										feed : feNum,
+										member : member,
+										feContent : commcontent
+									},
+									success : function(data) {
+										alert('댓글 등록 성공')
+										$('#write_comment').val("");		//댓글 입력 창 공백으로 지정
+										const text = '<div class="row lineComm">'
+												+ '<div class="col-md-7 memberId">'
+												+ data.member.memId
+												+ '님 | '
+												+ data.feContent
+												+ '</div>'
+												+ '<div class="col-md-3 commtime">'
+												+ data.feCommCreatetime
+												+ '</div>'
+												+ '<div class="col-md-2 modify">'
+												+ '<button type="button" class="mdfBtn btn btn-default">수정</button>'
+												+ '</div>'
+												+ '<input type="hidden" name="feCommNo"'
+												+ 'value="'+data.feCommNo+'">'
+												+ '</div>'
+												+ '<div class="col-md-4 col-md-offset-4 recomm'+count+'">'
+												+ '-> 답글 달기</div>'
+												+ '<div class="reCommentInput'+count+'"'
+												+ 'id="reCommentInput">'
+												+ '<textarea id="reComment" placeholder="답글을 입력해주세요"'
+												+ 'class="form-control" maxlength="1000"'
+												+ 'style="resize: none; height: 35px;" name="commentContent"></textarea>'
+												+ '<button name="insertFeComm"'
+												+ 'class="btn btn-dark px-3 input-group-text reCommBtn" type="button">'
+												+ '<i class="icon-line-corner-down-left"></i>'
+												+ '</button>'
+												+ '</div>';
+										lastPlace.before(text);		//댓글의 마지막 위치에 지정한 lastPlace이전에 text 변수 기입
+									},
+									error : function(err) {
+										alert("댓글 에러")
+										console.log(err);
+									}
+								})
 							}
 						});
 		//답글등록
@@ -287,14 +283,12 @@
 								return;
 							}
 
-							if ($(this).prev().val() == ""
-									|| $(this).prev().val() == null) { //댓글이 없다면 alert
+							if ($(this).prev().val() == "" || $(this).prev().val() == null) { //댓글이 없다면 alert
 								alert("답글을 입력해주세요");
 								return;
 							} else {
-								$(this).prev().val('')
-
-								$.ajax({
+								$(this).prev().val('')	//답글의 칸을 공백으로 지정
+								$.ajax({				//ajax 실행
 									url : "insertChildFeComm",
 									type : "post",
 									contentType : 'application/x-www-form-urlencoded;charset=utf-8',
@@ -321,8 +315,7 @@
 												+ '<button type="button" class="mdfBtn btn btn-default">수정</button>'
 												+ '</div>'
 												+ '</div>';
-										inputPlace.after(text);
-
+										inputPlace.after(text);		//답글의 마지막 위치에 답글 등록
 									},
 									error : function(err) {
 										alert(err);

@@ -18,9 +18,9 @@ public class FeedCommServiceImpl implements FeedCommService {
 	@Autowired
 	private FeedCommRepository commRepo;
 
-	private static final String DATE_PATTERN = "yyyy-MM-dd";
-	private static final Date today = new Date();
-	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);
+	private static final String DATE_PATTERN = "yyyy-MM-dd";		//날짜형식 정의
+	private static final Date today = new Date();					//현재날짜 정의
+	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);		//SimpleDateFormat에 정의한 날짜형식을 인자로 정의
 	
 	// 댓글 보기
 	public List<FeedCommentVO> getFeComm(int feNo) {
@@ -28,17 +28,17 @@ public class FeedCommServiceImpl implements FeedCommService {
 	}
 	
 	// 댓글 등록
-	public FeedCommentVO insertFeComm(FeedCommentVO vo) {
-		vo.setFeCommCreatetime(date.format(today));
+	public FeedCommentVO insertFeComm(FeedCommentVO vo) {			//피드 댓글 입력 메소드
+		vo.setFeCommCreatetime(date.format(today));					//받아온 피드 댓글 vo에 현재날짜를 정의된 날짜패턴으로 setter 호출 
 		
-		return commRepo.save(vo);
+		return commRepo.save(vo);									//피드 댓글 vo를 저장
 		
 	}
 
 	@Override
-	public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {
-		fevo.setFeCommCreatetime(date.format(today));
-		return commRepo.save(fevo);
+	public FeedCommentVO insertChildFeComm(FeedCommentVO fevo) {	//피드 대댓글 입력 메소드
+		fevo.setFeCommCreatetime(date.format(today));				//받아온 피드 댓글 vo에 현재날짜를 정의된 날짜패턴으로 setter호출
+		return commRepo.save(fevo);									//피드 댓글 vo를 저장
 	}
 
 
