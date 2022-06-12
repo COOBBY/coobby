@@ -1,0 +1,7 @@
+<div id="logo">
+	<a href="/user/mainpage" class="standard-logo"><img
+		src="/resources/img/coobbylogo.png" /></a>
+		 <a href="/user/mainpage" style="width: 120px;"
+		class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img
+		src="/resources/img/coobbylogo.png" /></a>
+</div>

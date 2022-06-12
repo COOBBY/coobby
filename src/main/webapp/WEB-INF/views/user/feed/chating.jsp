@@ -113,8 +113,6 @@
 	</div><!-- end wrapper -->
 
 
-	</div><!-- #wrapper end -->
-
 	<!-- Go To Top
 	============================================= -->
 	<div id="gotoTop" class="bg-color op-07 h-op-1">
