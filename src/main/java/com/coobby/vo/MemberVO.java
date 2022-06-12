@@ -1,11 +1,19 @@
 package com.coobby.vo;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -62,5 +70,26 @@ public class MemberVO {
 	
 	@Column(name="report_cnt")
 	private Integer reportCnt;
+	
+	@Transient
+	   private MultipartFile file;
+	   public MultipartFile getFile() {
+	      return file;
+	   }
+	public void setFile(MultipartFile file) {
+		if(!file.isEmpty()) {
+			memOriginimage = file.getOriginalFilename();
+			memStoredimage = UUID.randomUUID().toString() + "_" + getMemOriginimage();
+			Path path = Paths.get(System.getProperty("user.dir"), "/resources/static/user/my");
+
+			File files = new File(path+"/"+ memStoredimage);
+
+			try {
+				file.transferTo(files);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

@@ -1,16 +1,37 @@
 package com.coobby.user.login;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.coobby.user.login.EmailServiceImpl;
+import com.coobby.user.login.EmailService;
 
 import com.coobby.vo.MemberVO;
+import com.fasterxml.jackson.core.JsonParser;
 
 	 
 
@@ -24,22 +45,23 @@ public class LoginController {
 	
 	/* 로그인 페이지로 이동 */
 	@RequestMapping("loginpage")
-	public void loginpage() {
+	public void loginpage() {	
 	}
 	
 	/* 회원가입 페이지로 이동 */
 	@RequestMapping("joinmember")
-	public void joinmember() {
+	public void joinmember(@RequestParam String userEmail, Model model ) {
+		System.out.println(userEmail+" 인증된 이메일 주소");
+		model.addAttribute("email", userEmail);
 	}
 	
+	/* 닉네임 중복여부 확인 */
 	@ResponseBody
 	@RequestMapping("checkNickname")
 	public String checkNickname(String nickname) {
 		
 		System.out.println(nickname);
-		/* MemberVO mem = loginService.loginCheck(vo.getMemId(), vo.getMemPass()); */
-		//result = loginservice.logincheck(nickname);
-		
+
 		MemberVO member = loginService.findByMemNickname(nickname);
 		String result;
 		
@@ -53,30 +75,7 @@ public class LoginController {
 		 return result; 
 	}
 	
-//  1. 중복확인 눌렀을때 ajax로 처리를 해야함   -- 출처 승환
-		/*	2. ajax에서 url을 @requestMapping과 맞춰야함
-		 * 	3. 그러면 연결됨	근데 404에러가 뜬다? 그러면  mapping문제
-		 *  4. 연결되었으니 이제 처리를 해야함
-		 *  5. 뷰단에서 nickname 가져왔어 (사용자가 입력한 값을 가져왔어) 그거를 서비스와 서비스 임플 에 인자값으로 넣어주면됨
-		 *  6. 흐름이 컨트롤러에서 서비스 , 서비스impl , repo인데 repo는 형은 native query를 쓰는거 인지 
-		 * 	7. 중복되면 리턴값 중복되었습니다. 확인해주세요. 중복이 아니면 사용가능한 아이디입니다. 라고 컨트롤러에서 리턴해주기 
-		 * 	8. 그다음은 리턴값을 ajax에서 success : function(data) 로 받음 data가 컨트롤에서 리턴해주는 값이 옴
-		 *  9. 그걸 이용해서 사용하기
-		 * */
-	
-	
-	/*
-	 * @RequestMapping("userinsert") public void userinsert(String userinsert) { }
-	 */
-	
-	/*
-	 * @RequestMapping(value="checknickname", produces =
-	 * "application/text;charset=utf-8" ) public String checknickname(MemberVO vo) {
-	 * MemberVO result= loginService.checknickname(vo); if(result != null) { return
-	 * "1"; } return "0"; }
-	 */
 
-	
 	/* 로그인 성공여부에 따른 세션 저장 */
 	@RequestMapping(value="checkLogin", produces="applicaton/text;charset=utf-8")
 	public String checkLogin(MemberVO vo, HttpSession session, RedirectAttributes redirect) {
@@ -90,15 +89,9 @@ public class LoginController {
 		}
 		else {		/* 로그인 성공 */
 		session.setAttribute("user", mem);
-		
 		System.out.println("로그인성공");
-		return "/user/main/mainpage";
+		return "/user/mainpage";
 		}
-//		
-//		MemberVO a = (MemberVO)session.getAttribute("user");
-//		System.out.println(a);
-		
-		
 	}
 	
 
@@ -110,21 +103,10 @@ public class LoginController {
 		
 		System.out.print("로그아웃성공");
 		
-		return "redirect:/user/main/mainpage";
+		return "redirect:/user/mainpage";
 					
 	}
 	
-//	@RequestMapping("selectauthpage")
-//	public void selectauthpage(HttpServletRequest request, HttpSession session) {
-////		String referer = request.getHeader("Referer");
-////		System.out.println(referer.indexOf("loginpage"));
-////		if(referer.indexOf("loginpage") < 0) {
-////			session.setAttribute("prevPage", referer);
-////		}
-//		
-//	}
-	
-
 	
 	@RequestMapping("selectauthpage")
 	public String selectauthpage() {
@@ -138,18 +120,57 @@ public class LoginController {
 	
 	@RequestMapping("mainpage")
 	public String mainpage() {
-		return "/user/login/mainpage";
+		return "/user/mainpage";
 	}
 	
-	/*
-	 * @RequestMapping("/user/login") public class loginController {
-	 */
+	@Autowired
+    private JavaMailSender mailSender;
 	
-	/*
-	 * @RequestMapping("loginpage") public String loginpage() { return
-	 * "/user/login/loginpage"; }
-	 */
-		
+	@RequestMapping(value="/mailCheck", method=RequestMethod.GET)
+	@ResponseBody		
+ public String mailCheckGET(String email) throws Exception{
+        
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+        System.out.println("이메일 데이터 전송 확인");
+        System.out.println("인증번호 : " + email);
+        
+        /* 인증번호(난수) 생성 */
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;
+        System.out.println(checkNum);
+        
+        /* 이메일 보내기 */
+        String setFrom = "wisemin95@gmail.com";
+        String toMail = email;
+        String title = "회원가입 인증 이메일 입니다.";
+        String content = 
+                "COOBBY홈페이지를 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + checkNum + "입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        
+        /* 이메일 전송을 위한 코드 */
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+                      
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        String num = Integer.toString(checkNum);
+        System.out.println("num: "+ num);
+        return num;                     
+    }
+	
+	
+	
+ 	
 	
 }
 	

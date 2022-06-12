@@ -111,17 +111,17 @@
 						<!-- Logo
 						============================================= -->
 						<div id="logo" class="mx-auto col-auto flex-column order-2">
-							<a href="/user/main/mainpage" class="standard-logo"><img src="/resources/img/coobbylogo.png" /></a>
-							<a href="/user/main/mainpage" class="retina-logo"><img src="/resources/img/coobbylogo.png" /></a>
+							<a href="/user/mainpage" class="standard-logo"><img src="/resources/img/coobbylogo.png" /></a>
+							<a href="/user/mainpage" class="retina-logo"><img src="/resources/img/coobbylogo.png" /></a>
 						</div><!-- #logo end -->
 
 						<div class="header-misc col-auto order-3 justify-content-lg-end ms-0 ms-sm-3 px-0">
 
 							<!-- Top 로그인
 							============================================= -->
-							<div id="userimgcontain">
-								<img id="userimg" src="/resources/user/images/about/1.jpg" alt="" />
-							</div>
+							 <div id="userimgcontain">
+								<img id="userimg"  src="/resources/user/images/my/${sessionScope.user.memOriginimage}" onerror="this.style.display='none'" />
+							</div> 
 							<!-- 비로그인 시 
 							<div id="top-search" class="header-misc-icon">
 								<a href="#" id="top-login">
@@ -131,22 +131,22 @@
 							-->
 							<!-- #top-search end -->
 
-
-
 							<!-- Top 회원가입
 							============================================= -->
 							<div id="useridcontainer">
-								 <span class="dropdown">
+								 <span class="dropdown" style='height: 10%'>
                
                					<c:choose>
 								<c:when test="${sessionScope.user eq null}">
-								<h5>
+								<h5 style='height: 10%'>
 									<a href="/user/login/loginpage">LOGIN</a>
 								</h5>
 								</c:when>
 								<c:otherwise>
 								<h5>
-									<a href="logout">LOGOUT</a>
+								
+									<a href="logout">LOGOUT &ensp;${sessionScope.user.memNickname}님, 환영합니다!</a>
+									<span>[ ${sessionScope.user.memId} ]</span>
 								</h5>
 								</c:otherwise>
 							</c:choose>
@@ -164,8 +164,8 @@
 							</div>
 							<c:choose>
 								<c:when test="${session eq null}">
-									<div id="login">
-										<a href="#" class="">로그인</a>
+									<div id="usernickname">
+										<a href="#" class=""></a>
 									</div>
 								</c:when>
 								<c:otherwise>

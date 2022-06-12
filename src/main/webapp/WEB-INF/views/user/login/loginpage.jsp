@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
-
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="author" content="SemiColonWeb" />
 
@@ -134,13 +133,6 @@ color:blue;
 					</div><br/>
 
 
-					<!-- <div class="col-md-12 mb-3" style="padding: 0;"> <label for="nickname">별명(닉네임)</label> <input type="text"
-                                        class="form-control" id="nickname" placeholder="" value="" style="width: 100%;" required>
-                                        <button type="button" style="border: #92b5db;">중복확인</button>
-                                        <input type="text" style="display:none">이미 사용중인 닉네임입니다.
-                                        <input type="text" style="display:none">사용 가능한 닉네임입니다.
-                                    <div class="invalid-feedback"> 별명을 입력해주세요. </div>
-                                </div> -->
 					비밀번호
 					<div class="form-group"
 						style="padding: 0; text-align: center; margin: auto; width: 35%">
@@ -154,14 +146,6 @@ color:blue;
 					
 					<br/><br/>
 
-					<!--                                   <div class="form-group" style="padding: 0; text-align:center; margin:auto; width:35%">
-                                    <input
-                                      type="password"
-                                      name="password_check"
-                                      id="password_check"
-                                      class="form-control"
-                                      placeholder="비밀번호 확인."
-                                    /><br/></div> -->
 					<div class="mb-4" style='text-align: center; margin: auto;'>
 						<button class="btn btn-primary btn-lg btn-block" type="submit"
 							style="width: 20%; height: 20%; margin: auto;">로그인</button>
@@ -169,15 +153,6 @@ color:blue;
 					<a href="selectauthpage"><span type="button" class="yu"
 						style="color: #FFBF00; height: 47px; text-align: center;"><b
 							class="yu" style="font-size: 125%;">계정이 없으신가요?(이메일 인증)</b></span></a>
-					<!-- </div> -->
-					<!-- <div class="mb-3"> <label for="address">비밀번호</label> <input type="text" class="form-control"
-                                    id="address" placeholder="서울특별시 강남구" required>
-                                <div class="invalid-feedback"> 주소를 입력해주세요. </div>
-                            </div>
-                            <div class="mb-3"> <label for="address2">비밀번호 확인<span class="text-muted"></span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요."> </div>
-                            <div class="row">
-                            </div> -->
 
 					<br/><br/>
 
@@ -185,13 +160,7 @@ color:blue;
 
 				
 			</div>
-			<!-- <hr class="mb-4">
-			<div class="custom-control custom-checkbox"
-				style='text-align: center'>
-				<input type="checkbox" class="custom-control-input" id="aggrement"
-					required> <label class="custom-control-label"
-					for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-			</div> -->
+
 
 			</form>
 		</div>
@@ -202,132 +171,6 @@ color:blue;
 	</div>
 	<script> window.addEventListener('load', () => { const forms = document.getElementsByClassName('validation-form'); Array.prototype.filter.call(forms, (form) => { form.addEventListener('submit', function (event) { if (form.checkValidity() === false) { event.preventDefault(); event.stopPropagation(); } form.classList.add('was-validated'); }, false); }); }, false); </script>
 </body>
-
-
-<!-- Footer
-		============================================= -->
-<footer id="footer">
-	<div class="container">
-
-		<!-- Footer Widgets
-				============================================= -->
-		<div class="footer-widgets-wrap py-lg-6">
-			<div class="row col-mb-30">
-
-				<!-- Footer Col 1 -->
-				<div class="col-lg-2 col-md-3 col-6">
-					<div class="widget widget_links widget-li-noicon">
-
-						<h4 class="ls0 nott">Social</h4>
-
-						<ul class="list-unstyled iconlist ms-0">
-							<li><a href="https://facebook.com/semicolonweb"
-								target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-							<li><a href="https://instagram.com/semicolonweb"
-								target="_blank"><i class="icon-instagram"></i> Instagram</a></li>
-							<li><a href="https://twitter.com/__semicolon"
-								target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
-							<li><a href="https://youtube.com/c/SemiColonweb/videos"
-								target="_blank"><i class="icon-youtube"></i> YouTube</a></li>
-							<li><a href="https://wa.me/00112233344"><i
-									class="icon-whatsapp"></i> WhatsApp</a></li>
-						</ul>
-
-					</div>
-				</div>
-
-				<!-- Footer Col 2 -->
-				<div class="col-lg-2 col-md-3 col-6">
-					<div class="widget widget_links widget-li-noicon">
-
-						<h4 class="ls0 nott">Support</h4>
-
-						<ul class="list-unstyled iconlist ms-0">
-							<li><a href="demo-furniture.html">Home</a></li>
-							<li><a href="demo-furniture-about.html">About</a></li>
-							<li><a href="demo-furniture-contact.html">Contact</a></li>
-						</ul>
-
-					</div>
-				</div>
-
-				<!-- Footer Col 3 -->
-				<div class="col-lg-2 col-md-3 col-6">
-					<div class="widget widget_links widget-li-noicon">
-
-						<h4 class="ls0 nott">Trending</h4>
-
-						<ul class="list-unstyled iconlist ms-0">
-							<li><a href="demo-furniture-products.html">Shop</a></li>
-							<li><a href="demo-forum-single.html">Single</a></li>
-							<li><a href="demo-furniture-about.html">Who are we</a></li>
-						</ul>
-
-					</div>
-				</div>
-
-				<!-- Footer Col 4 -->
-				<div class="col-lg-2 col-md-3 col-6">
-					<div class="widget widget_links widget-li-noicon">
-
-						<h4 class="ls0 nott">Get to Know us</h4>
-
-						<ul class="list-unstyled iconlist ms-0">
-							<li><a href="intro.html#section-niche">Niche Demos</a></li>
-							<li><a href="intro.html#section-multipage">Home Pages</a></li>
-							<li><a href="intro.html#section-onepage">One Pages</a></li>
-						</ul>
-
-					</div>
-				</div>
-
-				<!-- Footer Col 5 -->
-				<div class="col-lg-4">
-					<div class="widget subscribe-widget clearfix" data-loader="button">
-						<h4>Subscribe Us</h4>
-						<h5 class="font-body op-04">
-							<strong>Subscribe</strong> to Our Newsletter to get Important
-							News, Amazing Offers &amp; Inside Scoops:
-						</h5>
-						<div class="widget-subscribe-form-result"></div>
-						<form id="widget-subscribe-form" action="include/subscribe.php"
-							method="post" class="mb-0">
-							<div class="input-group">
-								<input type="email" id="widget-subscribe-form-email"
-									name="widget-subscribe-form-email"
-									class="form-control required email"
-									placeholder="Enter your Email Address">
-								<button class="btn btn-dark bg-color px-3 input-group-text"
-									type="submit">Subscribe</button>
-							</div>
-						</form>
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-		<!-- .footer-widgets-wrap end -->
-
-	</div>
-
-	<!-- Copyrights
-			============================================= -->
-	<div id="copyrights" class="py-3 bg-color-light">
-		<div class="container">
-
-			<div class="d-flex justify-content-between op-04">
-				<span>&copy; 2020 All Rights Reserved by Canvas Inc.</span>
-				<div class="copyright-links">
-					<a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- #copyrights end -->
-</footer>
-<!-- #footer end -->
 
 </div>
 <!-- #wrapper end -->
@@ -350,19 +193,6 @@ color:blue;
 	============================================= -->
 <script src="/resources/user/js/jquery.js"></script>
 <script src="/resources/user/js/plugins.min.js"></script>
-
-<!-- Footer Scripts
-	============================================= -->
-<script src="/resources/user/js/functions.js"></script>
-<script src="/resources/user/vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="/resources/user/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="/resources/user/vendors/skrollr.min.js"></script>
-<script src="/resources/user/vendors/owl-carousel/owl.carousel.min.js"></script>
-<script
-	src="/resources/user/vendors/nice-select/jquery.nice-select.min.js"></script>
-<script src="/resources/user/vendors/jquery.ajaxchimp.min.js"></script>
-<script src="/resources/user/vendors/mail-script.js"></script>
-<script src="/resources/user/js/main.js"></script>
 
 </body>
 </html>
