@@ -34,8 +34,8 @@ public class Recipe_imageVO {
 	@Column(name= "re_seq")
 	private Integer reSeq;
 	
-//	@Column(name="re_split")
-//	private Integer reSplit;
+	@Column(name="re_split")
+	private Integer reSplit;
 
 	@ManyToOne
 	@JoinColumn(name = "re_no")

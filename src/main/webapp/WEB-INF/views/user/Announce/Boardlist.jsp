@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="/resources/user/css/font-icons.css" type="text/css" />
 	<link rel="stylesheet" href="/resources/user/css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="/resources/user/css/magnific-popup.css" type="text/css" />
+	
+  <link rel="stylesheet" href="/resources/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 	<link rel="stylesheet" href="/resources/user/css/custom.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,6 +42,10 @@
 		opacity: 0.8;
 		background-color:#F2F2F2;
 		}
+
+		#example2_filter{
+			text-align:right;
+	
 	</style>
 	<!-- Document Title
 	============================================= -->
@@ -131,8 +138,9 @@
 	  $('#example2').DataTable({
 	      "paging": true,
 	      "lengthChange": false,
-	      "searching": false,
+	      "searching": true,
 	      "ordering": true,
+	      	"order" : [[0,'desc']],
 	      "info": true,
 	      "autoWidth": false,
 	      "responsive": true,
