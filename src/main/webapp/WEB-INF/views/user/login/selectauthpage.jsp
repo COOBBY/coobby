@@ -92,7 +92,6 @@
 
 	<jsp:include page="../user-nav.jsp" />
 
-
 	<div class="loginbackground"
 		style="background-image: url('/resources/user/images/my/LoginPage2.jpg');">
 		<br/>

@@ -4,9 +4,6 @@ import java.util.List;
 
 public interface DashBoardService {
 
-
-	//int recipeCount();
-
 	int todayRecipe();
 
 	int todayUser();

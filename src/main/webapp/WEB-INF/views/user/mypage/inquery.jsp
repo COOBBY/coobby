@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -41,6 +42,12 @@
 		#footer {
 			margin-top: 100px;
 		}
+		#connect{
+		border : 3px solid #e2d9d9;
+		padding-top : 5%;
+		border-radius : 5% 5% 3% 3%;
+		padding-bottom : 5%;
+		}
 	</style>
 	<!-- Document Title
 	============================================= -->
@@ -61,7 +68,7 @@
 
   <div class="page-wrapper">
     <div class="container">
-      <div class="row" style="margin-top: 20px;">
+      <div class="row" style="margin-top: 20px;" id="connect">
         <!--사이드 -->
         <div class="col-md-3" style="border-right: 2px solid; height:100%">
           <aside class="sidebar" >
@@ -94,147 +101,42 @@
                     <!-- 사이드 닫음 -->
 			<div class="col-md-9" style="display: flex; justify-content: center;">   
 			<br/><br/>
-				<div class="text-center" style="text-align: center;">
+				<div class="text-center" style="text-align: center; width:100%;">
 				 <h2>1대1 문의글 리스트</h2><br/>
 
 			 <a href="inqueryinsert"><button type="button" class="btn btn-main" id="writebtn2" style="background-color: gray; color: white; float:right; margin-top: -40px;">문의글 작성</button></a>
-				<div class="table-responsive" style="width: 800px;">
-				<table class="table table-bordered mb-0">
+				<div class="table-responsive">
+				<table id="example2" class="table table-bordered table-hover">
 				 <thead>
 					<tr>
 					 <th>작성일</th>
 					 <th style="text-align:left;">제목</th>
-		   			 <th>답변</th>
+		   			 <th>답변유무</th>
 					</tr>
 				 </thead>
 					<tbody>
+					<c:forEach items="${qnaList }" var="qna">
 				   <tr>
-					  <td>2022-05-06</td>
-					  <td style="text-align:left;">문의글 제목입니다.</td>
-					  <td>답변 완료</td>
+					  <td>${qna.qdate }</td>
+					  <td style="text-align:left;">${qna.qtitle }</td>
+		                  <td>
+                    <c:choose>
+							<c:when test="${empty qna.acontent}">미답변</c:when>
+							<c:otherwise>답변완료</c:otherwise>											
+					</c:choose>
+					</td>
 					</tr>
-					<tr>
-					  <td>2022-04-22</td>
-				  	  <td style="text-align:left;">문의글</td>
-					  <td>답변 대기</td>
-					</tr>
+					</c:forEach>
 				  </tbody>
 				</table>
 				</div>
-			<div style="text-align: center"><br/>
-			  <button type="button" class="btn btn-main" id="morebtn" style="background-color: black; color: aliceblue;">더보기</button>
-			</div>
 		</div>
        </div>
+      </div>
+     </div>
   <!--================End Checkout Area =================-->
 
 
-		<!-- Footer
-		============================================= -->
-		<footer id="footer" class="border-0 bg-white">
-			<div class="container">
-
-				<!-- Footer Widgets
-				============================================= -->
-				<div class="footer-widgets-wrap py-lg-6">
-					<div class="row col-mb-30">
-
-						<!-- Footer Col 1 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Social</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="https://facebook.com/semicolonweb" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-									<li><a href="https://instagram.com/semicolonweb" target="_blank"><i class="icon-instagram"></i> Instagram</a></li>
-									<li><a href="https://twitter.com/__semicolon" target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
-									<li><a href="https://youtube.com/c/SemiColonweb/videos" target="_blank"><i class="icon-youtube"></i> YouTube</a></li>
-									<li><a href="https://wa.me/00112233344"><i class="icon-whatsapp"></i> WhatsApp</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 2 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Support</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture.html">Home</a></li>
-									<li><a href="demo-furniture-about.html">About</a></li>
-									<li><a href="demo-furniture-contact.html">Contact</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 3 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Trending</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture-products.html">Shop</a></li>
-									<li><a href="demo-forum-single.html">Single</a></li>
-									<li><a href="demo-furniture-about.html">Who are we</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 4 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Get to Know us</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="intro.html#section-niche">Niche Demos</a></li>
-									<li><a href="intro.html#section-multipage">Home Pages</a></li>
-									<li><a href="intro.html#section-onepage">One Pages</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 5 -->
-						<div class="col-lg-4">
-							<div class="widget subscribe-widget clearfix" data-loader="button">
-								<h4>Subscribe Us</h4>
-								<h5 class="font-body op-04"><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
-								<div class="widget-subscribe-form-result"></div>
-								<form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0">
-									<div class="input-group">
-										<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email Address">
-										<button class="btn btn-dark bg-color px-3 input-group-text" type="submit">Subscribe</button>
-									</div>
-								</form>
-							</div>
-						</div>
-
-					</div>
-
-				</div><!-- .footer-widgets-wrap end -->
-
-			</div>
-
-			<!-- Copyrights
-			============================================= -->
-			<div id="copyrights" class="py-3 bg-color-light">
-				<div class="container">
-
-					<div class="d-flex justify-content-between op-04">
-						<span>&copy; 2020 All Rights Reserved by Canvas Inc.</span>
-						<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
-					</div>
-
-				</div>
-			</div><!-- #copyrights end -->
-		</footer><!-- #footer end -->
 
 	</div><!-- #wrapper end -->
 	</div>
@@ -247,12 +149,39 @@
 
 	<!-- JavaScripts
 	============================================= -->
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.min.js"></script>
+	<script src="/resources/user/js/jquery.js"></script>
+	<script src="/resources/user/js/plugins.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>
+	<script src="/resources/user/js/functions.js"></script>
+	
+	<script>
+  $(function () {
+	  $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false,
+	      "responsive": true,
+	    });
+		
+  });
+</script>
 
 </body>
 </html>

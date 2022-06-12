@@ -234,20 +234,20 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
 		$(function(){
-			let smallChoose;
-			let className;
-			let bigCate;
-			let smallCateCode;
+			let smallChoose;	//소분류를 클릭했을때 어떤 소분류를 클릭한건지 알 수 있게하기 위한 변수
+			let bigCate;		//입력,수정,삭제를 하기위한 소분류의 대분류를 지정하기 위한 변수
+			let smallCateCode;	//수정 혹은 삭제를 할때 그 소분류의 primary key값인 code를 저장하는 변수
+			
 			//소분류를 클릭했을때 수정 혹은 등록을 할 수 있게
 			$(document).on('click','.inputText', function(){
-				$('.cateModify').val($(this).text().trim());
-				smallChoose = $(this);
+				$('.cateModify').val($(this).text().trim());	
+				smallChoose = $(this);	//smallChoose 전역변수에 클릭한 현재 태그 저장
 				$('.bCateParent').html('<div class="btn btn-default btn-block BigCate">'+ $(this).closest('tr').find('div').text()+'</div>')	// 대분류가 무엇인지 찾고 삽입
-				$('span').removeAttr('id');
-				$('span').removeAttr('style');
-				$(this).attr('id','clickCate');
-				$('#clickCate').css({'background-color' : '#cbcbcb', 'color' : 'white'});
-				bigCate = $(this).closest('tr').find('div').text();
+				$('span').removeAttr('id');		//span태그에 id 속성 해제
+				$('span').removeAttr('style');	//span태그에 style 속성 해제
+				$(this).attr('id','clickCate');	//현재 태그에 id 속성으로 clickCate 추가
+				$('#clickCate').css({'background-color' : '#cbcbcb', 'color' : 'white'}); //id값 clickCate에 css 적용
+				bigCate = $(this).closest('tr').find('div').text();		//bigCate에 현재의 대분류를 저장
 			});
 			
 			//+버튼을 눌러 소분류를 추가하는 과정
@@ -257,15 +257,15 @@
 						  '<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'+
 						  '<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>'+
 						'</svg>'+
-						'</span>');
+						'</span>');	// 클릭한 + 버튼 이전에 input 태그 추가
 			});
 			
 			//빨간색 -버튼을 눌러 소븐류를 삭제
 			$(document).on('click','.smallCateDel', function(){
 				if($(this).closest('span').text().trim() != ''){					//값이 있던 것이므로 ajax로 delete
-					bigCate = $(this).closest('tr').find('div').text();
-					let CateCode = $(this).next('input').val();
-					$.ajax({
+					bigCate = $(this).closest('tr').find('div').text();				//biCate에 -버튼을 기준으로 지우고자하는 소분류의 대분류 텍스트 검색 후 저장
+					let CateCode = $(this).next('input').val();						//CateCode 변수에 지우고자하는 카테고리의 코드 입력
+					$.ajax({														//ajax실행
 						type : 'DELETE',
 						url : 'deleteCate',
 						data : {"cateType" : bigCate, "cateCode" : CateCode},
@@ -284,8 +284,8 @@
 			
 			//수정 버튼을 눌렀을때 진행되는 과정
 			$(document).on('click','.modify',function(){
-				smallCateCode = smallChoose.find('input').val(); 
-				if(smallChoose.text().trim() != ''){	//값이 있음을 체크하고 ajax로 update
+				smallCateCode = smallChoose.find('input').val(); 	//smallCateCode에 클릭한 소분류의 input태그의 value확인
+				if(smallChoose.text().trim() != ''){	// smallChoose의 값이 있음을 체크하고 ajax로 update
 					$.ajax({
 						type : 'PUT',
 						url : 'updateCate',
@@ -301,14 +301,14 @@
 					}); 
 				
 				}
-				else{							//값이 없음을 체크하고 ajax로 insert
+				else{							//원래 값이 없음을 체크하고 ajax로 insert
 					$.ajax({
 						type : 'POST',
 						url : 'insertCate',
-						async : false,
+						async : false,			//ajax를 완전히 실행 한 후 다음 코드를 실행하기 위해 async : false 입력
 						data :{"cateType" : bigCate, "cateName" : $('.cateModify').val()},
 						success : function(data) {
-							smallCateCode = data;
+							smallCateCode = data;	//ajax가 성공했으면 새로 입력된 cateCode를 smallCateCode에 입력
 						},
 						error : function(err) {
 							alert('실패');
@@ -317,16 +317,16 @@
 					});
 				}
 				
-				smallChoose.html('')
+				smallChoose.html('')			//smallChoose를 빈값으로 설정
 				smallChoose.append($('.cateModify').val()+
 						'<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="red" class="bi bi-dash-circle smallCateDel" viewBox="0 0 16 16">'+
 				  		'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'+
 				  		'<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>'+
 						'</svg>'+
 						'<input type="hidden" name="cateCode" class="hiddenName" value="'+smallCateCode+'"/>');
-				$('.cateModify').val('');
-				$('span').removeAttr('id');
-				$('span').removeAttr('style');
+				$('.cateModify').val('');		//cateModify 클래스의 값 제거
+				$('span').removeAttr('id');		//span태그 id와 
+				$('span').removeAttr('style');	//style 속성 제거
 			});
 		});
 	</script>

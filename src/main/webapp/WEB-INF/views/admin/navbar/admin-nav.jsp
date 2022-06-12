@@ -15,7 +15,7 @@
 			<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 				href="#" role="button"><i class="fas fa-bars"></i></a></li>
 			<li class="nav-item d-none d-sm-inline-block"><a
-				href="index3.html" class="nav-link">Home</a></li>
+				href="/user/mainpage" class="nav-link">Home</a></li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
@@ -26,9 +26,11 @@
   						<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
   						<path fill-rule="evenodd"
 								d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-</svg>
+						</svg>
 					</div>
+					<a href="/user/login/logout">
 					<div class="info">Log Out</div>
+					</a>
 				</div>
 			</li>
 		</ul>
@@ -80,7 +82,7 @@
 							<p class="nav-margin">회원 관리</p>
 					</a></li>
 					<div class="space"></div>
-					<li class="nav-item"><a href="#" class="nav-link"> <svg
+					<li class="nav-item"><a href="/admin/AdminBlacklist/adminBlacklist" class="nav-link"> <svg
 								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 								fill="currentColor" class="bi bi-person-x-fill navi"
 								viewBox="0 0 16 16">
@@ -101,21 +103,24 @@
 							<p class="nav-margin">카테고리 관리</p>
 					</a></li>
 					<div class="space"></div>
-					<li class="nav-item">
-						<a href="#" class="nav-link"> 
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table navi" viewBox="0 0 16 16">
-  							<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
-						</svg>
+					<li class="nav-item"><a href="/admin/Announce/listpage" class="nav-link"> <svg
+
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-table navi" viewBox="0 0 16 16">
+  									<path
+									d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+									</svg>
+
 							<p class="nav-margin">
 								공지사항 및 Q&A 관리 <i class="fas fa-angle-left right"></i>
 							</p>
 						</a>
 						<ul class="nav nav-treeview">
-							<li class="nav-item"><a href="pages/tables/simple.html"
+							<li class="nav-item"><a href="/admin/Announce/listpage"
 								class="nav-link"> <i class="far fa-circle nav-icon"></i>
 									<p>공지사항</p>
 							</a></li>
-							<li class="nav-item"><a href="pages/tables/data.html"
+							<li class="nav-item"><a href="/admin/QnA/listpage"
 								class="nav-link"> <i class="far fa-circle nav-icon"></i>
 									<p>Q&A</p>
 							</a></li>

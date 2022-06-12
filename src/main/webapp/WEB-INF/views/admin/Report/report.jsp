@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COOBBY | ADMIN</title>
+  <title>COOBBY</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,9 +31,11 @@
 #report{
   margin: 10px;
 }
-.btn-block{
-
-
+.reportContent{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+max-width: 350px;
 }
 
 
@@ -62,7 +64,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">신고관리</li>
             </ol>
           </div>
         </div>
@@ -117,7 +119,7 @@
                   <c:forEach items="${commList }" var="colist">
                   <tr>
                     <td>${colist.reportCate }</td>
-                    <td><a href="reportCommentDetail?reportNo=${colist.reportNo }">${colist.reportContent }</a></td>
+                    <td class="reportContent"><a href="reportCommentDetail?reportNo=${colist.reportNo }">${colist.reportContent }</a></td>
                     <td>${colist.reportSusid }</td>
                     <td>${colist.reportVicid }</td>
                     <td>${colist.reportDate }</td>
@@ -176,7 +178,7 @@
                   <c:forEach items="${boardList }" var="bolist">
                   <tr>
                     <td>${bolist.reportCate }</td>
-                    <td><a href="reportBoardDetail?reportNo=${bolist.reportNo }">${bolist.reportContent }</a></td>
+                    <td class="reportContent"><a href="reportBoardDetail?reportNo=${bolist.reportNo }">${bolist.reportContent }</a></td>
                     <td>${bolist.reportSusid }</td>
                     <td>${bolist.reportVicid }</td>
                     <td>${bolist.reportDate }</td>
@@ -229,13 +231,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.2.0
-    </div>
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->

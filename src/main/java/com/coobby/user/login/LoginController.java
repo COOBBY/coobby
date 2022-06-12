@@ -18,6 +18,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +62,6 @@ public class LoginController {
 	public String checkNickname(String nickname) {
 		
 		System.out.println(nickname);
-
 		MemberVO member = loginService.findByMemNickname(nickname);
 		String result;
 		
@@ -74,8 +74,6 @@ public class LoginController {
 		
 		 return result; 
 	}
-	
-
 	/* 로그인 성공여부에 따른 세션 저장 */
 	@RequestMapping(value="checkLogin", produces="applicaton/text;charset=utf-8")
 	public String checkLogin(MemberVO vo, HttpSession session, RedirectAttributes redirect) {
@@ -106,7 +104,6 @@ public class LoginController {
 		return "redirect:/user/mainpage";
 					
 	}
-	
 	
 	@RequestMapping("selectauthpage")
 	public String selectauthpage() {
@@ -167,10 +164,6 @@ public class LoginController {
         System.out.println("num: "+ num);
         return num;                     
     }
-	
-	
-	
- 	
 	
 }
 	

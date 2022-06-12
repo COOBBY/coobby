@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -30,7 +31,15 @@
 	<link rel="stylesheet" href="/resources/user/demos/furniture/furniture.css" type="text/css" /> <!-- Furniture Custom Css -->
 	<link rel="stylesheet" href="/resources/user/demos/furniture/css/fonts.css" type="text/css" /> <!-- Furniture Custom Fonts -->
 	<!-- / -->
-
+	<style>
+		#footer {
+			margin-top: 100px;
+		}
+		.list:hover {
+		opacity: 0.8;
+		background-color:#F2F2F2;
+		}
+	</style>
 	<!-- Document Title
 	============================================= -->
 	<title>Furniture | Canvas</title>
@@ -55,196 +64,41 @@
     <h2>공지사항</h2><br/>
    </div>
    <div class="container">
-   <div style="text-align: left; margin-left: 160px;">
+   <div style="text-align: left; margin-left: 1%;">
     <button type="button" class="btn btn-main" id="annobtn" style="background-color: blue; color: white;">공지사항</button>
     <a href="/user/QnA/QnAlist"><button type="button" class="btn btn-main" id="qnabtn" style="background-color: gray; color: aliceblue;">Q&A</button></a>
     </div>
   </div><br/>
   <div class="container">
    
-  <div class="col-md-6" style="display: flex; justify-content: center;">
-    <div class="block text-center w-50">
-          <form class="text-left clearfix" action="index.html">
-            <table class="table table-bordered" style="width: 900px;" >
+<div class="card">
+		<div class="card-body" style="text-align: center;">
+		<table id="example2" class="table table-bordered table-hover">
               <thead>
                <tr>
                 <th style="width: 16.6%;">번호</th>
                 <th style="width: 40%;">제목</th>
-                <th style="width: 20%;">담당자</th>
                 <th>작성일</th>
                 <th style="width: 8.33%;">조회수</th>
               </tr>
               </thead>
               <tbody>
-                <tr>
-                 <td>1</td>
-                 <td style="text-align:left">공지사항 제목입니다.</td>
-                 <td>관리자</td>
-                 <td>2022-05-05</td>
-                 <td>12</td>
-                </tr>
-                <tr>
-                 <td>2</td>
-                 <td style="text-align:left">공지사항</td>
-                 <td>관리자</td>
-                 <td>2022-04-25</td>
-                 <td>23</td>
-                <tr>
-                 <td>3</td>
-                 <td style="text-align:left">공지사항</td>
-                 <td>관리자</td>
-                 <td>2022-04-02</td>
-                 <td>12</td>
-                </tr>
-                <tr>  
-                 <td>4</td>
-                 <td style="text-align:left">공지사항</td>
-                 <td>관리자</td>
-                 <td>2022-03-26</td>
-                 <td>34</td>
-                </tr>
-                <tr>
-                 <td>5</td>
-                 <td style="text-align:left">공지사항</td>
-                 <td>관리자</td>
-                 <td>2022-03-11</td>
-                 <td>34</td>
-                </tr>
-                <tr>
-                 <td>6</td>
-                 <td style="text-align:left">공지사항</td>
-                 <td>관리자</td>
-                 <td>2022-03-01</td>
-                 <td>65</td>
-                </tr>
+			 <c:forEach items="${boardList}" var="list">
+			<tr>
+			    <td>${list.boardNo}</td>
+                <td class="list" style="text-align:left;"><a href="Boarddetail?boardNo=${list.boardNo}"><div>${list.boardTitle}</div></a></td>
+                <td>${list.boardCreatetime }</td>
+                <td>${list.boardViewcnt}</td>
+            </tr>
+              </c:forEach>
               </tbody>
             </table>
-          </form>
         </div>
        </div>
-       <div class="col-md-3"></div>
       </div>
-      <nav aria-label="Page navigation">
-		<ul class="pagination justify-content-center mt-4">
-		   <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-		   <li class="page-item"><a class="page-link" href="#">2</a></li>
-		   <li class="page-item"><a class="page-link" href="#">3</a></li>
-		   <li class="page-item"><a class="page-link" href="#">4</a></li>
-		   <li class="page-item"><a class="page-link" href="#">5</a></li>
-		</ul>
-	 </nav>
-  <!--================End Checkout Area =================-->
-
-
-		<!-- Footer
-		============================================= -->
-		<footer id="footer" class="border-0 bg-white">
-			<div class="container">
-
-				<!-- Footer Widgets
-				============================================= -->
-				<div class="footer-widgets-wrap py-lg-6">
-					<div class="row col-mb-30">
-
-						<!-- Footer Col 1 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Social</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="https://facebook.com/semicolonweb" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-									<li><a href="https://instagram.com/semicolonweb" target="_blank"><i class="icon-instagram"></i> Instagram</a></li>
-									<li><a href="https://twitter.com/__semicolon" target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
-									<li><a href="https://youtube.com/c/SemiColonweb/videos" target="_blank"><i class="icon-youtube"></i> YouTube</a></li>
-									<li><a href="https://wa.me/00112233344"><i class="icon-whatsapp"></i> WhatsApp</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 2 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Support</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture.html">Home</a></li>
-									<li><a href="demo-furniture-about.html">About</a></li>
-									<li><a href="demo-furniture-contact.html">Contact</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 3 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Trending</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="demo-furniture-products.html">Shop</a></li>
-									<li><a href="demo-forum-single.html">Single</a></li>
-									<li><a href="demo-furniture-about.html">Who are we</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 4 -->
-						<div class="col-lg-2 col-md-3 col-6">
-							<div class="widget widget_links widget-li-noicon">
-
-								<h4 class="ls0 nott">Get to Know us</h4>
-
-								<ul class="list-unstyled iconlist ms-0">
-									<li><a href="intro.html#section-niche">Niche Demos</a></li>
-									<li><a href="intro.html#section-multipage">Home Pages</a></li>
-									<li><a href="intro.html#section-onepage">One Pages</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<!-- Footer Col 5 -->
-						<div class="col-lg-4">
-							<div class="widget subscribe-widget clearfix" data-loader="button">
-								<h4>Subscribe Us</h4>
-								<h5 class="font-body op-04"><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
-								<div class="widget-subscribe-form-result"></div>
-								<form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0">
-									<div class="input-group">
-										<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email Address">
-										<button class="btn btn-dark bg-color px-3 input-group-text" type="submit">Subscribe</button>
-									</div>
-								</form>
-							</div>
-						</div>
-
-					</div>
-
-				</div><!-- .footer-widgets-wrap end -->
-
-			</div>
-
-			<!-- Copyrights
-			============================================= -->
-			<div id="copyrights" class="py-3 bg-color-light">
-				<div class="container">
-
-					<div class="d-flex justify-content-between op-04">
-						<span>&copy; 2020 All Rights Reserved by Canvas Inc.</span>
-						<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
-					</div>
-
-				</div>
-			</div><!-- #copyrights end -->
-		</footer><!-- #footer end -->
-
-	</div><!-- #wrapper end -->
+	<div style="height : 50px">
 	</div>
+	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
 	============================================= -->
@@ -254,12 +108,38 @@
 
 	<!-- JavaScripts
 	============================================= -->
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.min.js"></script>
-
+	<script src="/resources/user/js/jquery.js"></script>
+	<script src="/resources/user/js/plugins.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="/resources/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>
+	<script src="/resources/user/js/functions.js"></script>
+
+	<script>
+  $(function () {
+	  $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false,
+	      "responsive": true,
+	    });
+		
+  });
+</script>
 
 </body>
 </html>
