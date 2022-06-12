@@ -19,16 +19,16 @@ public class MainServiceImpl implements MainService{
 	
 	@Override
 	public List<Object[]> mainTopRecipeList(){
-		return recipeRepo.mainTopRecipeList();
+		return recipeRepo.mainTopRecipeList();		//메인페이지의 탑7 레시피 
 	}
 
 	@Override
 	public List<Object[]> mainRecentRecipeList() {
-		return recipeRepo.mainRecentRecipeList();
+		return recipeRepo.mainRecentRecipeList();	//메인페이지 최근 레시피 등록 리스트
 	}
 
 	@Override
 	public List<Object[]> mainRandomFeed() {
-		return feedRepo.mainRandomFeed();
+		return feedRepo.mainRandomFeed();			//메인페이지 랜덤 피드 리스트
 	}
 }
