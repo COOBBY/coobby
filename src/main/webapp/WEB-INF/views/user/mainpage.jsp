@@ -42,7 +42,12 @@
 <!-- Furniture Custom Css -->
 <link rel="stylesheet"
 	href="/resources/user/demos/furniture/css/fonts.css" type="text/css" />
-
+<style>
+	.topImage{
+		width : 640;
+		height : 800;
+	}
+</style>
 <title>Furniture | Canvas</title>
 
 </head>
@@ -99,7 +104,7 @@
 									<div class="product-image">
 										<a href="/user/recipe/recipeDetail?reNo=${recipe[2]}"><img
 											src="/resources/user/recipeimages/${recipe[6]}"
-											alt="Light Grey Sofa"></a>
+											alt="Light Grey Sofa" class="topImage"></a>
 
 										<div
 											class="bg-overlay-content align-items-end justify-content-between"
