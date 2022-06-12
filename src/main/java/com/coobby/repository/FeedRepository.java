@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import com.coobby.vo.FeLoveVO;
 import com.coobby.vo.FeedVO;
+import com.coobby.vo.MemberVO;
 
+@Repository
 public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 	
 	List<FeedVO> findByfeRegdate(String format);		//당일 등록한 피드 리스트 반환
@@ -48,5 +52,5 @@ public interface FeedRepository extends CrudRepository<FeedVO, Integer> {
 			+ "where t.report_cnt < 3 or t.report_cnt is null "
 			+ "order by rand() limit 9", nativeQuery=true)
 	List<Object[]> mainRandomFeed();
-	//main page에 띄울 피드 종류 9가지를 랜덤으로 가져옴
+
 }
