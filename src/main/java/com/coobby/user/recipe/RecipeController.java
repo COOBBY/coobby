@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,6 +33,7 @@ import com.coobby.vo.CateSituVO;
 import com.coobby.vo.IngrVO;
 import com.coobby.vo.RecipeVO;
 import com.coobby.vo.Recipe_imageVO;
+
 
 @Controller
 @RequestMapping("user/recipe")
@@ -122,12 +125,12 @@ public class RecipeController {
 
 	@RequestMapping("recipeSearch")		//레시피 검색기능을 위해 만든 페이지로 이동
 	public void recipeSearchForHyoung() {
-		
+
 	}
 	//검색
 	@RequestMapping(value="search")		//검색했을때 동작
 	public String getList(@RequestParam("chooseFile") MultipartFile files, Model m, HttpServletRequest request, String searchKeyword) throws Exception{
-		
+
 		if(files.isEmpty()) {
 			System.out.println(searchKeyword);
 		}
@@ -141,8 +144,7 @@ public class RecipeController {
 
 				files1 = new File(path+"/"+imageName);
 				pPath = path+"/"+imageName;
-				
-				System.out.println(pPath);
+
 				try {
 					files.transferTo(files1);
 				}catch(Exception e) {
@@ -162,50 +164,21 @@ public class RecipeController {
 
 				// 소켓이 접속이 완료되면 inputstream과 outputstream을 받는다.
 				try (DataOutputStream sender = new DataOutputStream(client.getOutputStream())) {
-					
+
 					byte[] array = Files.readAllBytes(files1.toPath());
-					
+
 					System.out.println("Array length : " + array.length);
-					
-					sender.writeInt(array.length);
+
+
+					ByteBuffer b = ByteBuffer.allocate(4);
+
+					b.order(ByteOrder.LITTLE_ENDIAN);
+					b.putInt(array.length);
+
+					sender.write(b.array(),0,4);
 					sender.write(array);
-					
-					
-					
-					
-					/* 2차 수정
-					BufferedImage image = ImageIO.read(files1);
-					
-					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-					ImageIO.write(image,"jpg",byteArrayOutputStream);
-					
-					byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
-					ByteBuffer b = ByteBuffer.allocate(4);
-					b.order(ByteOrder.LITTLE_ENDIAN);
-					b.putInt(size.length);
-					sender.write(size);
-					sender.write(byteArrayOutputStream.toByteArray());
-					sender.flush();
-					System.out.println("Flushed : " + System.currentTimeMillis());
-					*/
-					//정은씨 코드
-		/*			// string -> byte 배열 형변환
-					byte[] data = pPath.getBytes();
 
-					// ByteBuffer를 통해 데이터 길이를 byte형식으로 변환한다.
-					ByteBuffer b = ByteBuffer.allocate(4);
-
-					// byte포멧은 little 엔디언이다.
-					b.order(ByteOrder.LITTLE_ENDIAN);
-
-					b.putInt(data.length);
-
-					// 데이터 길이 전송
-					sender.write(b.array(), 0, 4);
-
-					// 데이터 전송
-					sender.write(data);
-					data = new byte[4];*/
+					array = new byte[4];
 
 
 					// 한글깨짐 방지
@@ -221,18 +194,21 @@ public class RecipeController {
 			} catch (Throwable e) {
 				e.printStackTrace();
 			}
-			/*
-			 * if( files1.exists() ){ if(files1.delete()){ }else{ }
-			 * 
-			 * }else{ System.out.println("파일이 존재하지 않습니다."); }
-			 */
+
+			if( files1.exists() ){
+				if(files1.delete()) {}
+				else{}
+			}
+			else{
+				System.out.println("파일이 존재하지 않습니다."); 
+			}
+
 		} 
-		System.out.println(searchKeyword);
 		m.addAttribute("searchList",recipeService.getSearchList(searchKeyword));
 		return "/user/recipe/recipeSearch";
-		
+
 	}
 
-	
+
 
 }
