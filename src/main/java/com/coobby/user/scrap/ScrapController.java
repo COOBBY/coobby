@@ -24,7 +24,6 @@ public class ScrapController {
 	//즐겨찾기 목록
 	@RequestMapping("mypage/scrap")
 	public String ScrapList(HttpSession session, Model m ) {
-		System.out.println("즐겨찾기 실행controller");
 		
 		//로그인 유무 확인
 		//로그인 안하면 로그인 페이지로 돌아가기
@@ -46,7 +45,6 @@ public class ScrapController {
 		
 		
 		m.addAttribute("scrapList", getScrapList);
-		System.out.println(getScrapList);
 		
 		return "user/mypage/MemberFavorites";
 		

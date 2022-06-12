@@ -51,7 +51,7 @@
 
 <!-- Document Title
 	============================================= -->
-<title>COOBBY | Nav-Bar</title>
+<title>COOBBY</title>
 <style>
 .menu-font {
 	font-size: 16px;

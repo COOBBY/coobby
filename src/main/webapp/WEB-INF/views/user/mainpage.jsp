@@ -42,7 +42,12 @@
 <!-- Furniture Custom Css -->
 <link rel="stylesheet"
 	href="/resources/user/demos/furniture/css/fonts.css" type="text/css" />
-
+<style>
+	.topImage{
+		width : 640;
+		height : 800;
+	}
+</style>
 <title>Furniture | Canvas</title>
 
 </head>
@@ -97,30 +102,27 @@
 							<div class="product col-lg-3 col-md-4 col-sm-6 col-12">
 								<div class="grid-inner">
 									<div class="product-image">
-										<a href="/user/recipe/recipeDetail?reNo=${recipe[2]}"><img
+										<a href="/user/recipe/recipedetail?reNo=${recipe[2]}"><img
 											src="/resources/user/recipeimages/${recipe[6]}"
-											alt="Light Grey Sofa"></a>
+											alt="Light Grey Sofa" class="topImage"></a>
 
-										<div
-											class="bg-overlay-content align-items-end justify-content-between"
+										<div class="bg-overlay-content align-items-end justify-content-between"
 											data-hover-animate="fadeIn" data-hover-speed="400">
-											<a href="/user/recipe/recipeDetail?reNo=${recipe[2]}"
+											<a href="/user/recipe/recipedetail?reNo=${recipe[2]}"
 												<%-- 레시피 링크 걸기 --%>
 													class="btn btn-light">
 												<i class="icon-line-expand"></i>
 											</a>
 										</div>
-
 									</div>
 									<div class="product-desc">
 										<div class="product-title mb-0">
 											<h4 class="mb-0">
-												<a class="fw-medium" href="/user/recipe/recipeDetail?reNo=${recipe[2]}">
+												<a class="fw-medium" href="/user/recipe/recipedetail?reNo=${recipe[2]}">
 													${recipe[3] } </a>
 												<h5 class="product-price fw-normal">♥ x ${recipe[1]}</h5>
 											</h4>
 										</div>
-
 										<h5 class="product-price fw-normal">조회 수 [ ${recipe[4]} ]</h5>
 									</div>
 								</div>
@@ -155,8 +157,8 @@
 					<div class="row item-categories gutter-20">
 						<c:forEach items="${recentRecipe }" var="recipe">
 							<div class="col-lg-4 col-md-6">
-								<a href="/user/recipe/recipeDetail?reNo=${recipe[1] }" class="d-block h-op-09 op-ts"
-									style="background: url('/resources/user/recipeimages/${recipe[3]}.jpg') no-repeat center center; background-size: cover; height: 340px;">
+								<a href="/user/recipe/recipedetail?reNo=${recipe[1] }" class="d-block h-op-09 op-ts"
+									style="background: url('/resources/user/recipeimages/${recipe[3]}') no-repeat center center; background-size: cover; height: 340px;">
 									<h5 class="text-uppercase ls1 bg-white mb-0">${recipe[2]}</h5>
 								</a>
 							</div>
@@ -245,35 +247,5 @@
 	<!-- Footer Scripts
 	============================================= -->
 	<script src="/resources/user/js/functions.js"></script>
-	<script>
-	$(function(){
-		$('img').hide();
-		$("#chooseFile").on("change", function(event) {
-			$('img').show();
-		    var file = event.target.files[0];
-
-		    var reader = new FileReader(); 
-		    reader.onload = function(e) {
-		        $("#image-show").attr("src", e.target.result);
-		    }
-
-		    reader.readAsDataURL(file);
-		});
-		
-		$("#searchBar").focus(function(){
-			if($('#icon').hasClass("open")){
-				$("#icon").hide();
-				$("#icon").removeClass("open");
-			}
-			else{
-				$("#icon").show();
-				$("#icon").addClass("open");
-			}
-			
-		})
-	})
-	
-	
-	</script>
 </body>
 </html>

@@ -24,10 +24,9 @@ public class AdminBlacklistController {
 		return "/admin/AdminBlacklist/adminBlacklist";
 	}
 
+	//블랙리스트 해제
 	@RequestMapping("blacklistupdate")
 	public String updateBlacklist(MemberVO vo) {
-		System.out.println(vo);
-		
 		adminBlacklistService.adminUpdateBlaklist(vo);
 		return "redirect:/admin/AdminBlacklist/adminBlacklist";
 	}

@@ -50,13 +50,11 @@ public class ReportServiceImpl implements ReportService {
 		result.setReportApply(vo.getReportApply());
 		reportRepo.save(result);
 		
-		System.out.println(vo);
 		//member 테이블 신고당한 횟수 변경 
 		MemberVO mem = memRepo.findById(result.getReportSusid()).get();
 		
 		// 일반 신고 처리
 		if (result.getReportApply() == 1) {
-			
 			mem.setReportCnt(mem.getReportCnt()+1);
 		} 
 		// 블랙리스트 처리
