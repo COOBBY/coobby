@@ -43,5 +43,8 @@ public class Re_commentVO {
 	
 	@Column(name="re_parent")
 	private int reParent;
+	
+	@Column(name="re_comm_status")
+	private int reCommStatus;
 
 }

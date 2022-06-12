@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,12 +33,14 @@ import com.coobby.vo.CateHowVO;
 import com.coobby.vo.CateIngrVO;
 import com.coobby.vo.CateKindVO;
 import com.coobby.vo.CateSituVO;
+import com.coobby.vo.CookVO;
 import com.coobby.vo.IngrVO;
 import com.coobby.vo.MemberVO;
 import com.coobby.vo.ReLoveVO;
 import com.coobby.vo.Re_commentVO;
 import com.coobby.vo.RecipeVO;
 import com.coobby.vo.Recipe_imageVO;
+import com.coobby.vo.ScrapVO;
 
 @Controller
 @RequestMapping("user/recipe")
@@ -230,6 +233,13 @@ public class RecipeController {
 		return "redirect:recipedetail?reNo="+reVO.getRecipeVO().getReNo()+"&memId="+reVO.getMemberVO().getMemId();
 	}
 	
+	// 댓글 삭제
+	@RequestMapping("commDelete")
+	@ResponseBody
+	public void commDelete(Re_commentVO reVO) {
+		recipeService.deleteComm(reVO);
+	}
+	
 	// 레시피 리스트 출력
 	@RequestMapping("recipelist")
 	public void recipelist(Model m, @PageableDefault(size = 4) Pageable pageable, RecipeVO reVO) {
@@ -294,7 +304,7 @@ public class RecipeController {
 			try (Socket client = new Socket()) {
 
 				// 소켓에 접속하기 위한 접속 정보를 선언한다.
-				InetSocketAddress ipep = new InetSocketAddress("localhost", 9001);
+				InetSocketAddress ipep = new InetSocketAddress("192.168.0.43", 9001);
 
 				// 소켓 접속
 				client.connect(ipep);

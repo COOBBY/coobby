@@ -67,7 +67,6 @@
 			data-400="background-position:0px -100px;">
 			<div class="container clearfix">
 				<div class="mx-auto center" style="max-width: 800px">
-				
 					<h3 id="mainTitle" class="nott fw-bold mb-5 display-4">
 						${ recipe.reTitle }</h3>
 				</div>
@@ -136,14 +135,16 @@
 										</ol>
 									</div>
 									<div></div>
-									<h4>조리 영상</h4>
-									<div class="rounded position-relative dark mb-5"
-										style="background: url('/resources/user/demos/recipes/images/recipe-week.jpg') no-repeat center center/cover; min-height: 300px;">
-										<a href="https://www.youtube.com/watch?v=P3Huse9K6Xs"
-											data-lightbox="iframe" class="play-video stretched-link">
-											<i class="icon-play"></i>
-										</a>
-									</div>
+									<c:if test="${ recipe.reVideoUrl eq null }">
+										<h4>조리 영상</h4>
+										<div class="rounded position-relative dark mb-5"
+											style="background: url('/resources/user/demos/recipes/images/recipe-week.jpg') no-repeat center center/cover; min-height: 300px;">
+											<a href="https://www.youtube.com/watch?v=P3Huse9K6Xs"
+												data-lightbox="iframe" class="play-video stretched-link">
+												<i class="icon-play"></i>
+											</a>
+										</div>
+									</c:if>
 									<h4>요리 TIP</h4>
 									<div>${ recipe.reTip }</div>
 
@@ -171,22 +172,23 @@
 													</div>
 														<div class="comment-content clearfix">
 															<div class="comment-author">
-																${ commparent.memberVO.memName } <span>April 24, 2012 at 10:46 am</span>
+																${ commparent.memberVO.memName } <span>${ commparent.reCommCreatetime }</span>
 															</div>
 	
 															<p>${ commparent.reContent }</p>
 															<div class="anmo">
-																<span id="childComm${ status.count }" class="comm_answer"> 답글 </span> <span
-																	class="comm_modify"> 수정 </span>
+																<span id="childComm${ status.count }" class="comm_answer"> 답글 </span> 
+																	<!-- <span class="comm_modify"> 수정 </span> -->
 															</div>
-															<a class="comment-reply-link" href="#"> <svg
-																	xmlns="http://www.w3.org/2000/svg" width="16"
-																	height="16" fill="currentColor"
-																	class="bi bi-trash3-fill" viewBox="0 0 16 16">
-																	<path
-																		d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-																</svg>
-															</a>
+															<input id="reCommNo${ status.count }" type="hidden" value="${ commparent.reCommNo }" />
+																<span id="delete${ status.count }" class="comment-reply-link"> <svg 
+																		xmlns="http://www.w3.org/2000/svg" width="16"
+																		height="16" fill="currentColor"
+																		class="bi bi-trash3-fill" viewBox="0 0 16 16">
+																		<path
+																			d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+																	</svg>
+																</span>
 														</div>
 
 													<div class="clear"></div>
@@ -220,7 +222,7 @@
 												</form>
 												</c:if>
 												<ul class="children">
-													<c:forEach items="${ commentparent }" var="commchild">
+													<c:forEach items="${ commentparent }" var="commchild" varStatus="status1">
 													<c:if test="${ commchild.reParent eq commparent.reCommNo }">
 													<li
 														class="comment byuser comment-author-_smcl_admin odd alt depth-2"
@@ -238,21 +240,21 @@
 															<div class="comment-content clearfix">
 																<div class="comment-author">
 																	${ commchild.memberVO.memName }
-																	<span><a href="#"
-																		title="Permalink to this comment">April 25, 2012
-																			at 1:03 am</a></span>
+																	<span>${ commchild.reCommCreatetime }</span>
 																</div>
 
 																<p>${ commchild.reContent }</p>
+																
+																<input id="reCommNo${ status.count }" type="hidden" value="${ commchild.reCommNo }" />
 
-																<a class="comment-reply-link" href="#"> <svg
+																<span id="delete${ status1.count }" class="comment-reply-link"> <svg 
 																		xmlns="http://www.w3.org/2000/svg" width="16"
 																		height="16" fill="currentColor"
 																		class="bi bi-trash3-fill" viewBox="0 0 16 16">
 																	  <path
 																			d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
 																	</svg>
-																</a>
+																</span>
 															</div>
 
 															<div class="clear"></div>
@@ -261,7 +263,6 @@
 													</c:if>
 													</c:forEach>
 												</ul>
-											</li>
 											</c:forEach>
 										</ol>
 										<!-- .commentlist end -->
@@ -297,12 +298,12 @@
 									<div id="writercontain"
 										class="single_sidebar_widget author_widget">
 										<img class="writerimg"
-											src="/resources/user/images/about/${ recipe.memberVO.memStoredimage }"
+											src="/resources/user/images/about/${ sessionScope.user.memStoredimage }"
 											alt="" />
 										<!-- 작성자 이름 -->
-										<h4>${ recipe.memberVO.memName }</h4>
+										<h4>${ sessionScope.user.memName }</h4>
 										<!-- 작성자 자기소개 -->
-										<p>${ recipe.memberVO.memNickname }</p>
+										<p>${ sessionScope.user.memNickname }</p>
 										<div class="br"></div>
 									</div>
 									<div class="line line-sm"></div>
@@ -313,17 +314,13 @@
 									<ul class="list-unstyled list-ingredients bg-light p-4">
 										<c:forEach items="${ ingr }" var="ingr" varStatus="status">
 											<div class="">
-												<div
-													class="">
-													<a href="ingrModal?ingrName=${ ingr.INGR_NAME }"
-														class="detailIngr" data-lightbox="ajax">
+													<a href="ingrModal?ingrName=${ ingr.INGR_NAME }" class="detailIngr" data-lightbox="ajax">
 														<li id="ingrmodal${ status.count }" class="ingrcontainer">
 															<img class="ingrimg" src="/resources/user/ingrimages/${ ingr.INGR_STORED_IMAGE }" alt="" />
 															<div id="ingrName${ status.count }" class="ingrcenter">${ ingr.INGR_NAME }</div>
 															<div class="ingrcount">${ ingr.INGR_COUNT }</div>
 														</li>
 													</a>
-												</div>
 											</div>
 										</c:forEach>
 									</ul>
@@ -374,6 +371,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<script src="/resources/user/js/plugins.min.js"></script>
+	<script src="/resources/user/js/plugins.lightbox.js"></script>
+	<script src="/resources/user/js/plugins.dataclasses.js"></script>
 	<script src="/resources/js/myjs/recipebxside.js"></script>
 	<script src="/resources/user/recipe/js/recipedetail.js"></script>
 

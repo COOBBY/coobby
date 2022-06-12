@@ -15,7 +15,7 @@ public interface FeedImageRepository extends CrudRepository<FeedImageVO, String>
 			+ " on fimg.fe_no = f.fe_no "
 			+ " left join member m on f.mem_id = m.mem_id "
 			+ "where m.report_cnt <3 or m.report_cnt is null "
-			+ "group by f.fe_no", nativeQuery=true)
+			+ "group by f.fe_no, fimg.fe_stored_image", nativeQuery=true)
 	List<Object[]> FeedImage();
 
 	//List<FeedImageVO> findByfeNo(Integer feNo);

@@ -191,6 +191,7 @@ public class RecipeServiceImpl implements RecipeService{
 		commentVO.setMemberVO(reVO.getMemberVO());
 		commentVO.setRecipeVO(reVO.getRecipeVO());
 		commentVO.setReCommCreatetime(date.format(today));
+		commentVO.setReCommStatus(0);
 		commentVO.setReParent(0);
 		commentRepo.save(commentVO);
 	}
@@ -202,8 +203,16 @@ public class RecipeServiceImpl implements RecipeService{
 		commentVO.setMemberVO(reVO.getMemberVO());
 		commentVO.setRecipeVO(reVO.getRecipeVO());
 		commentVO.setReParent(reVO.getReParent());
+		commentVO.setReCommStatus(0);
 		commentVO.setReCommCreatetime(date.format(today));
 		commentRepo.save(commentVO);
+	}
+	
+	//댓글 삭제
+	public void deleteComm(Re_commentVO reVO) {
+		Re_commentVO result = commentRepo.findById(reVO.getReCommNo()).get();
+		result.setReCommStatus(1);
+		commentRepo.save(result);
 	}
 	
 	// 댓글 조회

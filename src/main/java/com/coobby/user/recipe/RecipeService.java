@@ -76,6 +76,9 @@ public interface RecipeService {
 	// 대댓글 등록
 	void saveChildComment(Re_commentVO reVO);
 	
+	// 댓글 삭제
+	void deleteComm(Re_commentVO reVO);
+	
 	// 댓글 조회
 	List<Re_commentVO> getComment(int reNo);
 	

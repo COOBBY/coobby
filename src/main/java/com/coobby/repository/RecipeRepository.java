@@ -12,13 +12,6 @@ import com.coobby.vo.RecipeVO;
 public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 	public List<RecipeVO> findByReCreatetime(String currentDate);
 	
-//	@Query(value="SELECT   "
-//			+ "FROM cook c inner join ingr i  "
-//			+ "ON c.ingr_code = i.ingr_code  "
-//			+ "WHERE c.re_no = ?1  ",
-//			nativeQuery=true)
-//	List<Object[]> getingr(int reNo);
-	
 	@Query(value=" WITH RECURSIVE cte AS "
 			+ " ( SELECT DATE_ADD(NOW(), INTERVAL -30 day) AS d "
 			+ "   UNION all "
@@ -66,7 +59,7 @@ public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 			+ "    left outer join recipe_image ri on r.re_no = ri.re_no "
 			+ "    join member m on m.mem_id = r.mem_id "
 			+ "    where m.report_cnt < 3 or m.report_cnt is null "
-			+ "	group by l.re_no "
+			+ "	group by l.re_no, ri.re_stored_image "
 			+ "    ) t "
 			+ " where t.rownum <=20 "
 			+ " ORDER BY RAND() LIMIT 7",nativeQuery = true)
@@ -79,7 +72,7 @@ public interface RecipeRepository extends CrudRepository<RecipeVO, Integer>{
 			+ "	on r.re_no = ri.re_no join member m  "
 			+ "    on m.mem_id = r.mem_id "
 			+ "	where m.report_cnt < 3 or m.report_cnt is null and ri.re_split = 0 "
-			+ "    group by re_no "
+			+ "    group by re_no, ri.re_stored_image "
 			+ "	) t  "
 			+ " where t.rownum <=6", nativeQuery=true)
 	public List<Object[]> mainRecentRecipeList();

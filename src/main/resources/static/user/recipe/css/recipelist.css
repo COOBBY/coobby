@@ -40,6 +40,12 @@ td {
 	margin-left: 10px;
 }
 
+#insertBtn {
+	display:flex;
+	justify-content: end;
+	width: 100%;
+}
+
 #searchContain {
 	display: flex;
 	justify-content: center;

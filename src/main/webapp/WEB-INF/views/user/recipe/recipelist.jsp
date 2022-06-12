@@ -110,6 +110,9 @@
 						</div>
 						</c:forEach>
 					</div><!-- #shop end -->
+					<div id="insertBtn">
+						<a href="recipeinsert"><button class="btn btn-success ms-2" type="button">레시피 등록</button></a>
+					</div>
 
 					<div class="clear"></div>
 

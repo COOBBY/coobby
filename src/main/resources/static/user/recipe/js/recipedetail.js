@@ -118,8 +118,27 @@ $("#submit-button").click(() => {
 			})*/
 		},
 		error : function(error){
-			alert(error);
+			console.log(error);
 		}
 	})
 
 })
+for(let i = 1; i<100; i++){
+	$("#delete"+i).click(() =>{
+		alert('asd');
+		parentNo = $("#reCommNo"+i).val();
+		$.ajax({
+			url : 'commDelete',
+			type : 'post',
+			data : {
+				reCommNo = parentNo,
+			},
+			success : function(){
+				location.reload();
+			},
+			error : function(error){
+				console.log(error);
+			}
+		})
+	})	
+}
