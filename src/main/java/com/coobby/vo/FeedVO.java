@@ -1,6 +1,6 @@
 package com.coobby.vo;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -27,13 +25,20 @@ public class FeedVO {
 	private String feTitle;
 	@Column(name="fe_content")
 	private String feContent;
-
 	@Column(insertable = false, updatable = false, columnDefinition = "date default (current_date)", name="fe_regdate")
 	private String feRegdate;
 	@Column(name="fe_replycheck")
 	private Integer feReplycheck;
 	@Column(name="mem_id")
 	private String memId;
+	
+	// 좋아요 기능 
+	@OneToMany
+	private List<FeLoveVO> feloveVO;
+	
+	// 피드 삭제 
+	@Column(name="fe_state")
+	private Integer FeedState;
 	
 	
 	

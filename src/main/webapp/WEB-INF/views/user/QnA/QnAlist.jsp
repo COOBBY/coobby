@@ -20,6 +20,10 @@
 	<link rel="stylesheet" href="/resources/user/css/font-icons.css" type="text/css" />
 	<link rel="stylesheet" href="/resources/user/css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="/resources/user/css/magnific-popup.css" type="text/css" />
+	
+  
+  <link rel="stylesheet" href="/resources/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 	<link rel="stylesheet" href="/resources/user/css/custom.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,7 +35,11 @@
 	<link rel="stylesheet" href="/resources/user/demos/furniture/furniture.css" type="text/css" /> <!-- Furniture Custom Css -->
 	<link rel="stylesheet" href="/resources/user/demos/furniture/css/fonts.css" type="text/css" /> <!-- Furniture Custom Fonts -->
 	<!-- / -->
-
+	<style>
+		#example2_filter{
+			text-align:right;
+	
+	</style>
 	<!-- Document Title
 	============================================= -->
 	<title>Furniture | Canvas</title>
@@ -83,7 +91,7 @@
 				   <c:choose>
 				   	<c:when test="${qna.qcheck eq 0 }">
 				  				<i class="icon-lock1"></i>
-				  				<a href="QnAdetail?qnaNo=${qna.qnaNo }" class="lockQnA">${qna.qtitle }</a>
+				  				<a href="QnAdetail?qnaNo=${qna.qnaNo }" class="lockQnA">작성자만 볼 수 있습니다.</a>
 				  				<div class="passwordCheck"><form class="checkPassForm"><input type="hidden" class="qnaNo" value="${qna.qnaNo}"><label>비밀번호</label><input type="text" class="pass"><button class="btn btn-secondary">입력</button></form></div>
 				  		
 				  		</c:when>
@@ -105,7 +113,7 @@
 			</div>
 		  </div>
 		 </div>
-</div>
+	</div>
   <!--====	========End Checkout Area =================-->
 
 
@@ -143,7 +151,7 @@
 	  $('#example2').DataTable({
 	      "paging": true,
 	      "lengthChange": false,
-	      "searching": false,
+	      "searching": true,
 	      "ordering": true,
 	      "info": true,
 	      "autoWidth": false,

@@ -86,7 +86,7 @@
                        <a href="MemberFavorites" class="btn btn-solid-border w-100">즐겨찾기</a>
                     </li>
                      <li class="list">
-                      <a href="Memberupdate" class="btn btn-solid-border w-100">회원정보수정</a>
+                      <a href="Memberpasswordcheck" class="btn btn-solid-border w-100">회원정보수정</a>
                     </li>
                     <li class="list">
                       <a href="inquery" class="btn btn-solid-border w-100">1:1 문의글</a>
@@ -135,9 +135,6 @@
       </div>
      </div>
   <!--================End Checkout Area =================-->
-
-
-
 	</div><!-- #wrapper end -->
 	</div>
 

@@ -30,7 +30,7 @@ public class BoardVO {
 	private Integer boardViewcnt;
 	@Column(name = "board_imp")
 	private Integer boardImp;
-	@Column(insertable=false, updatable=false, columnDefinition="date default (current_date)", name = "board_createtime")
+	@Column(updatable=false, columnDefinition="date default (current_date)", name = "board_createtime")
 	private String boardCreatetime;
 	@Column(name = "board_updatetime")
 	private Date boardUpdatetime;

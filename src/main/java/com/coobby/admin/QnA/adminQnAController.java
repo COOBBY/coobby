@@ -17,12 +17,14 @@ public class adminQnAController {
 	@Autowired
 	QnAService qnaService;
 	
+	// QnA 등록 페이지
 	@RequestMapping("QnA/insertpage")
 	public String insertpage(QnAVO vo, Model m) {
 		m.addAttribute("qna", qnaService.getQnA(vo));
 		return "/admin/QnA/insertpage";
 	}
 	
+	// QnA 목록 리스트 띄우는 페이지
 	@RequestMapping("QnA/listpage")
 	public String listpage(Model m) {
 		List<QnAVO> result = qnaService.getQnAList();
@@ -30,6 +32,7 @@ public class adminQnAController {
 		return "/admin/QnA/listpage";
 	}
 	
+	// QnA 등록했을 때 저장 페이지
 	@RequestMapping("QnA/qnasave")
 	public String qnasave(QnAVO vo) {
 		qnaService.insertsaveQnA(vo);

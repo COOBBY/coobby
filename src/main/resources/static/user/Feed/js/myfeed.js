@@ -1,3 +1,4 @@
+
 $(function(){
     $('#chatting').hide();
 
@@ -16,34 +17,35 @@ $(function(){
         
     })
 
-    // 모달 뷰 사진 슬라이더 옵션
-    $('.flexslider').flexslider({
-        animation: "fade"
-    })
-    
-    // 게시글 댓글 허용 및 submit
-    $('#checkbox').change(function(){
-		 
-        if($("#checkbox").is(":checked")){
-            $('#checkval').val('1')
-        }else{
-            $('#checkval').val('0')
-        }
-        console.log($('#checkval').val())
-   
+	// 게시글 유효성 검사 완료
+	$('.savebtn').click(function(){
+		if($("textarea[name='feTitle']").val() == ""){
+			alert("제목을 입력해주세요")
+			$('#write_content').focus();
+			return false;
+		} else if($("textarea[name='feContent']").val() == ""){
+			alert("내용을 입력해주세요")
+			$('#write_content').focus();
+			return false;
+		} else if ($('#uploadFile').val() == "") {
+			alert("사진을 최소 1개 이상 선택해주세요.")
+			return false;
+		}
+	})
+	
+	// 로그인 이후 게시글 글쓰기 가능
+	$('#writefeed').click(function(){
+		const userId = $('#insertfebtn').val();
+		
+		if(userId == 'notLogin'){
+		alert("로그인 후 이용 가능한 서비스입니다.");
+		location.href="/user/login/loginpage";
+		return;
+		} else {
+			location.href="insertFeed";
+		}
 	})
 
-   
-    // 게시글 답글 toggle
-    
-	for(let i=1;i<100;i++){
-		$(document).on('click','.recomm'+i,function(){
-			$('.reComm'+i).toggle('slow');
-			$('.reCommentInput'+i).toggle('slow');	
-		});
-	}
-
-
-
+ 
 
 })

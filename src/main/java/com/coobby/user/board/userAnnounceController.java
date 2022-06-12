@@ -14,12 +14,14 @@ public class userAnnounceController {
 	@Autowired
 	BoardService boardService;
 	
+	// 사용자 공지사항 목록페이지
 	@RequestMapping("Boardlist")
 	public String Boardlist(Model m) {
 		m.addAttribute("boardList",boardService.getBoardList());
 		return "/user/Announce/Boardlist";
 	}
 	
+	// 사용자 공지사항 제목쪽 눌렀을 때 상세페이지로 이동
 	@RequestMapping("Boarddetail")
 	public String Boarddetail(BoardVO vo, Model m) {
 		BoardVO result = boardService.getBoard(vo);
