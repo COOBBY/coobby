@@ -28,10 +28,6 @@ public List<MapVO> getStoreLoc(Double lat, Double lon){
 		
 	}
 	
-	System.out.println("getStoreLoc");
-	System.out.println( "lat" + lat +"/" + "lon" + lon);
-	
-	
 	return resultData;
 	
 }

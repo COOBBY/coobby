@@ -1,4 +1,4 @@
-/**
+/**지도 스크립트
  * 
  */
  
@@ -64,8 +64,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 					dataType : "json",
 					type : "GET",
 					success : function(data) {
-						//console.log("data : "+ data.length)
-						//alert(JSON.stringify(data));//json 형태로 데이터 확인만
 
 						// 매장 위도 경도 각각 변수 저장
 						for (var i = 0; i < data.length; i++) {
@@ -73,13 +71,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 							var name = data[i].storeName
 							var lat = data[i].latitude
 							var lon = data[i].longitude
-							
-							// 이름, 위도, 경도 확인
-						/* 	console.log("name" + name);
-							console.log("lat" + lat);
-							console.log("lon" + lon); */
-
-						
 
 							// 마커를 표시할 위치와 title 객체 배열입니다 
 							var positions = [ {
@@ -102,7 +93,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 							        content: positions[j].title // 인포윈도우에 표시할 내용
 							    });
 
-							  // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							  	// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
@@ -135,9 +126,9 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 		function displayMarker(locPosition, message) {
 			
 			// 본인 위치 마커는 다른 이미지로 설정
-				var imageSrc = '/resources/user/images/map/pngkit_beach-icon-png_7637826.png' // 마커이미지의 주소입니다    
-	    		var imageSize = new kakao.maps.Size(35, 50) // 마커이미지의 크기입니다
-				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
+			var imageSrc = '/resources/user/images/map/pngkit_beach-icon-png_7637826.png' // 마커이미지의 주소입니다    
+    		var imageSize = new kakao.maps.Size(35, 50) // 마커이미지의 크기입니다
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
 				
 			// 마커를 생성합니다
 			var marker = new kakao.maps.Marker({
@@ -146,20 +137,9 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 				image: markerImage // 마커이미지 설정 
 				
 			});
-
-			/*var iwContent = message, // 인포윈도우에 표시할 내용
-			iwRemoveable = true;*/
-
-			// 인포윈도우를 생성합니다
-			/* var infowindow = new kakao.maps.InfoWindow({
-				content : iwContent,
-				removable : iwRemoveable
-			}); */
 			
 			// 생성된 마커를 배열에 추가합니다
 			markers.push(marker);
-			// 인포윈도우를 마커위에 표시합니다 
-			//infowindow.open(map, marker);
 
 			// 지도 중심좌표를 접속위치로 변경합니다
 			map.setCenter(locPosition);
@@ -214,13 +194,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 								
 							});
 
-							
-						/*	//마커 생성
-							var marker = new daum.maps.Marker({
-								position : new daum.maps.LatLng(37.537187,
-										127.005476),
-								map : map
-							});*/
+
 							markers.push(marker); // 생성된 마커를 배열에 추가합니다
 							
 							
@@ -250,7 +224,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 							
 							
 /***** 주소 검색 시 매장 위치 나오는 ajax *****/
-							$.ajax({
+				$.ajax({
 					url : "/mapLoc",
 					data : {
 						'lat' : mylat,
@@ -259,8 +233,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 					dataType : "json",
 					type : "GET",
 					success : function(data) {
-						//console.log("data : "+ data.length)
-						//alert(JSON.stringify(data));//json 형태로 데이터 확인만
 
 						// 매장 위도 경도 각각 변수 저장
 						for (var i = 0; i < data.length; i++) {
@@ -293,12 +265,12 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 							        content: positions[j].title // 인포윈도우에 표시할 내용
 							    });
 
-  // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-								
+							 	// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+																
 								
 								
 								} //마커 생성 for문 끝
@@ -322,25 +294,25 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 /***** 내 위치 찾기 버튼 눌렀을 때 위치 표시 *****/
 
 
-function locationLoadSuccess(pos){
+		function locationLoadSuccess(pos){
+		
+		// 현재 위치 받아오기
+		var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+		
+		var mLat = currentPos.getLat();
+		var mLon = currentPos.getLng();
 
-// 현재 위치 받아오기
-var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
 
-var mLat = currentPos.getLat();
-var mLon = currentPos.getLng();
+		
+		// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+		map.panTo(currentPos);
+		setMarkers(null); // 기존에 마커가 있다면 제거
 
-
-
-// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
-map.panTo(currentPos);
-setMarkers(null); // 기존에 마커가 있다면 제거
-
-	// 본인 위치 마커는 다른 이미지로 설정	 
+							// 본인 위치 마커는 다른 이미지로 설정	 
 							var imageSrc = '/resources/user/images/map/pngkit_beach-icon-png_7637826.png' // 마커이미지의 주소입니다    
 	    					var imageSize = new kakao.maps.Size(33, 50) // 마커이미지의 크기입니다
 							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
-	// 마커를 생성합니다
+							// 마커를 생성합니다
 							var marker = new kakao.maps.Marker({
 								map : map,
 								position : currentPos,
@@ -348,26 +320,20 @@ setMarkers(null); // 기존에 마커가 있다면 제거
 								
 							});
 
-/*// 마커 생성
-var marker = new kakao.maps.Marker({
-    position: currentPos
-}); 
-*/
-markers.push(marker); // 생성된 마커를 배열에 추가합니다
 
-
-marker.setMap(map); // 생성한 마커 찍기 
-$.ajax({
-		url : "/mapLoc",
-		data : {
-			'lat' : mLat,
+								markers.push(marker); // 생성된 마커를 배열에 추가합니다
+								
+								
+								marker.setMap(map); // 생성한 마커 찍기 
+				$.ajax({
+					url : "/mapLoc",
+					data : {
+						'lat' : mLat,
 						'lon' : mLon
 					},
 					dataType : "json",
 					type : "GET",
 					success : function(data) {
-						//console.log("data : "+ data.length)
-						//alert(JSON.stringify(data));//json 형태로 데이터 확인만
 					
 						// 매장 위도 경도 각각 변수 저장
 						for (var i = 0; i < data.length; i++) {
@@ -399,11 +365,11 @@ $.ajax({
 							        content: positions[j].title // 인포윈도우에 표시할 내용
 							    });
 
-						  // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-						    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-						    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-						    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							 	// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 								
 								
 								
@@ -417,34 +383,34 @@ $.ajax({
 					}
 				})// ajax 끝
 
-};
+			};
 
 
 		
 	
 
-function locationLoadError(pos){
-alert('위치를 불러올 수 없습니다. 주소를 입력해주세요');
-};
-
-// 위치 가져오기 버튼 클릭시
-function getCurrentPosBtn(){
-navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
-};
+		function locationLoadError(pos){
+			alert('위치를 불러올 수 없습니다. 주소를 입력해주세요');
+			};
+		
+		// 위치 가져오기 버튼 클릭 함수 
+		function getCurrentPosBtn(){
+			navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
+			};
 
 
 
 		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-function makeOverListener(map, marker, infowindow) {
-    return function() {
-        infowindow.open(map, marker);
-    };
-}
-
-// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-function makeOutListener(infowindow) {
-    return function() {
-        infowindow.close();
-    };
-}
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+		
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}
 	

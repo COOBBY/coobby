@@ -9,10 +9,8 @@ import com.coobby.vo.MemberVO;
 
 public interface AdminUserRepository extends CrudRepository<MemberVO, String>{
 
+	//회원관리 목록 출력
 	List<MemberVO> OrderByMemCreatetimeDesc();
-	
-//	@Query("SELECT b FROM MemberVO b ORDER BY b.memTel DESC")
-//	List<MemberVO> queryAnnotation();
 	
 
 	
