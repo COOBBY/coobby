@@ -21,7 +21,7 @@ public class CategoryRestController {
 	
 	@PostMapping("/insertCate")			//카테고리 입력 요청이 들어왔을 때						
 	public int insertCate( String cateType, String cateName) {			//카테고리 타입과 카테고리 이름을 매개변수로 받음
-		return cateService.insertCate(cateType.strip(), cateName);		//카테고리 타입과 카테고리 이름을 인자로 insertCate 메소드 실행
+		return cateService.insertCate(cateType.trim(), cateName);		//카테고리 타입과 카테고리 이름을 인자로 insertCate 메소드 실행
 	}
 	
 	@PutMapping("/updateCate")			//카테고리 수정 요청이 들어왔을 때

@@ -59,7 +59,7 @@
 					data-widget="treeview" role="menu" data-accordion="false">
 					<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-					<li class="nav-item"><a href="dashboard" class="nav-link">
+					<li class="nav-item"><a href="/admin/dashboard" class="nav-link">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 								fill="currentColor" class="bi bi-motherboard navi"
 								viewBox="0 0 16 16">

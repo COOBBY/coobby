@@ -16,7 +16,7 @@ public class FeLoveVO {
 	
 	@Id
 	@Column(name="fe_love_no")
-	private int feLoveNo;
+	private Integer feLoveNo;
 
 	@ManyToOne
 	@JoinColumn(name="fe_no")

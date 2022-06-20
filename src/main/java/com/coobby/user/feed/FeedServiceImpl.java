@@ -32,9 +32,6 @@ public class FeedServiceImpl implements FeedService {
 	@Autowired
 	private MemberRepository memberRepo;
 	
-	private static final String DATE_PATTERN = "yyyy-MM-dd"; 
-	private static final Date today = new Date();
-	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);
 	private static final String DATE_PATTERN = "yyyy-MM-dd"; 	//날짜형식 정의 후 DATE_PATTERN변수에 저장
 	private static final Date today = new Date();				//현재 날짜를 today변수에 저장
 	SimpleDateFormat date = new SimpleDateFormat(DATE_PATTERN);	//date변수에 SimpleDateFormat을 활용해 DATE_PATTERN적용
@@ -49,6 +46,7 @@ public class FeedServiceImpl implements FeedService {
 	//마이피드 등록
 	public void insertFeed(FeedVO vo, MultipartFile[] file) {
 		vo.setFeedState(0);
+		vo.setFeRegdate(date.format(today));
 		FeedVO result = feedRepo.save(vo);
 		
 		// 피드 사진 저장

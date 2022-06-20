@@ -75,12 +75,7 @@
 						<c:set var="parentIdx" value="0" />							<!-- 답글의 댓글이 몇번째에 있는 것인지 알기 위한 변수 설정 -->
 						<c:forEach items="${ feedcomm}" var="feedcomm" varStatus="status">
 
-							<c:if test="${ feedcomm.feParent eq 0}">
-
-								<c:set var="parentIdx" value="${parentIdx +1 }"/>
-								<c:set var="idx" value="0"/>
 								<!-- 댓글  -->
-
 							<c:if test="${ feedcomm.feParent eq 0}">				<!-- feedcomm의 feParent가 0이라면 댓글이라는 뜻이므로 c:if 조건문 실행 -->
 								<c:set var="parentIdx" value="${parentIdx +1 }" />	<!-- 댓글이 써졌으므로 parentIdx +1 증가 -->
 								<c:set var="idx" value="0" />						<!-- 댓글이 등록되었으니 idx는 0 설정 -->
