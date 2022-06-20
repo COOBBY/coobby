@@ -25,7 +25,7 @@ public class FeedVO {
 	private String feTitle;
 	@Column(name="fe_content")
 	private String feContent;
-	@Column(insertable = false, updatable = false, columnDefinition = "date default (current_date)", name="fe_regdate")
+	@Column(name="fe_regdate")
 	private String feRegdate;
 	@Column(name="fe_replycheck")
 	private Integer feReplycheck;

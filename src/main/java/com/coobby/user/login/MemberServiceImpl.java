@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void userinsert(MemberVO vo, MultipartFile file) {
 		vo.setMemCreatetime(date.format(today));
+		vo.setMemAuth(1);
 		vo.setFile(file);
 		memRepo.save(vo);
 		System.out.println(vo.toString()+"***"); 

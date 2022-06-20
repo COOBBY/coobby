@@ -27,7 +27,7 @@ public interface ScrapRepository extends CrudRepository<ScrapVO,Integer>{
 			+ "inner join recipe_image i   "
 			+ "on r.re_no = i.re_no   "
 			+ "where s.mem_id=?1   "
-			+ "group by r.re_no   "
+			+ "group by r.re_no, re_stored_image   "
 			+ "order by re_split asc  ",
 			nativeQuery = true) 
 	List<Object[]> scrapList(String memid);

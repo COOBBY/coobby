@@ -238,6 +238,7 @@ public class RecipeServiceImpl implements RecipeService{
 			}
 		}
 		
+		//요리 완성 사진 저장
 		if(resultFile != null) {
 			for(int i = 0; i < resultFile.length; i++) {
 				Recipe_imageVO imageVO = new Recipe_imageVO();

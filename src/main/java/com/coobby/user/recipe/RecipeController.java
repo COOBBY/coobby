@@ -103,8 +103,6 @@ public class RecipeController {
 		// 관련 레시피 조회
 		List<Object[]> relatedRecipe = recipeService.getRelatedRecipe(reNo);
 		
-		System.out.println(reCookArr);
-		
 		m.addAttribute("commentparent", commentParent);
 		m.addAttribute("ingr", cookResult);
 		m.addAttribute("recipe", recipeResult);
